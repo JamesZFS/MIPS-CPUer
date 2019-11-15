@@ -52,7 +52,7 @@ parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请�
 
 assign rxd = 1'b1; //idle state
 
-initial begin 
+/*initial begin 
     //在这里可以自定义测试输入序列，例如：
     dip_sw = 32'h2;
     touch_btn = 0;
@@ -66,6 +66,17 @@ initial begin
     cpld.pc_send_byte(8'h32);
     #10000;
     cpld.pc_send_byte(8'h33);
+end */
+       
+initial begin
+    clock_btn = 1'b0;
+    forever #10 clock_btn = ~clock_btn;
+end
+    
+initial begin
+    reset_btn = `RstEnable;
+    #195 reset_btn= `RstDisable;
+    #1000 $stop;
 end
 
 // 待测试用户设计

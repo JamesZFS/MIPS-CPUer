@@ -1,4 +1,5 @@
 `default_nettype none
+`include "modules/program_counter.v"
 
 module thinpad_top(
     input wire clk_50M,           //50MHz 时钟输入
@@ -210,5 +211,28 @@ vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
     .data_enable(video_de)
 );
 /* =========== Demo code end =========== */
+
+/* ============== Mips32 Pipeline code begin ============== */
+
+// minimal SOPC
+wire[`InstAddrBus]  inst_addr; // mips to rom
+wire                rom_ce;    // mips to rom
+wire[`InstBus]      inst;    // rom to mips
+
+mips mips0(
+    .clk(clock_btn),
+    .rst(reset_btn),
+    .rom_data_i(inst),
+    .rom_addr_o(inst_addr),
+    .rom_ce_o(rom_ce)
+);
+
+inst_rom inst_rom0(
+    .ce(rom_ce),
+    .addr(inst_addr),
+    .inst(inst)
+);
+
+/* ============== Mips32 Pipeline code end   ============== */
 
 endmodule
