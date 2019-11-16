@@ -57,7 +57,7 @@ wire[`RegAddrBus] reg2_addr;
 wire[`RegBus] reg1_data;
 wire[`RegBus] reg2_data;
 
-// pc_reg例化
+// PC instance
 pc_reg pc_reg0(
     .clk(clk),
     .rst(rst),
@@ -87,10 +87,19 @@ id id0(
     .reg1_data_i(reg1_data),
     .reg2_data_i(reg2_data),
 
+    // forward from mem
+    .mem_wreg_i(mem_wreg_o),
+    .mem_wd_i(mem_wd_o),
+    .mem_wdata_i(mem_wdata_o),
+
+    // forward from ex
+    .ex_wreg_i(ex_wreg_o),
+    .ex_wd_i(ex_wd_o),
+    .ex_wdata_i(ex_wdata_o),
+
     // signals to regfile
     .reg1_read_o(reg1_read),
     .reg2_read_o(reg2_read),
-
     .reg1_addr_o(reg1_addr),
     .reg2_addr_o(reg2_addr), 
     
@@ -118,7 +127,7 @@ regfile regfile1(
     .rdata2(reg2_data)
 );
 
-// ID/Ex instance
+// ID/EX instance
 id_ex id_ex0(
     .clk(clk),
     .rst(rst),
@@ -152,7 +161,7 @@ ex ex0(
     .wd_i(ex_wd_i),
     .wreg_i(ex_wreg_i),
     
-    // to ex/mem
+    // to ex/mem and forward to id
     .wd_o(ex_wd_o),
     .wreg_o(ex_wreg_o),
     .wdata_o(ex_wdata_o)
@@ -183,7 +192,7 @@ mem mem0(
     .wreg_i(mem_wreg_i),
     .wdata_i(mem_wdata_i),
     
-    // to mem/wb
+    // to mem/wb and forward to id
     .wd_o(mem_wd_o),
     .wreg_o(mem_wreg_o),
     .wdata_o(mem_wdata_o)

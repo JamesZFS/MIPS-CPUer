@@ -6,7 +6,7 @@ module mem(
     input wire[`RegAddrBus]       wd_i,
     input wire[`RegBus]           wdata_i,
 
-    // signals to wb
+    // signals to wb (and forward to id)
     output reg                    wreg_o,
     output reg[`RegAddrBus]       wd_o,
     output reg[`RegBus]           wdata_o

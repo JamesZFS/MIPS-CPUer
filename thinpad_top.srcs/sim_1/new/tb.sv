@@ -75,7 +75,7 @@ end
     
 initial begin
     reset_btn = `RstEnable;
-    #95 reset_btn= `RstDisable;
+    #45 reset_btn= `RstDisable;
     #250 $stop;
 end
 
