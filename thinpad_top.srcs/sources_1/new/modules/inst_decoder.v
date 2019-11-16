@@ -73,46 +73,73 @@ always @ (*) begin
 
         case (op)
 
-            `EXE_SPECIAL: case (op2)
-                5'b00000: case (op3)
+            `EXE_SPECIAL:
+                if (op2 == 5'b00000)
+                    case (op3)
 
-                    `EXE_OR: begin
-                        aluop_o <= `EXE_OR_OP;
-                        alusel_o <= `EXE_RES_LOGIC;
-                        reg1_read_o <= `ReadEnable;
-                        reg2_read_o <= `ReadEnable;
-                        wreg_o <= `WriteEnable;
-                        wd_o <= inst_i[15:11];
-                        instvalid <= `InstValid;
-                    end
+                        `EXE_OR: begin
+                            aluop_o <= `EXE_OR_OP;
+                            alusel_o <= `EXE_RES_LOGIC;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            wreg_o <= `WriteEnable;
+                            wd_o <= inst_i[15:11];
+                            instvalid <= `InstValid;
+                        end
 
-                    `EXE_AND: begin
-                        aluop_o <= `EXE_AND_OP;
-                        alusel_o <= `EXE_RES_LOGIC;
-                        reg1_read_o <= `ReadEnable;
-                        reg2_read_o <= `ReadEnable;
-                        wreg_o <= `WriteEnable;
-                        wd_o <= inst_i[15:11];
-                        instvalid <= `InstValid;
-                    end
+                        `EXE_AND: begin
+                            aluop_o <= `EXE_AND_OP;
+                            alusel_o <= `EXE_RES_LOGIC;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            wreg_o <= `WriteEnable;
+                            wd_o <= inst_i[15:11];
+                            instvalid <= `InstValid;
+                        end
 
-                    `EXE_XOR: begin
-                        aluop_o <= `EXE_XOR_OP;
-                        alusel_o <= `EXE_RES_LOGIC;
-                        reg1_read_o <= `ReadEnable;
-                        reg2_read_o <= `ReadEnable;
-                        wreg_o <= `WriteEnable;
-                        wd_o <= inst_i[15:11];
-                        instvalid <= `InstValid;
-                    end
+                        `EXE_XOR: begin
+                            aluop_o <= `EXE_XOR_OP;
+                            alusel_o <= `EXE_RES_LOGIC;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            wreg_o <= `WriteEnable;
+                            wd_o <= inst_i[15:11];
+                            instvalid <= `InstValid;
+                        end
 
-                    default: ;
+                        default: ;
+                    endcase 
 
-                endcase
+                else if (inst_i[25:21] == 5'b00000)
+                    case (op3)
+                         `EXE_SLL: begin // be careful!
+                            aluop_o <= `EXE_SLL_OP;
+                            alusel_o <= `EXE_RES_SHIFT;
+                            reg1_read_o <= `ReadEnable;  // $rt
+                            reg1_addr_o <= inst_i[20:16];
+                            reg2_read_o <= `ReadDisable; // sa
+                            imm[4:0] <= inst_i[10:6];
+                            wreg_o <= `WriteEnable;
+                            wd_o <= inst_i[15:11];
+                            instvalid <= `InstValid;
+                        end
 
-                default: ; // unknown
-            endcase
+                        `EXE_SRL: begin
+                            aluop_o <= `EXE_SRL_OP;
+                            alusel_o <= `EXE_RES_SHIFT;
+                            reg1_read_o <= `ReadEnable;  // $rt
+                            reg1_addr_o <= inst_i[20:16];
+                            reg2_read_o <= `ReadDisable; // sa
+                            imm[4:0] <= inst_i[10:6];
+                            wreg_o <= `WriteEnable;
+                            wd_o <= inst_i[15:11];
+                            instvalid <= `InstValid;
+                        end
 
+                        default: ; 
+                    endcase
+                // else: unknown
+                
             `EXE_ORI: begin     // ori $rd, $rs, imm
                 aluop_o <= `EXE_OR_OP;
                 alusel_o <= `EXE_RES_LOGIC;

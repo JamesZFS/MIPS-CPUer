@@ -41,6 +41,24 @@ always @ * begin    // perform logical computation
 
 end
 
+always @ * begin    // perform shift computation
+    
+    if (rst == `RstEnable) begin
+        shift_res <= `ZeroWord;
+    end else begin
+        case (aluop_i)      // ** case various alu operations **
+
+            `EXE_SLL_OP: shift_res <= reg1_i << reg2_i[4:0]; // shift less than 32 bits
+
+            `EXE_SRL_OP: shift_res <= reg1_i >> reg2_i[4:0];
+
+            default: shift_res <= `ZeroWord;
+            
+        endcase
+    end
+
+end
+
 always @ * begin    // generate write signal
     if (rst == `RstEnable) begin      //  TODO: block this case or not?
         wd_o <= `NOPRegAddr;
