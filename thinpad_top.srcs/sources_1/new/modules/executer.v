@@ -21,6 +21,9 @@ reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
 
+wire[`RegBus]   sum_res;
+assign          sum_res = reg1_i + reg2_i;
+
 always @ * begin    // perform logical computation
     
     if (rst == `RstEnable) begin
@@ -53,6 +56,22 @@ always @ * begin    // perform shift computation
             `EXE_SRL_OP: shift_res <= reg1_i >> reg2_i[4:0];
 
             default: shift_res <= `ZeroWord;
+            
+        endcase
+    end
+
+end
+
+always @ * begin    // perform arithmetic computation
+    
+    if (rst == `RstEnable) begin
+        arith_res <= `ZeroWord;
+    end else begin
+        case (aluop_i)      // ** case various alu operations **
+
+            `EXE_ADDU_OP: arith_res <= sum_res;
+
+            default: arith_res <= `ZeroWord;
             
         endcase
     end

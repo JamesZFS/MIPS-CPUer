@@ -107,6 +107,16 @@ always @ (*) begin
                             instvalid <= `InstValid;
                         end
 
+                        `EXE_ADDU: begin
+                            aluop_o <= `EXE_ADDU_OP;
+                            alusel_o <= `EXE_RES_ARITH;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadEnable;
+                            wreg_o <= `WriteEnable;
+                            wd_o <= inst_i[15:11];
+                            instvalid <= `InstValid;
+                        end
+
                         default: ;
                     endcase 
 
@@ -139,6 +149,7 @@ always @ (*) begin
                         default: ; 
                     endcase
                 // else: unknown
+            // EXE_SPECIAL
                 
             `EXE_ORI: begin     // ori $rd, $rs, imm
                 aluop_o <= `EXE_OR_OP;
@@ -173,9 +184,20 @@ always @ (*) begin
                 instvalid <= `InstValid;
             end
 
+            `EXE_ADDIU: begin
+                aluop_o <= `EXE_ADDU_OP;
+                alusel_o <= `EXE_RES_ARITH;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadDisable;
+                imm <= {16'h0, inst_i[15:0]};
+                wreg_o <= `WriteEnable;
+                wd_o <= inst_i[20:16];
+                instvalid <= `InstValid;
+            end
+
             default: ;
 
-        endcase
+        endcase // op
 
     end       // if
 
