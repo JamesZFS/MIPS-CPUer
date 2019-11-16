@@ -1,5 +1,7 @@
 module id(
 	input wire					rst, // no clk, a combination logic
+
+    // from if
 	input wire[`InstAddrBus]	pc_i,
 	input wire[`InstBus]        inst_i,
 
@@ -39,15 +41,15 @@ wire[4:0]       op4 = inst_i[20:16];
 reg[`RegBus]	imm;
 reg instvalid;
 
-
+// decode from inst, to ex
 always @ (*) begin
 
     if (rst == `RstEnable) begin
 
         aluop_o <= `EXE_NOP_OP;
         alusel_o <= `EXE_RES_NOP;
-        wd_o <= `NOPRegAddr;
         wreg_o <= `WriteDisable;
+        wd_o <= `NOPRegAddr;
         instvalid <= `InstValid;
         reg1_read_o <= `ReadDisable;
         reg2_read_o <= `ReadDisable;
@@ -57,10 +59,11 @@ always @ (*) begin
 
     end else begin
 
+        // default signals:
         aluop_o <= `EXE_NOP_OP;
         alusel_o <= `EXE_RES_NOP;
-        wd_o <= inst_i[15:11];
         wreg_o <= `WriteDisable;
+        wd_o <= inst_i[15:11];
         instvalid <= `InstInvalid;
         reg1_read_o <= `ReadDisable;
         reg2_read_o <= `ReadDisable;
@@ -70,16 +73,36 @@ always @ (*) begin
 
         case (op)
 
+            `EXE_SPECIAL: case (op2)
+                5'b00000: case (op3)
+
+                    `EXE_OR: begin
+                        aluop_o <= `EXE_OR_OP;
+                        alusel_o <= `EXE_RES_LOGIC;
+                        reg1_read_o <= `ReadEnable;
+                        reg2_read_o <= `ReadEnable;
+                        wreg_o <= `WriteEnable;
+                        wd_o <= inst_i[15:11];
+                        instvalid <= `InstValid;
+                    end
+
+                    default: ;
+
+                endcase
+
+                default: ; // unknown
+            endcase
+
             `EXE_ORI: begin                        // `ori` inst
-                wreg_o <= `WriteEnable;
                 aluop_o <= `EXE_OR_OP;
                 alusel_o <= `EXE_RES_LOGIC;
                 reg1_read_o <= `ReadEnable;     // enable reading from regfile, to regfile
                 reg2_read_o <= `ReadDisable;	// disable readding (filled by imm)
                 imm <= {16'h0, inst_i[15:0]};   // zero extend at front
+                wreg_o <= `WriteEnable;
                 wd_o <= inst_i[20:16];
                 instvalid <= `InstValid;
-            end 		
+            end	
 
             default: ;
 
@@ -88,6 +111,7 @@ always @ (*) begin
     end       // if
 
 end         // always
+
 
 // from regfile, to id-ex
 always @ (*) begin

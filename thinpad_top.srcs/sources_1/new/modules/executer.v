@@ -15,18 +15,22 @@ module ex(
     output reg[`RegBus]           wdata_o
 );
 
-reg[`RegBus]    reg_result;
+reg[`RegBus]    logic_res;
+reg[`RegBus]    shift_res;
+reg[`RegBus]    move_res;
+reg[`RegBus]    arith_res;
+reg[`RegBus]    load_res;
 
 always @ * begin    // perform computation
     
     if (rst == `RstEnable) begin
-        reg_result <= `ZeroWord;
+        logic_res <= `ZeroWord;
     end else begin
         case (aluop_i)      // ** case various alu operations **
 
-            `EXE_OR_OP: reg_result <= reg1_i | reg2_i;
+            `EXE_OR_OP: logic_res <= reg1_i | reg2_i;
 
-            default: reg_result <= `ZeroWord;
+            default: logic_res <= `ZeroWord;
             
         endcase
     end
@@ -43,7 +47,15 @@ always @ * begin    // generate write signal
         wreg_o <= wreg_i;
         case (alusel_i)     // alu result selection
 
-            `EXE_RES_LOGIC: wdata_o <= reg_result; 
+            `EXE_RES_LOGIC: wdata_o <= logic_res; 
+
+            `EXE_RES_SHIFT: wdata_o <= shift_res;
+
+            `EXE_RES_MOVE: wdata_o <= move_res;
+
+            `EXE_RES_ARITH: wdata_o <= arith_res;
+
+            `EXE_RES_LOAD: wdata_o <= load_res;
 
             default: wdata_o <= `ZeroWord;
 
