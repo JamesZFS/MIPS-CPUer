@@ -13,13 +13,13 @@
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
       <ZoomEndTime time="295000001fs"></ZoomEndTime>
-      <Cursor1Time time="49815000fs"></Cursor1Time>
+      <Cursor1Time time="90000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="139"></NameColumnWidth>
       <ValueColumnWidth column_width="93"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="22" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/tb/clock_btn" type="logic">
       <obj_property name="ElementShortName">clock_btn</obj_property>
       <obj_property name="ObjectShortName">clock_btn</obj_property>
@@ -27,14 +27,6 @@
    <wvobject fp_name="/tb/reset_btn" type="logic">
       <obj_property name="ElementShortName">reset_btn</obj_property>
       <obj_property name="ObjectShortName">reset_btn</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/pc_reg0/pc" type="array">
-      <obj_property name="ElementShortName">pc[31:0]</obj_property>
-      <obj_property name="ObjectShortName">pc[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/inst_rom0/inst" type="array">
-      <obj_property name="ElementShortName">inst[31:0]</obj_property>
-      <obj_property name="ObjectShortName">inst[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/if_id0/if_pc" type="array">
       <obj_property name="ElementShortName">if_pc[31:0]</obj_property>
@@ -45,8 +37,8 @@
       <obj_property name="ObjectShortName">if_inst[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/id_ex0/id_aluop" type="array">
-      <obj_property name="ElementShortName">id_aluop[7:0]</obj_property>
-      <obj_property name="ObjectShortName">id_aluop[7:0]</obj_property>
+      <obj_property name="ElementShortName">id_aluop[3:0]</obj_property>
+      <obj_property name="ObjectShortName">id_aluop[3:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/id_ex0/id_alusel" type="array">
       <obj_property name="ElementShortName">id_alusel[2:0]</obj_property>

@@ -21,7 +21,7 @@ reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
 
-always @ * begin    // perform computation
+always @ * begin    // perform logical computation
     
     if (rst == `RstEnable) begin
         logic_res <= `ZeroWord;
@@ -29,6 +29,8 @@ always @ * begin    // perform computation
         case (aluop_i)      // ** case various alu operations **
 
             `EXE_OR_OP: logic_res <= reg1_i | reg2_i;
+
+            `EXE_AND_OP: logic_res <= reg1_i & reg2_i;
 
             default: logic_res <= `ZeroWord;
             

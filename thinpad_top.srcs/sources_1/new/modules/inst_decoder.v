@@ -86,6 +86,16 @@ always @ (*) begin
                         instvalid <= `InstValid;
                     end
 
+                    `EXE_AND: begin
+                        aluop_o <= `EXE_AND_OP;
+                        alusel_o <= `EXE_RES_LOGIC;
+                        reg1_read_o <= `ReadEnable;
+                        reg2_read_o <= `ReadEnable;
+                        wreg_o <= `WriteEnable;
+                        wd_o <= inst_i[15:11];
+                        instvalid <= `InstValid;
+                    end
+
                     default: ;
 
                 endcase
@@ -93,12 +103,23 @@ always @ (*) begin
                 default: ; // unknown
             endcase
 
-            `EXE_ORI: begin                        // `ori` inst
+            `EXE_ORI: begin     // ori $rd, $rs, imm
                 aluop_o <= `EXE_OR_OP;
                 alusel_o <= `EXE_RES_LOGIC;
                 reg1_read_o <= `ReadEnable;     // enable reading from regfile, to regfile
                 reg2_read_o <= `ReadDisable;	// disable readding (filled by imm)
                 imm <= {16'h0, inst_i[15:0]};   // zero extend at front
+                wreg_o <= `WriteEnable;
+                wd_o <= inst_i[20:16];
+                instvalid <= `InstValid;
+            end
+
+            `EXE_ANDI: begin
+                aluop_o <= `EXE_AND_OP;
+                alusel_o <= `EXE_RES_LOGIC;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadDisable;
+                imm <= {16'h0, inst_i[15:0]};
                 wreg_o <= `WriteEnable;
                 wd_o <= inst_i[20:16];
                 instvalid <= `InstValid;
