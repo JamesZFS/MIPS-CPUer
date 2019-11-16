@@ -75,8 +75,8 @@ end
     
 initial begin
     reset_btn = `RstEnable;
-    #195 reset_btn= `RstDisable;
-    #1000 $stop;
+    #95 reset_btn= `RstDisable;
+    #250 $stop;
 end
 
 // 待测试用户设计
@@ -183,6 +183,7 @@ x28fxxxp30 #(.FILENAME_MEM(FLASH_INIT_FILE)) flash(
     .VPP('d1800), 
     .Info(1'b1));
 
+/*
 initial begin 
     wait(flash_byte_n == 1'b0);
     $display("8-bit Flash interface is not supported in simulation!");
@@ -233,4 +234,6 @@ initial begin
         ext2.mem_array1[i] = tmp_array[i][0+:8];
     end
 end
+*/
+
 endmodule

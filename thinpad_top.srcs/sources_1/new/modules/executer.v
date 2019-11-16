@@ -41,7 +41,7 @@ always @ * begin    // generate write signal
         wdata_o <= `ZeroWord;
     end else begin
         wd_o <= wd_i;
-        wreg_o <= wd_o;
+        wreg_o <= wreg_i;
         case (alusel_i)     // alu result selection
 
             `EXE_RES_LOGIC: wdata_o <= reg_result; 

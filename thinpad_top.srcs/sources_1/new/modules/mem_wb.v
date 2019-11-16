@@ -13,7 +13,7 @@ module mem_wb(
     output reg[`RegBus]           wb_wdata
 );
 
-always @(clk) begin  // ** needs extending **
+always @(posedge clk) begin  // ** needs extending **
     if (rst == `RstEnable) begin
         wb_wreg  <= `WriteDisable;
         wb_wd    <= `NOPRegAddr;

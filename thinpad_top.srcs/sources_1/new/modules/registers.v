@@ -24,6 +24,12 @@ module regfile(
 // ** definition of 32 registers **
 reg[`RegBus]  regs[0: `RegNum - 1];
 
+initial begin
+    for (integer i = 0; i < `RegNum; i = i + 1) begin
+        regs[i] = `ZeroWord;
+    end
+end
+
 always @ (posedge clk) begin    // ** write back here **
     if (rst == `RstDisable)
         if((we == `WriteEnable) && (waddr != `RegNumLog2'h0))  // valid reg addr ($zero is protected)

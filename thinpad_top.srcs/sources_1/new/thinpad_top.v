@@ -1,5 +1,4 @@
 `default_nettype none
-`include "modules/program_counter.v"
 
 module thinpad_top(
     input wire clk_50M,           //50MHz 时钟输入

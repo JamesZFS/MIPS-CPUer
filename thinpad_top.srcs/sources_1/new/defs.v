@@ -8,8 +8,8 @@
 `define ReadDisable     1'b0
 `define AluOpBus        7:0
 `define AluSelBus       2:0
-`define InstValid       1'b0
-`define InstInvalid     1'b1
+`define InstValid       1'b1
+`define InstInvalid     1'b0
 `define True_v          1'b1
 `define False_v         1'b0
 `define ChipEnable      1'b1
