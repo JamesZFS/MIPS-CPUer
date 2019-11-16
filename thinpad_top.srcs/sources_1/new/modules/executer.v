@@ -31,6 +31,8 @@ always @ * begin    // perform logical computation
             `EXE_OR_OP: logic_res <= reg1_i | reg2_i;
 
             `EXE_AND_OP: logic_res <= reg1_i & reg2_i;
+            
+            `EXE_XOR_OP: logic_res <= reg1_i ^ reg2_i;
 
             default: logic_res <= `ZeroWord;
             

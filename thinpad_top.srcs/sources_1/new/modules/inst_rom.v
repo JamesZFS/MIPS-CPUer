@@ -8,7 +8,7 @@ reg[`InstBus]  inst_mem[0: `InstMemNum - 1];
 
 // initial $readmemh ( "inst_rom.data", inst_mem );
 // TODO: you must use the ABSOLUTE path of the rom data file!
-initial $readmemh ( "C:/Users/admin/CPUer/cod19grp16/testcases/and.data", inst_mem );
+initial $readmemh ( "C:/Users/admin/CPUer/cod19grp16/testcases/xor.data", inst_mem );
 
 always @ (*) begin
     if (ce == `ChipDisable) begin

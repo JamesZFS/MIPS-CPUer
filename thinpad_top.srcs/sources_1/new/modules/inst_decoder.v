@@ -96,6 +96,16 @@ always @ (*) begin
                         instvalid <= `InstValid;
                     end
 
+                    `EXE_XOR: begin
+                        aluop_o <= `EXE_XOR_OP;
+                        alusel_o <= `EXE_RES_LOGIC;
+                        reg1_read_o <= `ReadEnable;
+                        reg2_read_o <= `ReadEnable;
+                        wreg_o <= `WriteEnable;
+                        wd_o <= inst_i[15:11];
+                        instvalid <= `InstValid;
+                    end
+
                     default: ;
 
                 endcase
@@ -123,7 +133,18 @@ always @ (*) begin
                 wreg_o <= `WriteEnable;
                 wd_o <= inst_i[20:16];
                 instvalid <= `InstValid;
-            end	
+            end
+
+            `EXE_XORI: begin
+                aluop_o <= `EXE_XOR_OP;
+                alusel_o <= `EXE_RES_LOGIC;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadDisable;
+                imm <= {16'h0, inst_i[15:0]};
+                wreg_o <= `WriteEnable;
+                wd_o <= inst_i[20:16];
+                instvalid <= `InstValid;
+            end
 
             default: ;
 
@@ -168,7 +189,7 @@ always @ (*) begin
         end else if (mem_wreg_i == `WriteEnable && reg2_addr_o == mem_wd_i) begin // ** conflict type 2
             reg2_o <= mem_wdata_i;
         end else begin
-            reg2_o <= reg1_data_i;
+            reg2_o <= reg2_data_i;
         end
 
     end else if (reg2_read_o == `ReadDisable) begin
