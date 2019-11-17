@@ -117,6 +117,16 @@ always @ (*) begin
                             instvalid <= `InstValid;
                         end
 
+                        `EXE_MOVZ: begin
+                            aluop_o <= `EXE_MOVZ_OP;
+                            alusel_o <= `EXE_RES_MOVE;
+                            reg1_read_o <= `ReadEnable;  // $rs
+                            reg2_read_o <= `ReadEnable;  // $rt
+                            wreg_o <= reg2_o == `ZeroWord ? `WriteEnable : `WriteDisable;
+                            wd_o <= inst_i[15:11];       // $rd
+                            instvalid <= `InstValid;
+                        end
+
                         default: ;
                     endcase 
 

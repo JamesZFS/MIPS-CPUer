@@ -25,7 +25,6 @@ wire[`RegBus]   sum_res = reg1_i + reg2_i;
 // assign          sum_res = reg1_i + reg2_i;
 
 always @ * begin    // perform logical computation
-    
     if (rst == `RstEnable) begin
         logic_res <= `ZeroWord;
     end else begin
@@ -41,11 +40,9 @@ always @ * begin    // perform logical computation
             
         endcase
     end
-
 end
 
 always @ * begin    // perform shift computation
-    
     if (rst == `RstEnable) begin
         shift_res <= `ZeroWord;
     end else begin
@@ -59,11 +56,9 @@ always @ * begin    // perform shift computation
             
         endcase
     end
-
 end
 
 always @ * begin    // perform arithmetic computation
-    
     if (rst == `RstEnable) begin
         arith_res <= `ZeroWord;
     end else begin
@@ -71,24 +66,40 @@ always @ * begin    // perform arithmetic computation
 
             `EXE_ADDU_OP: arith_res <= sum_res;
 
-            `EXE_CLZ_OP: begin: loop // count leading zeros in reg_1
-                arith_res = `ZeroWord;
-                for (integer i = 31; i >= 0; i = i - 1)
-                    if (reg1_i[i] == 1'b0)
-                        arith_res = 32 - i;
-                    else
-                        disable loop; // break
-                // for (integer i = 32; i >= 0; i = i - 1)
-                    // if (reg1_i >> i == `ZeroWord)
-                        // arith_res = 32 - i;
-            end
+            `EXE_CLZ_OP:  // count leading zeros in reg_1
+                arith_res <= 
+                    reg1_i[31]? 0  : reg1_i[30]? 1  : reg1_i[29]? 2  :
+                    reg1_i[28]? 3  : reg1_i[27]? 4  : reg1_i[26]? 5  :
+                    reg1_i[25]? 6  : reg1_i[24]? 7  : reg1_i[23]? 8  : 
+                    reg1_i[22]? 9  : reg1_i[21]? 10 : reg1_i[20]? 11 :
+                    reg1_i[19]? 12 : reg1_i[18]? 13 : reg1_i[17]? 14 : 
+                    reg1_i[16]? 15 : reg1_i[15]? 16 : reg1_i[14]? 17 : 
+                    reg1_i[13]? 18 : reg1_i[12]? 19 : reg1_i[11]? 20 :
+                    reg1_i[10]? 21 : reg1_i[9]?  22 : reg1_i[8]?  23 : 
+                    reg1_i[7]?  24 : reg1_i[6]?  25 : reg1_i[5]?  26 : 
+                    reg1_i[4]?  27 : reg1_i[3]?  28 : reg1_i[2]?  29 : 
+                    reg1_i[1]?  30 : reg1_i[0]?  31 : 32;
 
             default: arith_res <= `ZeroWord;
             
         endcase
     end
-
 end
+
+always @ * begin    // perform moving
+    if (rst == `RstEnable) begin
+        move_res <= `ZeroWord;
+    end else begin
+        case (aluop_i)
+
+            `EXE_MOVZ_OP: move_res <= reg1_i;   // write or not is determined by wreg_o in id stage
+
+            default: move_res <= `ZeroWord;
+            
+        endcase
+    end
+end
+
 
 always @ * begin    // generate write signal
     if (rst == `RstEnable) begin      //  TODO: block this case or not?
