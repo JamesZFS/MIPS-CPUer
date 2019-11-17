@@ -122,6 +122,8 @@ always @ (*) begin
                             alusel_o <= `EXE_RES_MOVE;
                             reg1_read_o <= `ReadEnable;  // $rs
                             reg2_read_o <= `ReadEnable;  // $rt
+                            // ** determine whether to wb or not 
+                            // (notice $rt is using the newest value reg2_o instead of reg2_data_i)
                             wreg_o <= reg2_o == `ZeroWord ? `WriteEnable : `WriteDisable;
                             wd_o <= inst_i[15:11];       // $rd
                             instvalid <= `InstValid;
@@ -216,6 +218,17 @@ always @ (*) begin
                 wd_o <= inst_i[20:16];
                 instvalid <= `InstValid;
             end
+
+            `EXE_LUI: if (inst_i[25:21] == 5'b00000) begin
+                aluop_o <= `EXE_LUI_OP;
+                alusel_o <= `EXE_RES_LOAD;
+                reg1_read_o <= `ReadDisable;  // imm
+                imm <= {inst_i[15:0], 16'b0}; // zero extend at tail
+                reg2_read_o <= `ReadDisable;
+                wreg_o <= `WriteEnable;  // $rt
+                wd_o <= inst_i[20:16];
+                instvalid <= `InstValid;
+            end // else: unknown
 
             default: ;
 

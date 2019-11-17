@@ -100,6 +100,20 @@ always @ * begin    // perform moving
     end
 end
 
+always @ * begin    // perform loading
+    if (rst == `RstEnable) begin
+        load_res <= `ZeroWord;
+    end else begin
+        case (aluop_i)
+
+            `EXE_LUI_OP: load_res <= reg1_i; // imm || 0^16
+
+            default: load_res <= `ZeroWord;
+            
+        endcase
+    end
+end
+
 
 always @ * begin    // generate write signal
     if (rst == `RstEnable) begin      //  TODO: block this case or not?
