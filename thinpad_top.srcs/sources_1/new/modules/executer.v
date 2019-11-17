@@ -21,8 +21,8 @@ reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
 
-wire[`RegBus]   sum_res;
-assign          sum_res = reg1_i + reg2_i;
+wire[`RegBus]   sum_res = reg1_i + reg2_i;
+// assign          sum_res = reg1_i + reg2_i;
 
 always @ * begin    // perform logical computation
     
@@ -70,6 +70,18 @@ always @ * begin    // perform arithmetic computation
         case (aluop_i)      // ** case various alu operations **
 
             `EXE_ADDU_OP: arith_res <= sum_res;
+
+            `EXE_CLZ_OP: begin: loop // count leading zeros in reg_1
+                arith_res = `ZeroWord;
+                for (integer i = 31; i >= 0; i = i - 1)
+                    if (reg1_i[i] == 1'b0)
+                        arith_res = 32 - i;
+                    else
+                        disable loop; // break
+                // for (integer i = 32; i >= 0; i = i - 1)
+                    // if (reg1_i >> i == `ZeroWord)
+                        // arith_res = 32 - i;
+            end
 
             default: arith_res <= `ZeroWord;
             

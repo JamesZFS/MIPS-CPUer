@@ -110,10 +110,10 @@ always @ (*) begin
                         `EXE_ADDU: begin
                             aluop_o <= `EXE_ADDU_OP;
                             alusel_o <= `EXE_RES_ARITH;
-                            reg1_read_o <= `ReadEnable;
-                            reg2_read_o <= `ReadEnable;
+                            reg1_read_o <= `ReadEnable;  // $rs
+                            reg2_read_o <= `ReadEnable;  // $rt
                             wreg_o <= `WriteEnable;
-                            wd_o <= inst_i[15:11];
+                            wd_o <= inst_i[15:11];       // $rd
                             instvalid <= `InstValid;
                         end
 
@@ -150,6 +150,18 @@ always @ (*) begin
                     endcase
                 // else: unknown
             // EXE_SPECIAL
+
+            `EXE_SPECIAL2:
+                if (op2 == 5'b00000 && op3 == `EXE_CLZ) begin
+                    aluop_o <= `EXE_CLZ_OP;
+                    alusel_o <= `EXE_RES_ARITH;
+                    reg1_read_o <= `ReadEnable;  // $rs
+                    reg2_read_o <= `ReadDisable;
+                    wreg_o <= `WriteEnable;
+                    wd_o <= inst_i[15:11];  // $rd
+                    instvalid <= `InstValid;
+                end
+                // else: unknown
                 
             `EXE_ORI: begin     // ori $rd, $rs, imm
                 aluop_o <= `EXE_OR_OP;
