@@ -51,7 +51,7 @@ end
 
 always @ (*) begin
     if(rst == `RstEnable) begin
-            rdata2 <= `ZeroWord;
+        rdata2 <= `ZeroWord;
     end else if (raddr2 == `RegNumLog2'h0) begin
         rdata2 <= `ZeroWord;
     end else if ((raddr2 == waddr) && (we == `WriteEnable) && (re2 == `ReadEnable)) begin   // ** conflict type 3

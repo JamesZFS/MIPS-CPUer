@@ -4,6 +4,8 @@ module if_id(
 	
     input wire[`InstAddrBus]	  if_pc,
     input wire[`InstBus]          if_inst,
+
+    input wire[0:5]               stall, // from ctrl
     
     output reg[`InstAddrBus]      id_pc,
     output reg[`InstBus]          id_inst  
@@ -11,13 +13,14 @@ module if_id(
 );
 
 always @ (posedge clk) begin
-    if (rst == `RstEnable) begin
-        id_pc <= `ZeroWord;
+    if (rst == `RstEnable || (stall[1] == `StallEnable && stall[2] == `StallDisable)) begin
+        // reset or ** at the tail of a stall sequence
+        id_pc   <= `ZeroWord;
         id_inst <= `ZeroWord;
-    end else begin
-        id_pc <= if_pc;
+    end else if (stall[1] == `StallDisable) begin // normal
+        id_pc   <= if_pc;
         id_inst <= if_inst;
-    end
+    end // else: inside a stall sequence, hold id_pc / id_inst
 end
 
 endmodule

@@ -12,7 +12,10 @@ module ex(
     // propagate result to mem (and forward to id)
     output reg                    wreg_o,
     output reg[`RegAddrBus]       wd_o,
-    output reg[`RegBus]           wdata_o
+    output reg[`RegBus]           wdata_o,
+
+    // to ctrl
+    output reg                    stallreq_o
 );
 
 reg[`RegBus]    logic_res;

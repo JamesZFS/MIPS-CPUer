@@ -9,7 +9,10 @@ module mem(
     // signals to wb (and forward to id)
     output reg                    wreg_o,
     output reg[`RegAddrBus]       wd_o,
-    output reg[`RegBus]           wdata_o
+    output reg[`RegBus]           wdata_o,
+    
+    // to ctrl
+    output reg                    stallreq_o
 );
 
 always @* begin // ** needs extending **

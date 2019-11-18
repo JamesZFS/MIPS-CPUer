@@ -31,7 +31,10 @@ module id(
 	output reg[`RegBus]         reg1_o,  // value of num1
 	output reg[`RegBus]         reg2_o,  // value of num2
 	output reg                  wreg_o,  // write back or not?
-	output reg[`RegAddrBus]     wd_o  // addr of $rd
+	output reg[`RegAddrBus]     wd_o,  // addr of $rd
+
+    // to ctrl
+    output reg                  stallreq_o
 );
 
 wire[5:0]       op  = inst_i[31:26];

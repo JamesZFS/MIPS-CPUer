@@ -19,6 +19,8 @@ wire[`RegBus] id_reg1_o;
 wire[`RegBus] id_reg2_o;
 wire id_wreg_o;
 wire[`RegAddrBus] id_wd_o;
+// id --> ctrl
+wire id_stallreq_o;
 
 // id/ex --> ex
 wire[`AluOpBus] ex_aluop_i;
@@ -32,6 +34,8 @@ wire[`RegAddrBus] ex_wd_i;
 wire ex_wreg_o;
 wire[`RegAddrBus] ex_wd_o;
 wire[`RegBus] ex_wdata_o;
+// ex --> ctrl
+wire ex_stallreq_o;
 
 // ex/mem --> mem
 wire mem_wreg_i;
@@ -42,6 +46,8 @@ wire[`RegBus] mem_wdata_i;
 wire mem_wreg_o;
 wire[`RegAddrBus] mem_wd_o;
 wire[`RegBus] mem_wdata_o;
+// mem --> ctrl
+wire mem_stallreq_o;
 
 // mem/wb --> wb(regfile)
 wire wb_wreg_i;
@@ -57,10 +63,18 @@ wire[`RegAddrBus] reg2_addr;
 wire[`RegBus] reg1_data;
 wire[`RegBus] reg2_data;
 
+// ctrl --> *
+wire[0:5] ctrl_stall;
+
 // PC instance
 pc_reg pc_reg0(
     .clk(clk),
     .rst(rst),
+
+    // from ctrl
+    .stall(ctrl_stall),
+
+    // to rom
     .pc(pc),
     .ce(rom_ce_o)   
 );
@@ -71,8 +85,15 @@ assign rom_addr_o = pc; // output to rom
 if_id if_id0(
     .clk(clk),
     .rst(rst),
+
+    // from rom
     .if_pc(pc),
-    .if_inst(rom_data_i), // input from rom
+    .if_inst(rom_data_i),
+
+    // from ctrl
+    .stall(ctrl_stall),
+
+    // to id
     .id_pc(id_pc_i),
     .id_inst(id_inst_i)      	
 );
@@ -140,6 +161,9 @@ id_ex id_ex0(
     .id_wd(id_wd_o),
     .id_wreg(id_wreg_o),
 
+    // from ctrl
+    .stall(ctrl_stall),
+
     // to ex
     .ex_aluop(ex_aluop_i),
     .ex_alusel(ex_alusel_i),
@@ -149,7 +173,7 @@ id_ex id_ex0(
     .ex_wreg(ex_wreg_i)
 );		
 
-//EX模块
+// EX instance
 ex ex0(
     .rst(rst),
 
@@ -176,6 +200,9 @@ ex_mem ex_mem0(
     .ex_wd(ex_wd_o),
     .ex_wreg(ex_wreg_o),
     .ex_wdata(ex_wdata_o),
+    
+    // from ctrl
+    .stall(ctrl_stall),
 
     // to mem
     .mem_wd(mem_wd_i),
@@ -208,10 +235,24 @@ mem_wb mem_wb0(
     .mem_wreg(mem_wreg_o),
     .mem_wdata(mem_wdata_o),
 
+    // from ctrl
+    .stall(ctrl_stall),
+
     // to wb(regfile)
     .wb_wd(wb_wd_i),
     .wb_wreg(wb_wreg_i),
     .wb_wdata(wb_wdata_i)                    
+);
+
+// CTRL instance
+ctrl ctrl0(
+    .rst(rst),
+
+    .id_stallreq_i(id_stallreq_o),
+    .ex_stallreq_i(ex_stallreq_o),
+    .mem_stallreq_i(mem_stallreq_o),
+
+    .stall_o(ctrl_stall)
 );
 
 endmodule // mips
