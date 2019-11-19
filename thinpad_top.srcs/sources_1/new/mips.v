@@ -2,7 +2,7 @@ module mips(
     input wire      clk,
     input wire      rst,
     
-    input wire[`InstBus]         ram_data_i,    // instruction input
+    input wire[`InstBus]         ram_inst_i,    // instruction input
     
     output wire[`InstAddrBus]    ram_addr_o,
     output wire                  ram_ce_o
@@ -88,7 +88,7 @@ if_id if_id0(
 
     // from inst_ram
     .if_pc(pc),
-    .if_inst(ram_data_i),
+    .if_inst(ram_inst_i),
 
     // from ctrl
     .stall(ctrl_stall),

@@ -116,7 +116,7 @@ end
 // assign base_ram_ce_n = 1'b1;
 // assign base_ram_oe_n = 1'b1;
 // assign base_ram_we_n = 1'b1;
-assign base_ram_be_n = `RAMEnable;
+assign base_ram_be_n = `RAMEnable; // enable all bytes
 
 assign ext_ram_ce_n = 1'b1;
 assign ext_ram_oe_n = 1'b1;
@@ -218,27 +218,26 @@ wire[`InstAddrBus]  inst_addr; // mips to ram
 wire                rom_ce;    // mips to ram
 wire[`InstBus]      inst;    // ram to mips
 
-// mips mips0(
-//     .clk(clock_btn),
-//     .rst(reset_btn),
-//     .rom_data_i(inst),
-//     .rom_addr_o(inst_addr),
-//     .rom_ce_o(rom_ce)
-// );
+mips mips0(
+    .clk(clock_btn),
+    .rst(reset_btn),
+    .ram_inst_i(inst),
+    .ram_addr_o(inst_addr),
+    .ram_ce_o(rom_ce)
+);
 
-// inst_ram inst_ram0(
-//     .clk(clock_btn),
-//     .ce(rom_ce),
-//     .addr(inst_addr),
-//     .inst(inst),
+inst_ram inst_ram0(
+    .clk(clock_btn),
+    .ce(rom_ce),
+    .addr(inst_addr),
+    .inst(inst),
 
-//     .base_ram_data(base_ram_data),
-//     .base_ram_addr(base_ram_addr),
-//     // .base_ram_be_n(base_ram_be_n),
-//     .base_ram_ce_n(base_ram_ce_n),
-//     .base_ram_oe_n(base_ram_oe_n),
-//     .base_ram_we_n(base_ram_we_n)
-// );
+    .base_ram_data(base_ram_data),
+    .base_ram_addr(base_ram_addr),
+    .base_ram_ce_n(base_ram_ce_n),
+    .base_ram_oe_n(base_ram_oe_n),
+    .base_ram_we_n(base_ram_we_n)
+);
 
 /* ============== Mips32 Pipeline code end   ============== */
 

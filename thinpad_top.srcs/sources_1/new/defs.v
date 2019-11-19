@@ -70,12 +70,12 @@
 
 `define EXE_RES_NOP     3'd0
 
-// TODO: ROM ?
+// inst-sram
 `define InstAddrBus     31:0
 `define InstAddrLog2    32
 `define InstBus         31:0
-`define InstMemNum      131071
-`define InstMemNumLog2  17
+// `define InstMemNum      131071
+// `define InstMemNumLog2  17
 
 // Registers macros
 `define RegAddrBus      4:0

@@ -68,51 +68,16 @@ assign rxd = 1'b1; //idle state
     cpld.pc_send_byte(8'h33);
 end */
 
-reg[31:0] data;
-reg       oe_n;
-reg       we_n;
-reg[19:0] addr;
-reg[31:0] base_ram_data_se; // small endian
-
-// endian conversion
-always @* begin
-    base_ram_data_se[7:0]   = base_ram_data[31:24];
-    base_ram_data_se[15:8]  = base_ram_data[23:16];
-    base_ram_data_se[23:16] = base_ram_data[15:8];
-    base_ram_data_se[31:24] = base_ram_data[7:0];
-end
-
-assign base_ram_be_n = `RAMEnable;
-assign base_ram_data = data;
-assign base_ram_oe_n = oe_n;
-assign base_ram_we_n = we_n;
-assign base_ram_addr = addr;
-assign base_ram_ce_n = `RAMEnable;
-
 initial begin
-    #50
-    data = 32'bz;
-    oe_n = `RAMEnable;
-    we_n = `RAMDisable;
-    addr = 20'd0;
-    // forever #50 addr = addr + 4;
-    for (integer i = 0; i < 10; i += 1) begin
-        #50
-        addr += 1;
-    end
-    #100 $stop;
+    clock_btn = 1'b0;
+    forever #10 clock_btn = ~clock_btn;
 end
-
-// initial begin
-//     clock_btn = 1'b0;
-//     forever #10 clock_btn = ~clock_btn;
-// end
     
-// initial begin
-//     reset_btn = `RstEnable;
-//     #45 reset_btn= `RstDisable;
-//     #500 $stop;
-// end
+initial begin
+    reset_btn = `RstEnable;
+    #45 reset_btn= `RstDisable;
+    #400 $stop;
+end
 
 // 待测试用户设计
 thinpad_top dut(
