@@ -94,7 +94,7 @@ int main(int argc, char **argv) {
             fscanf(file_in_descriptor, "%c", &temp3);
             fscanf(file_in_descriptor, "%c", &temp4);
 
-            if(!feof(file_in_descriptor) && line_cnt >= 7) { // ignore file head (1~6 lines)
+            if(!feof(file_in_descriptor) /*&& line_cnt >= 7*/) { // ignore file head (1~6 lines)
 
              fprintf(file_out_descriptor, "%02x", temp1);
              fprintf(file_out_descriptor, "%02x", temp2);

@@ -2,10 +2,10 @@ module mips(
     input wire      clk,
     input wire      rst,
     
-    input wire[`InstBus]         rom_data_i,    // instruction input
+    input wire[`InstBus]         ram_inst_i,    // instruction input
     
-    output wire[`InstAddrBus]    rom_addr_o,
-    output wire                  rom_ce_o
+    output wire[`InstAddrBus]    ram_addr_o,
+    output wire                  ram_ce_o
 );
 
 wire[`InstAddrBus] pc;
@@ -74,21 +74,21 @@ pc_reg pc_reg0(
     // from ctrl
     .stall(ctrl_stall),
 
-    // to rom
+    // to inst_ram
     .pc(pc),
-    .ce(rom_ce_o)   
+    .ce(ram_ce_o)   
 );
 
-assign rom_addr_o = pc; // output to rom
+assign ram_addr_o = pc; // output to inst_ram
 
 // IF/ID instance
 if_id if_id0(
     .clk(clk),
     .rst(rst),
 
-    // from rom
+    // from inst_ram
     .if_pc(pc),
-    .if_inst(rom_data_i),
+    .if_inst(ram_inst_i),
 
     // from ctrl
     .stall(ctrl_stall),
