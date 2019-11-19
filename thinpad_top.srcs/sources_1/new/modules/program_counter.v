@@ -19,10 +19,10 @@ always @ (posedge clk) begin
 end
 
 always @ (posedge clk) begin
-    if (ce == `ChipEnable)
-        pc <= pc + 4;
+    if (ce == `ChipDisable)
+        pc <= `InstAddrLog2'b0;
     else if (stall[0] == `StallDisable)
-        pc <= `ZeroWord;
+        pc <= pc + 4;
     // else: when stalling, hold pc
 end
 

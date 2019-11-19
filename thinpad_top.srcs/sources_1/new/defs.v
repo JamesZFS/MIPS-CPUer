@@ -70,6 +70,7 @@
 
 // TODO: ROM ?
 `define InstAddrBus     31:0
+`define InstAddrLog2    32
 `define InstBus         31:0
 `define InstMemNum      131071
 `define InstMemNumLog2  17

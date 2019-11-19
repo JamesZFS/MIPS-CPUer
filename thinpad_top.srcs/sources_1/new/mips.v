@@ -130,7 +130,10 @@ id id0(
     .reg1_o(id_reg1_o),
     .reg2_o(id_reg2_o),
     .wd_o(id_wd_o),
-    .wreg_o(id_wreg_o)
+    .wreg_o(id_wreg_o),
+
+    // to ctrl
+    .stallreq_o(id_stallreq_o)
 );
 
 // regfile instance
@@ -176,6 +179,7 @@ id_ex id_ex0(
 // EX instance
 ex ex0(
     .rst(rst),
+    .clk(clk),
 
     // to ex
     .aluop_i(ex_aluop_i),
@@ -188,7 +192,10 @@ ex ex0(
     // to ex/mem and forward to id
     .wd_o(ex_wd_o),
     .wreg_o(ex_wreg_o),
-    .wdata_o(ex_wdata_o)
+    .wdata_o(ex_wdata_o),
+
+    // to ctrl
+    .stallreq_o(ex_stallreq_o)
 );
 
 // ex/mem instance
@@ -222,7 +229,10 @@ mem mem0(
     // to mem/wb and forward to id
     .wd_o(mem_wd_o),
     .wreg_o(mem_wreg_o),
-    .wdata_o(mem_wdata_o)
+    .wdata_o(mem_wdata_o),
+
+    // to ctrl
+    .stallreq_o(mem_stallreq_o)
 );
 
 // MEM/WB instance

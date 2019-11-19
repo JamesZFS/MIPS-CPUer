@@ -287,4 +287,11 @@ always @ (*) begin
 
 end
 
+always @* begin
+    if (rst == `RstEnable)
+        stallreq_o <= `StallDisable;
+    else
+        stallreq_o <= `StallDisable;
+end
+
 endmodule

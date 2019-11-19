@@ -27,4 +27,12 @@ always @* begin // ** needs extending **
     end
 end
 
+// assign stallreq_o = `StallDisable;
+always @* begin
+    if (rst == `RstEnable)
+        stallreq_o <= `StallDisable;
+    else
+        stallreq_o <= `StallDisable;
+end
+
 endmodule // mem
