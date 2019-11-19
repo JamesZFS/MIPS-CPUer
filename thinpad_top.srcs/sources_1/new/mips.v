@@ -179,7 +179,6 @@ id_ex id_ex0(
 // EX instance
 ex ex0(
     .rst(rst),
-    .clk(clk),
 
     // to ex
     .aluop_i(ex_aluop_i),

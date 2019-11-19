@@ -76,7 +76,7 @@ end
 initial begin
     reset_btn = `RstEnable;
     #45 reset_btn= `RstDisable;
-    #400 $stop;
+    #320 $stop;
 end
 
 // 待测试用户设计

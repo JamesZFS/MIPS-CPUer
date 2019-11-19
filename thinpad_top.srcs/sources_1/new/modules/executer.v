@@ -1,6 +1,5 @@
 module ex(
     input   wire  rst,
-    input   wire clk,
 	
     // signals from id
     input wire[`AluOpBus]         aluop_i,
@@ -146,7 +145,8 @@ always @ * begin    // generate write signal
     end
 end
 
-parameter UNSTALLED = 1'd0, STALLED = 1'd1;
+// pipeline stalling demo:
+/* parameter UNSTALLED = 1'd0, STALLED = 1'd1;
 reg cur_state;
 
 always @(posedge clk) begin
@@ -161,17 +161,18 @@ always @(posedge clk) begin
     end else
         cur_state <= UNSTALLED;
 end
+*/
 
 always @* begin
     if (rst == `RstEnable)
         stallreq_o <= `StallDisable;
-    else if (aluop_i == `EXE_ADDU_OP) begin
-        if (cur_state == UNSTALLED) begin
-            stallreq_o <= `StallEnable;  // TODO: just for tets
-        end else begin
-            stallreq_o <= `StallDisable;
-        end
-    end
+    // else if (aluop_i == `EXE_ADDU_OP) begin
+    //     if (cur_state == UNSTALLED) begin
+    //         stallreq_o <= `StallEnable;  // TODO: just for tets
+    //     end else begin
+    //         stallreq_o <= `sStallDisable;
+    //     end
+    // end
     else
         stallreq_o <= `StallDisable;
 end
