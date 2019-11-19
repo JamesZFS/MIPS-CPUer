@@ -46,7 +46,7 @@ wire uart_tbre;          //发送数据标志
 wire uart_tsre;          //数据发送完毕标志
 
 //Windows需要注意路径分隔符的转义，例如"D:\\foo\\bar.bin"
-parameter BASE_RAM_INIT_FILE = "/tmp/main.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/datagen/a.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
 parameter EXT_RAM_INIT_FILE = "/tmp/eram.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
 parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
 
@@ -67,17 +67,52 @@ assign rxd = 1'b1; //idle state
     #10000;
     cpld.pc_send_byte(8'h33);
 end */
-       
-initial begin
-    clock_btn = 1'b0;
-    forever #10 clock_btn = ~clock_btn;
+
+reg[31:0] data;
+reg       oe_n;
+reg       we_n;
+reg[19:0] addr;
+reg[31:0] base_ram_data_se; // small endian
+
+// endian conversion
+always @* begin
+    base_ram_data_se[7:0]   = base_ram_data[31:24];
+    base_ram_data_se[15:8]  = base_ram_data[23:16];
+    base_ram_data_se[23:16] = base_ram_data[15:8];
+    base_ram_data_se[31:24] = base_ram_data[7:0];
 end
+
+assign base_ram_be_n = `RAMEnable;
+assign base_ram_data = data;
+assign base_ram_oe_n = oe_n;
+assign base_ram_we_n = we_n;
+assign base_ram_addr = addr;
+assign base_ram_ce_n = `RAMEnable;
+
+initial begin
+    #50
+    data = 32'bz;
+    oe_n = `RAMEnable;
+    we_n = `RAMDisable;
+    addr = 20'd0;
+    // forever #50 addr = addr + 4;
+    for (integer i = 0; i < 10; i += 1) begin
+        #50
+        addr += 1;
+    end
+    #100 $stop;
+end
+
+// initial begin
+//     clock_btn = 1'b0;
+//     forever #10 clock_btn = ~clock_btn;
+// end
     
-initial begin
-    reset_btn = `RstEnable;
-    #45 reset_btn= `RstDisable;
-    #320 $stop;
-end
+// initial begin
+//     reset_btn = `RstEnable;
+//     #45 reset_btn= `RstDisable;
+//     #500 $stop;
+// end
 
 // 待测试用户设计
 thinpad_top dut(
@@ -189,7 +224,7 @@ initial begin
     $display("8-bit Flash interface is not supported in simulation!");
     $display("Please tie flash_byte_n to high");
     $stop;
-end
+end*/
 
 // 从文件加载 BaseRAM
 initial begin 
@@ -206,6 +241,7 @@ initial begin
     end
     $display("BaseRAM Init Size(words): %d",n_Init_Size);
     for (integer i = 0; i < n_Init_Size; i++) begin
+        $display("inst<< %h", tmp_array[i]);
         base1.mem_array0[i] = tmp_array[i][24+:8];
         base1.mem_array1[i] = tmp_array[i][16+:8];
         base2.mem_array0[i] = tmp_array[i][8+:8];
@@ -214,7 +250,7 @@ initial begin
 end
 
 // 从文件加载 ExtRAM
-initial begin 
+/*initial begin 
     reg [31:0] tmp_array[0:1048575];
     integer n_File_ID, n_Init_Size;
     n_File_ID = $fopen(EXT_RAM_INIT_FILE, "rb");

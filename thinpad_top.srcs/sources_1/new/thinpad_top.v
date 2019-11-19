@@ -113,9 +113,10 @@ always@(posedge clk_10M or posedge reset_of_clk10M) begin
 end
 
 // 不使用内存、串口时，禁用其使能信号
-assign base_ram_ce_n = 1'b1;
-assign base_ram_oe_n = 1'b1;
-assign base_ram_we_n = 1'b1;
+// assign base_ram_ce_n = 1'b1;
+// assign base_ram_oe_n = 1'b1;
+// assign base_ram_we_n = 1'b1;
+assign base_ram_be_n = `RAMEnable;
 
 assign ext_ram_ce_n = 1'b1;
 assign ext_ram_oe_n = 1'b1;
@@ -213,24 +214,31 @@ vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
 
 /* ============== Mips32 Pipeline code begin ============== */
 
-// minimal SOPC
-wire[`InstAddrBus]  inst_addr; // mips to rom
-wire                rom_ce;    // mips to rom
-wire[`InstBus]      inst;    // rom to mips
+wire[`InstAddrBus]  inst_addr; // mips to ram
+wire                rom_ce;    // mips to ram
+wire[`InstBus]      inst;    // ram to mips
 
-mips mips0(
-    .clk(clock_btn),
-    .rst(reset_btn),
-    .rom_data_i(inst),
-    .rom_addr_o(inst_addr),
-    .rom_ce_o(rom_ce)
-);
+// mips mips0(
+//     .clk(clock_btn),
+//     .rst(reset_btn),
+//     .rom_data_i(inst),
+//     .rom_addr_o(inst_addr),
+//     .rom_ce_o(rom_ce)
+// );
 
-inst_rom inst_rom0(
-    .ce(rom_ce),
-    .addr(inst_addr),
-    .inst(inst)
-);
+// inst_ram inst_ram0(
+//     .clk(clock_btn),
+//     .ce(rom_ce),
+//     .addr(inst_addr),
+//     .inst(inst),
+
+//     .base_ram_data(base_ram_data),
+//     .base_ram_addr(base_ram_addr),
+//     // .base_ram_be_n(base_ram_be_n),
+//     .base_ram_ce_n(base_ram_ce_n),
+//     .base_ram_oe_n(base_ram_oe_n),
+//     .base_ram_we_n(base_ram_we_n)
+// );
 
 /* ============== Mips32 Pipeline code end   ============== */
 

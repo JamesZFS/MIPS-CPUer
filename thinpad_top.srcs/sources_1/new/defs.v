@@ -16,6 +16,8 @@
 `define ChipDisable     1'b0
 `define StallEnable     1'b1 // stop
 `define StallDisable    1'b0 // continue
+`define RAMEnable       1'b0
+`define RAMDisable      1'b1
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special

@@ -6,7 +6,7 @@ LD = $(CROSS_COMPILE)ld
 OBJCOPY = $(CROSS_COMPILE)objcopy
 OBJDUMP = $(CROSS_COMPILE)objdump
 
-OBJECTS = inst_rom.o
+OBJECTS = a.o
 
 export	CROSS_COMPILE
 
@@ -14,17 +14,17 @@ export	CROSS_COMPILE
 # Rules of Compilation
 # ********************
 
-all: inst_rom.data
+all: a.data
 
 %.o: %.s
 	$(CC) -mips32 $< -o $@
-inst_rom.om: $(OBJECTS)
-	$(LD) $(OBJECTS) -o $@
-inst_rom.bin: inst_rom.om
-	$(OBJCOPY) -O binary $<  $@
-inst_rom.asm: inst_rom.om
+a.om: $(OBJECTS)
+	$(LD) -T ram.ld $(OBJECTS) -o $@
+a.bin: a.om
+	$(OBJCOPY) -j .text -O binary $<  $@
+a.asm: a.om
 	$(OBJDUMP) -D $< > $@
-inst_rom.data: inst_rom.bin
+a.data: a.bin
 	./Bin2Mem.exe -f $< -o $@
 clean:
 	rm -f *.o *.om *.bin *.data *.mif *.asm
