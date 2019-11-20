@@ -19,6 +19,17 @@ wire[`RegBus] id_reg1_o;
 wire[`RegBus] id_reg2_o;
 wire id_wreg_o;
 wire[`RegAddrBus] id_wd_o;
+wire[`RegBus] id_link_address_o;
+wire next_inst_in_delayslot_o;
+
+//id --> pc
+wire id_branch_flag_o;
+wire[`RegBus] branch_target_address;
+
+//id/ex --> id
+wire id_is_in_delayslot_o;
+wire id_is_in_delayslot_i;
+ 
 // id --> ctrl
 wire id_stallreq_o;
 
@@ -29,6 +40,8 @@ wire[`RegBus] ex_reg1_i;
 wire[`RegBus] ex_reg2_i;
 wire ex_wreg_i;
 wire[`RegAddrBus] ex_wd_i;
+wire ex_is_in_delayslot_i;
+wire[`RegBus] ex_link_address_i;
 
 // ex --> ex/mem
 wire ex_wreg_o;
@@ -59,9 +72,12 @@ wire reg1_read;
 wire reg2_read;
 wire[`RegAddrBus] reg1_addr;
 wire[`RegAddrBus] reg2_addr;
+
 // regfile --> id
 wire[`RegBus] reg1_data;
 wire[`RegBus] reg2_data;
+
+
 
 // ctrl --> *
 wire[0:5] ctrl_stall;
@@ -70,6 +86,10 @@ wire[0:5] ctrl_stall;
 pc_reg pc_reg0(
     .clk(clk),
     .rst(rst),
+
+    //from id
+    .branch_flag_i(id_branch_flag_o),
+    .branch_target_address_i(branch_target_address),
 
     // from ctrl
     .stall(ctrl_stall),
@@ -132,6 +152,15 @@ id id0(
     .wd_o(id_wd_o),
     .wreg_o(id_wreg_o),
 
+    .next_inst_in_delayslot_o(next_inst_in_delayslot_o),
+    .branch_flag_o(id_branch_flag_o),
+    .branch_target_address_o(branch_target_address),
+    .link_addr_o(id_link_address_o),
+    .is_in_delayslot_o(id_is_in_delayslot_o),
+
+    //from id/ex
+    .is_in_delayslot_i(is_in_delayslot_i),
+
     // to ctrl
     .stallreq_o(id_stallreq_o)
 );
@@ -164,6 +193,10 @@ id_ex id_ex0(
     .id_wd(id_wd_o),
     .id_wreg(id_wreg_o),
 
+    .id_link_address(id_link_address_o),
+    .id_is_in_delayslot(id_is_in_delayslot_o),
+    .next_inst_in_delayslot_i(next_inst_in_delayslot_o),
+
     // from ctrl
     .stall(ctrl_stall),
 
@@ -173,7 +206,11 @@ id_ex id_ex0(
     .ex_reg1(ex_reg1_i),
     .ex_reg2(ex_reg2_i),
     .ex_wd(ex_wd_i),
-    .ex_wreg(ex_wreg_i)
+    .ex_wreg(ex_wreg_i),
+    .ex_link_address(ex_link_address_i),
+    .ex_is_in_delayslot(ex_is_in_delayslot_i),
+    .is_in_delayslot_o(is_in_delayslot_i)
+
 );		
 
 // EX instance
@@ -192,6 +229,10 @@ ex ex0(
     .wd_o(ex_wd_o),
     .wreg_o(ex_wreg_o),
     .wdata_o(ex_wdata_o),
+
+    //from id/ex
+    .link_address_i(ex_link_address_i),
+    .is_in_delayslot_i(ex_is_in_delayslot_i),
 
     // to ctrl
     .stallreq_o(ex_stallreq_o)

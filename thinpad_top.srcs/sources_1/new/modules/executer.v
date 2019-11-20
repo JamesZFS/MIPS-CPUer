@@ -7,6 +7,8 @@ module ex(
     input wire[`RegBus]           reg1_i,
     input wire[`RegBus]           reg2_i,
     input wire[`RegAddrBus]       wd_i,
+    input wire[`RegBus]           link_address_i,
+    input wire                    is_in_delayslot_i,
     input wire                    wreg_i,
     
     // propagate result to mem (and forward to id)
@@ -138,6 +140,8 @@ always @ * begin    // generate write signal
             `EXE_RES_ARITH: wdata_o <= arith_res;
 
             `EXE_RES_LOAD: wdata_o <= load_res;
+
+            `EXE_RES_JUMP_BRANCH: wdata_o <= link_address_i;
 
             default: wdata_o <= `ZeroWord;
 

@@ -18,6 +18,10 @@
 `define StallDisable    1'b0 // continue
 `define RAMEnable       1'b0
 `define RAMDisable      1'b1
+`define Branch          1'b1 //jump
+`define NotBranch       1'b0 //no jump
+`define InDelaySlot     1'b1 //in slot
+`define NotInDelaySlot     1'b0 //not in slot
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special
@@ -42,6 +46,14 @@
 `define EXE_SPECIAL     6'b000000
 `define EXE_SPECIAL2    6'b011100
 
+//jmp instruction operations
+`define EXE_J  6'b000010 
+`define EXE_JAL  6'b000011 
+`define EXE_JR  6'b001000
+`define EXE_BEQ  6'b000100
+`define EXE_BGTZ  6'b000111
+`define EXE_BNE  6'b000101
+
 
 // alu operation
 `define EXE_AND_OP      4'd1
@@ -60,6 +72,13 @@
 
 `define EXE_NOP_OP      4'd0
 
+//jump operations
+`define EXE_J_OP        4'd10
+`define EXE_JAL_OP      4'd11
+`define EXE_JR_OP       4'd12
+`define EXE_BEQ_OP      4'd13
+`define EXE_BGTZ_OP     4'd14
+`define EXE_BNE_OP      4'd15
 
 // alu result selection
 `define EXE_RES_LOGIC   3'd1
@@ -67,6 +86,8 @@
 `define EXE_RES_MOVE    3'd3
 `define EXE_RES_ARITH   3'd4
 `define EXE_RES_LOAD    3'd5
+`define EXE_RES_JUMP_BRANCH 3'd6
+
 
 `define EXE_RES_NOP     3'd0
 
