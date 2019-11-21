@@ -8,5 +8,5 @@ __start:
 loop: addu $t2, $t0, $t1 # t2 = t0+t1
   ori $t0, $t1, 0x0 # t0 = t1
   ori $t1, $t2, 0x0 # t1 = t2
-  b loop
+  j loop
   ori $zero, $zero, 0 # noop

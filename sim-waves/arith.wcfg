@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="141400001fs"></ZoomEndTime>
-      <Cursor1Time time="190151000fs"></Cursor1Time>
+      <ZoomStartTime time="486666666fs"></ZoomStartTime>
+      <ZoomEndTime time="676666667fs"></ZoomEndTime>
+      <Cursor1Time time="509067000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="119"></NameColumnWidth>
-      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+      <NameColumnWidth column_width="100"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="30" />
+   <WVObjectSize size="28" />
    <wvobject fp_name="/tb/clock_btn" type="logic">
       <obj_property name="ElementShortName">clock_btn</obj_property>
       <obj_property name="ObjectShortName">clock_btn</obj_property>
@@ -64,15 +64,15 @@
       <obj_property name="ElementShortName">id_wreg</obj_property>
       <obj_property name="ObjectShortName">id_wreg</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/ctrl0/id_stallreq_i" type="logic">
-      <obj_property name="ElementShortName">id_stallreq_i</obj_property>
-      <obj_property name="ObjectShortName">id_stallreq_i</obj_property>
+   <wvobject fp_name="/tb/dut/mips0/id0/branch_target_address_o" type="array">
+      <obj_property name="ElementShortName">branch_target_address_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">branch_target_address_o[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/id_is_in_delayslot_o" type="logic">
-      <obj_property name="ElementShortName">id_is_in_delayslot_o</obj_property>
-      <obj_property name="ObjectShortName">id_is_in_delayslot_o</obj_property>
+   <wvobject fp_name="/tb/dut/mips0/id0/next_inst_in_delayslot_o" type="logic">
+      <obj_property name="ElementShortName">next_inst_in_delayslot_o</obj_property>
+      <obj_property name="ObjectShortName">next_inst_in_delayslot_o</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/is_in_delayslot_i" type="logic">
+   <wvobject fp_name="/tb/dut/mips0/id0/is_in_delayslot_i" type="logic">
       <obj_property name="ElementShortName">is_in_delayslot_i</obj_property>
       <obj_property name="ObjectShortName">is_in_delayslot_i</obj_property>
    </wvobject>
@@ -92,13 +92,9 @@
       <obj_property name="ElementShortName">ex_wdata[31:0]</obj_property>
       <obj_property name="ObjectShortName">ex_wdata[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/ctrl0/ex_stallreq_i" type="logic">
-      <obj_property name="ElementShortName">ex_stallreq_i</obj_property>
-      <obj_property name="ObjectShortName">ex_stallreq_i</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/ex_is_in_delayslot_i" type="logic">
-      <obj_property name="ElementShortName">ex_is_in_delayslot_i</obj_property>
-      <obj_property name="ObjectShortName">ex_is_in_delayslot_i</obj_property>
+   <wvobject fp_name="/tb/dut/mips0/ex0/is_in_delayslot_i" type="logic">
+      <obj_property name="ElementShortName">is_in_delayslot_i</obj_property>
+      <obj_property name="ObjectShortName">is_in_delayslot_i</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_wb0/mem_wreg" type="logic">
       <obj_property name="ElementShortName">mem_wreg</obj_property>
@@ -135,9 +131,5 @@
    <wvobject fp_name="/tb/dut/mips0/ctrl0/stall_o" type="array">
       <obj_property name="ElementShortName">stall_o[0:5]</obj_property>
       <obj_property name="ObjectShortName">stall_o[0:5]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/regfile1/regs[31]" type="array">
-      <obj_property name="ElementShortName">[31][31:0]</obj_property>
-      <obj_property name="ObjectShortName">[31][31:0]</obj_property>
    </wvobject>
 </wave_config>

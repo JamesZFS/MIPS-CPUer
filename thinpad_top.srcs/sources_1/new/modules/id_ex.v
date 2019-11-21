@@ -30,7 +30,7 @@ module id_ex(
 );
 
 always @ (posedge clk) begin
-    if (rst == `RstEnable) begin
+    if (rst == `RstEnable || (stall[2] == `StallEnable && stall[3] == `StallDisable)) begin
 		// reset or ** at the tail of a stall sequence
         ex_aluop  <= `EXE_NOP_OP;
         ex_alusel <= `EXE_RES_NOP;
@@ -41,15 +41,6 @@ always @ (posedge clk) begin
 		ex_link_address <= `ZeroWord;
 		ex_is_in_delayslot <= `NotInDelaySlot;
 		is_in_delayslot_o <= `NotInDelaySlot; 
-	end else if((stall[2] == `StallEnable && stall[3] == `StallDisable)) begin
-	 	ex_aluop  <= `EXE_NOP_OP;
-        ex_alusel <= `EXE_RES_NOP;
-        ex_reg1   <= `ZeroWord;
-        ex_reg2   <= `ZeroWord;
-        ex_wd     <= `NOPRegAddr;
-        ex_wreg   <= `WriteDisable;
-		ex_link_address <= `ZeroWord;
-		ex_is_in_delayslot <= `NotInDelaySlot;
     end else if (stall[2] == `StallDisable) begin
         ex_aluop <= id_aluop;
         ex_alusel <= id_alusel;
