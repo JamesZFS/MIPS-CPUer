@@ -18,10 +18,12 @@
 `define StallDisable    1'b0 // continue
 `define RAMEnable       1'b0
 `define RAMDisable      1'b1
+`define UARTEnable      1'b0
+`define UARTDisable     1'b1
 `define Branch          1'b1 //jump
 `define NotBranch       1'b0 //no jump
 `define InDelaySlot     1'b1 //in slot
-`define NotInDelaySlot     1'b0 //not in slot
+`define NotInDelaySlot  1'b0 //not in slot
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special

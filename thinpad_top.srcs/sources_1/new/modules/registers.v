@@ -16,8 +16,10 @@ module regfile(
     // read port2
     input wire					re2,
     input wire[`RegAddrBus]	    raddr2,
-    output reg[`RegBus]         rdata2
+    output reg[`RegBus]         rdata2,
 
+    // debug display
+    output wire[`RegBus]        debug_o
 );
 
 // ** definition of 32 registers **
@@ -33,6 +35,10 @@ always @ (posedge clk) begin    // ** write back here **
     if (rst == `RstDisable)
         if((we == `WriteEnable) && (waddr != `RegNumLog2'h0))  // valid reg addr ($zero is protected)
             regs[waddr] <= wdata;   // regs are only updated synchronized with clk
+    // else
+    //     for (integer i = 0; i < `RegNum; i = i + 1) begin // initialize when resetting
+    //         regs[i] = `ZeroWord;
+    //     end
 end
 
 always @ (*) begin      // read op, combination logic
@@ -62,5 +68,7 @@ always @ (*) begin
         rdata2 <= `ZeroWord;
     end
 end
+
+assign debug_o = regs[1];  // display the 1st reg
 
 endmodule  // regfile

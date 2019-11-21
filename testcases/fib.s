@@ -1,12 +1,20 @@
-.set noreorder
 .set noat
 .globl __start
 .text
 __start:
-  ori $t0, $zero, 0x1 # t0 = 1
-  ori $t1, $zero, 0x1 # t1 = 1
-loop: addu $t2, $t0, $t1 # t2 = t0+t1
-  ori $t0, $t1, 0x0 # t0 = t1
-  ori $t1, $t2, 0x0 # t1 = t2
+  ori $1, $zero, 0 # a0 = 1
+  ori $2, $zero, 1 # a1 = 1
+  ori $4, $0, 0 # counter
+  ori $5, $0, 10
+loop:
+  addu $3, $1, $2 # an+1 = an + an-1
+  ori $1, $2, 0
+  ori $2, $3, 0
+  addiu $4, $4, 1
+  beq $4, $5, exit	# if $4 == $5 then exit
+  nop
   j loop
-  ori $zero, $zero, 0 # noop
+  nop
+
+exit:
+  ori $1, $0, 0 # noop

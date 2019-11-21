@@ -5,7 +5,8 @@ module mips(
     input wire[`InstBus]         ram_inst_i,    // instruction input
     
     output wire[`InstAddrBus]    ram_addr_o,
-    output wire                  ram_ce_o
+    output wire                  ram_ce_o,
+    output wire[`RegBus]         debug_o        // signal for debug display
 );
 
 wire[`InstAddrBus] pc;
@@ -95,7 +96,7 @@ pc_reg pc_reg0(
 
     // to inst_ram
     .pc(pc),
-    .ce(ram_ce_o)   
+    .ce(ram_ce_o)
 );
 
 assign ram_addr_o = pc; // output to inst_ram
@@ -165,7 +166,7 @@ id id0(
 );
 
 // regfile instance
-regfile regfile1(
+regfile regfile0(
     .clk(clk),
     .rst(rst),
     .we(wb_wreg_i),
@@ -176,7 +177,8 @@ regfile regfile1(
     .rdata1(reg1_data),
     .re2(reg2_read),
     .raddr2(reg2_addr),
-    .rdata2(reg2_data)
+    .rdata2(reg2_data),
+    .debug_o(debug_o)  // ** debug signal
 );
 
 // ID/EX instance

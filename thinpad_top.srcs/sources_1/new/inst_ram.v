@@ -1,5 +1,5 @@
 module inst_ram(
-    input wire                  clk,
+    // input wire                  clk,
     // from mips
     input wire                  ce,
     input wire[`InstAddrBus]	addr,  // pc
@@ -31,7 +31,6 @@ assign base_ram_addr = addr[19: 2];  // div 4
 
 always @(*) begin
     if (ce == `ChipDisable) begin
-        inst <= `ZeroWord;
         base_ram_ce_n <= `RAMDisable;
         base_ram_oe_n <= `RAMDisable;
         base_ram_we_n <= `RAMDisable;
@@ -45,7 +44,7 @@ end
 
 always @* begin
     if (ce == `ChipDisable) begin
-        inst <= `ZeroWord;
+        inst = `ZeroWord;
     end else begin // endian conversion
         inst[7:0]   = base_ram_data[31:24];
         inst[15:8]  = base_ram_data[23:16];
