@@ -28,7 +28,6 @@ wire[`RegBus] branch_target_address;
 
 //id/ex --> id
 wire id_is_in_delayslot_o;
-wire id_is_in_delayslot_i;
  
 // id --> ctrl
 wire id_stallreq_o;

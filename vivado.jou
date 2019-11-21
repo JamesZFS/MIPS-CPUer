@@ -196,3 +196,28 @@ launch_simulation
 open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg
 open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/inst-sram.wcfg
 source tb.tcl
+save_wave_config {C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg}
+close_sim
+launch_simulation
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/inst-sram.wcfg
+source tb.tcl
+close_sim
+launch_simulation
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/inst-sram.wcfg
+source tb.tcl
+save_wave_config {C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg}
+close_sim
+launch_simulation
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/inst-sram.wcfg
+source tb.tcl
+save_wave_config {C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg}
+close_sim
+launch_simulation
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/arith.wcfg
+open_wave_config C:/Users/japan/Desktop/CPU_BIG_PROJECT/compare/cs-jmp2/cod19grp16/sim-waves/inst-sram.wcfg
+source tb.tcl
+close_sim
+launch_simulation
