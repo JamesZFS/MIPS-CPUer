@@ -31,6 +31,7 @@ assign base_ram_addr = addr[19: 2];  // div 4
 
 always @(*) begin
     if (ce == `ChipDisable) begin
+        inner_ram_data <= 32'b0;
         base_ram_ce_n <= `RAMDisable;
         base_ram_oe_n <= `RAMDisable;
         base_ram_we_n <= `RAMDisable;
