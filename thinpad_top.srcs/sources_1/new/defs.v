@@ -110,3 +110,10 @@
 `define RegNumLog2      5
 `define NOPRegAddr      5'b00000
 
+// DVI
+`define HVDataWidth     12
+`define HVDataBus       11:0
+`define RED             3'b111
+`define GREEN           3'b111
+`define BLUE            2'b11
+`define BLACK           0

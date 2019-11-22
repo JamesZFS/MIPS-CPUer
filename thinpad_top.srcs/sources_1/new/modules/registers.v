@@ -32,13 +32,13 @@ initial begin
 end
 
 always @ (posedge clk) begin    // ** write back here **
-    if (rst == `RstDisable)
+    if (rst == `RstEnable)
+        for (integer i = 0; i < `RegNum; i = i + 1) begin // initialize when resetting
+            regs[i] <= `ZeroWord;
+        end
+    else
         if((we == `WriteEnable) && (waddr != `RegNumLog2'h0))  // valid reg addr ($zero is protected)
             regs[waddr] <= wdata;   // regs are only updated synchronized with clk
-    // else
-    //     for (integer i = 0; i < `RegNum; i = i + 1) begin // initialize when resetting
-    //         regs[i] = `ZeroWord;
-    //     end
 end
 
 always @ (*) begin      // read op, combination logic

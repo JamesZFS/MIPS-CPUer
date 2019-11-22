@@ -182,20 +182,6 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
         .TxD_data(ext_uart_tx)        //待发送的数据
     );
 
-//图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
-wire [11:0] hdata;
-assign video_red = hdata < 266 ? 3'b111 : 0; //红色竖条
-assign video_green = hdata < 532 && hdata >= 266 ? 3'b111 : 0; //绿色竖条
-assign video_blue = hdata >= 532 ? 2'b11 : 0; //蓝色竖条
-assign video_clk = clk_50M;
-vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
-    .clk(clk_50M), 
-    .hdata(hdata), //横坐标
-    .vdata(),      //纵坐标
-    .hsync(video_hsync),
-    .vsync(video_vsync),
-    .data_enable(video_de)
-);
 /* =========== Demo code end =========== */
 
 /* ============== Mips32 Pipeline code begin ============== */
@@ -247,5 +233,39 @@ always@(posedge clock_btn or posedge reset_btn) begin
         cur_stage <= {cur_stage[0], cur_stage[4:1]};
     end
 end
+
+// ***** DVI display *****
+
+//图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
+wire[`HVDataBus] hdata;
+wire[`HVDataBus] vdata;
+assign video_clk = clk_50M;
+
+// WIDTH HSIZE HFP  HSP  HMAX VSIZE VFP  VSP VMAX HSPP VSPP
+vga #(`HVDataWidth, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
+    // in:
+    .clk(clk_50M), 
+    // out:
+    .hdata(hdata), //横坐标
+    .vdata(vdata), //纵坐标
+    .hsync(video_hsync),
+    .vsync(video_vsync),
+    .data_enable(video_de)
+);
+
+wire[1:0] div_debug;
+
+DVI_display dvi_disp0(
+    // in:
+    .clk(clock_btn),
+    .rst(reset_btn),
+    .x(hdata),
+    .y(vdata),
+    // out:
+    .r(video_red),
+    .g(video_green),
+    .b(video_blue),
+    .debug(div_debug)
+);
 
 endmodule
