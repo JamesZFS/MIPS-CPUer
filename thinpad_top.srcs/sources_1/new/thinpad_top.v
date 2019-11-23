@@ -205,20 +205,45 @@ wire                rom_ce;    // mips to ram
 wire[`InstBus]      inst;    // ram to mips
 wire[`RegBus]       debug;   // ** debug signal
 
+//mips.mem->mmu
+wire[`RegBus]   mem_addr_o;
+wire            mem_we_o;
+wire[`RegBus]   mem_data_o;
+wire            mem_ce_o;
+wire[3:0]       mem_sel_o;
+wire            addr_sel;
+
 mips mips0(
     .clk(clock_btn),
     .rst(reset_btn),
     .ram_inst_i(inst),
     .ram_addr_o(inst_addr),
     .ram_ce_o(rom_ce),
-    .debug_o(debug)
+    .debug_o(debug),
+
+    //from mips.mem to mmu
+    .mem_addr_o(mem_addr_o),
+    .mem_we_o(mem_we_o),
+    .mem_data_o(mem_data_o),
+    .mem_ce_o(mem_ce_o),
+    .mem_sel_o(mem_sel_o),
+    .addr_sel(addr_sel),
 );
 
-inst_ram inst_ram0(
+mmu mmu0(
     // .clk(clock_btn),
+    .clk(clock_btn),
     .ce(rom_ce),
     .addr(inst_addr),
     .inst(inst),
+
+    // input from mips.mem
+    .mem_addr_i(mem_addr_o),
+    .mem_we_i(mem_we_o),
+    .mem_data_i(mem_data_o),
+    .mem_ce_i(mem_ce_o),
+    .mem_sel_i(mem_sel_o),
+    .addr_sel(addr_sel),
 
     // inout with BaseRAM
     .base_ram_data(base_ram_data),
@@ -226,7 +251,9 @@ inst_ram inst_ram0(
     .base_ram_addr(base_ram_addr),
     .base_ram_ce_n(base_ram_ce_n),
     .base_ram_oe_n(base_ram_oe_n),
-    .base_ram_we_n(base_ram_we_n)
+    .base_ram_we_n(base_ram_we_n),
+
+    
 );
 
 /* ============== Mips32 Pipeline code end   ============== */

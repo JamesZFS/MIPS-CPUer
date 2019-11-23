@@ -7,6 +7,14 @@ module mips(
     output wire[`InstAddrBus]    ram_addr_o,
     output wire                  ram_ce_o,
     output wire[`RegBus]         debug_o        // signal for debug display
+
+    // to mmu
+    output reg[`RegBus]           mem_addr_o,
+    output wire                   mem_we_o;
+    output reg[`RegBus]           mem_data_o,
+    output reg                    mem_ce_o,
+    output reg[3:0]               mem_sel_o,
+    output reg                    addr_sel;
 );
 
 wire[`InstAddrBus] pc;
@@ -22,6 +30,7 @@ wire id_wreg_o;
 wire[`RegAddrBus] id_wd_o;
 wire[`RegBus] id_link_address_o;
 wire next_inst_in_delayslot_o;
+wire[`RegBus] inst_o;
 
 //id --> pc
 wire id_branch_flag_o;
@@ -42,11 +51,16 @@ wire ex_wreg_i;
 wire[`RegAddrBus] ex_wd_i;
 wire ex_is_in_delayslot_i;
 wire[`RegBus] ex_link_address_i;
+wire[`RegBus] ex_inst;
 
 // ex --> ex/mem
 wire ex_wreg_o;
 wire[`RegAddrBus] ex_wd_o;
 wire[`RegBus] ex_wdata_o;
+wire[`AluOpBus] aluop_o;
+wire[`RegBus] mem_addr_o;
+wire[`RegBus] reg2_o;
+
 // ex --> ctrl
 wire ex_stallreq_o;
 
@@ -54,6 +68,17 @@ wire ex_stallreq_o;
 wire mem_wreg_i;
 wire[`RegAddrBus] mem_wd_i;
 wire[`RegBus] mem_wdata_i;
+wire[`AluOpBus] mem_aluop;
+wire[`RegBus] mem_mem_addr;
+wire[`RegBus] mem_reg2;
+
+// //mem->mmu
+// wire[`RegBus] mem_addr_o;
+// wire mem_we_o;
+// wire[`RegBus] mem_data_o;
+// wire mem_ce_o;
+// wire[3:0] mem_sel_o;
+// wire addr_sel;
 
 // mem -> mem/wb
 wire mem_wreg_o;
@@ -115,7 +140,8 @@ if_id if_id0(
 
     // to id
     .id_pc(id_pc_i),
-    .id_inst(id_inst_i)      	
+    .id_inst(id_inst_i),
+    .inst_o(inst_o)      	
 );
 
 // ID instance
@@ -197,6 +223,7 @@ id_ex id_ex0(
     .id_link_address(id_link_address_o),
     .id_is_in_delayslot(id_is_in_delayslot_o),
     .next_inst_in_delayslot_i(next_inst_in_delayslot_o),
+    .id_inst(inst_o),
 
     // from ctrl
     .stall(ctrl_stall),
@@ -211,6 +238,7 @@ id_ex id_ex0(
     .ex_link_address(ex_link_address_i),
     .ex_is_in_delayslot(ex_is_in_delayslot_i),
     .is_in_delayslot_o(is_in_delayslot_i)
+    .ex_inst(ex_inst)
 
 );		
 
@@ -230,10 +258,14 @@ ex ex0(
     .wd_o(ex_wd_o),
     .wreg_o(ex_wreg_o),
     .wdata_o(ex_wdata_o),
+    .aluop_o(aluop_o),
+    .mem_addr_o(mem_addr_o),
+    .reg2_o(reg2_o),
 
     //from id/ex
     .link_address_i(ex_link_address_i),
     .is_in_delayslot_i(ex_is_in_delayslot_i),
+    .inst_i(ex_inst),
 
     // to ctrl
     .stallreq_o(ex_stallreq_o)
@@ -248,14 +280,20 @@ ex_mem ex_mem0(
     .ex_wd(ex_wd_o),
     .ex_wreg(ex_wreg_o),
     .ex_wdata(ex_wdata_o),
-    
+    .ex_aluop(aluop_o),
+    .ex_mem_addr(mem_addr_o),
+    .ex_reg2(reg2_o),
+
     // from ctrl
     .stall(ctrl_stall),
 
     // to mem
     .mem_wd(mem_wd_i),
     .mem_wreg(mem_wreg_i),
-    .mem_wdata(mem_wdata_i)                    
+    .mem_wdata(mem_wdata_i),
+    .mem_aluop(mem_aluop),
+    .mem_mem_addr(mem_mem_addr),
+    .mem_reg2(mem_reg2)                    
 );
 
 // data memory instance
@@ -266,11 +304,25 @@ mem mem0(
     .wd_i(mem_wd_i),
     .wreg_i(mem_wreg_i),
     .wdata_i(mem_wdata_i),
+    .aluop_i(mem_aluop),
+    .mem_addr_i(mem_mem_addr),
+    .reg2_i(mem_reg2),
     
     // to mem/wb and forward to id
     .wd_o(mem_wd_o),
     .wreg_o(mem_wreg_o),
     .wdata_o(mem_wdata_o),
+
+    //to mmu
+    .mem_addr_o(mem_addr_o),
+    .mem_we_o(mem_we_o),
+    .mem_data_o(mem_data_o),
+    .mem_ce_o(mem_ce_o),
+    .mem_sel_o(mem_sel_o),
+    .addr_sel(addr_sel),
+
+    //from mmu
+    .mem_data_i(ram_inst_i),
 
     // to ctrl
     .stallreq_o(mem_stallreq_o)

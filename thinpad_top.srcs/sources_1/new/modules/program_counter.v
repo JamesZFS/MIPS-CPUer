@@ -30,6 +30,8 @@ always @ (posedge clk) begin
         end else begin
             pc <= pc + 4;
         end
+    end else if (stall[1]==`StallEnable) begin
+        pc <= pc;
     end
     // else: when stalling, hold pc
 end

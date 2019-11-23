@@ -18,12 +18,13 @@ module mem(
     output reg[`RegAddrBus]       wd_o,
     output reg[`RegBus]           wdata_o,
 
-    //signal to RAM
+    //signal to MMU
     output reg[`RegBus]           mem_addr_o,
     output wire                   mem_we_o;
     output reg[`RegBus]           mem_data_o,
     output reg                    mem_ce_o,
     output reg[3:0]               mem_sel_o,
+    output reg                    addr_sel;
     
     // to ctrl
     output reg                    stallreq_o
@@ -42,6 +43,8 @@ always @* begin // ** needs extending **
         mem_sel_o <= 4'b0000;
         mem_data_o <= `ZeroWord;
         mem_ce_o <= `ChipDisable;
+        addr_sel <= 1'b0;
+        stallreq_o <= `StallDisable;
     end else begin
         wreg_o  <= wreg_i;
         wd_o    <= wd_i;
@@ -51,12 +54,16 @@ always @* begin // ** needs extending **
         mem_we <= `WriteDisable;
         mem_sel_o <= 4'b1111;
         mem_ce_o <= `ChipDisable;
+        addr_sel <= 1'b0;
+        stallreq_o <= `StallDisable;
 
         case (aluop_i)
             `EXE_LB_OP: begin
                 mem_addr_o <= mem_addr_i;
                 mem_we <= WriteDisable;
                 mem_ce_o <= `ChipEnable;
+                addr_sel <= 1'b1;
+                stallreq_o <= `StallEnable;
                 case (mem_addr_i[1:0])
                     2'b00: begin
                         wdata_o <= {{24{mem_data_i[31]}},mem_data_i[31:24]}
@@ -83,11 +90,11 @@ always @* begin // ** needs extending **
 end
 
 // assign stallreq_o = `StallDisable;
-always @* begin
-    if (rst == `RstEnable)
-        stallreq_o <= `StallDisable;
-    else
-        stallreq_o <= `StallDisable;
-end
+// always @* begin
+//     if (rst == `RstEnable)
+//         stallreq_o <= `StallDisable;
+//     else
+//         stallreq_o <= `StallDisable;
+// end
 
 endmodule // mem

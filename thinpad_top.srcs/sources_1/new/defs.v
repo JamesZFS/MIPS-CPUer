@@ -89,6 +89,10 @@
 `define EXE_LB_OP       5'd16
 
 
+//MMU
+`define MemOccupy       1'd1
+`define MemAddrStart    0x
+
 // alu result selection
 `define EXE_RES_LOGIC   3'd1
 `define EXE_RES_SHIFT   3'd2

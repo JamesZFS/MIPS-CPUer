@@ -1,8 +1,18 @@
-module inst_ram(
+module mmu(
     // input wire                  clk,
     // from mips
+    input wire                  clk,
     input wire                  ce,
     input wire[`InstAddrBus]	addr,  // pc
+
+    //from mem
+    input wire[`RegBus]         mem_addr_i,
+    input wire                  mem_we_i,
+    input reg[`RegBus]          mem_data_i,
+    input reg                   mem_ce_i,
+    input reg[3:0]              mem_sel_i,
+    input reg                   addr_sel,
+
 
     // to mips
 	output reg[`InstBus]		inst,
@@ -22,9 +32,10 @@ reg[31:0] inner_ram_data;
 // reg       ce_n;
 // reg       oe_n;
 // reg       we_n;
+wire[19:0] mem_addr_real = mem_addr_i[21: 2]
 
 assign base_ram_data = inner_ram_data;
-assign base_ram_addr = addr[19: 2];  // div 4
+assign base_ram_addr = addr_sel ? mem_addr_real:addr[19: 2];  // div 4
 // assign base_ram_ce_n = ce_n
 // assign base_ram_oe_n = oe_n;
 // assign base_ram_we_n = we_n;
@@ -34,7 +45,12 @@ always @(*) begin
         base_ram_ce_n <= `RAMDisable;
         base_ram_oe_n <= `RAMDisable;
         base_ram_we_n <= `RAMDisable;
-    end else begin
+    end else if (addr_sel == `MemOccupy && mem_we_i == `RAMEnable)begin
+        inner_ram_data <= mem_data_i;  // Mem to write
+        base_ram_ce_n <= `RAMEnable;
+        base_ram_oe_n <= `RAMDisable;
+        base_ram_we_n <= `RAMEnable;
+    end else begin 
         inner_ram_data <= 32'bz;  // ** high resistance state
         base_ram_ce_n <= `RAMEnable;
         base_ram_oe_n <= `RAMEnable;
@@ -52,6 +68,10 @@ always @* begin
         inst[31:24] = base_ram_data[7:0];    
     end
 end
+
+// always @() begin
+    
+// end
 
 
 endmodule // inst_ram
