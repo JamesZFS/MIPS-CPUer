@@ -6,7 +6,7 @@
 `define WriteDisable    1'b0
 `define ReadEnable      1'b1
 `define ReadDisable     1'b0
-`define AluOpBus        3:0
+`define AluOpBus        4:0
 `define AluSelBus       2:0
 `define InstValid       1'b1
 `define InstInvalid     1'b0
@@ -56,31 +56,38 @@
 `define EXE_BGTZ  6'b000111
 `define EXE_BNE  6'b000101
 
+//Load & Store instruction operations
+`define EXE_LB 6'b100000
+`define EXE_LBU 6'100100
 
 // alu operation
-`define EXE_AND_OP      4'd1
-`define EXE_OR_OP       4'd2
-`define EXE_XOR_OP      4'd3
+`define EXE_AND_OP      5'd1
+`define EXE_OR_OP       5'd2
+`define EXE_XOR_OP      5'd3
 
-`define EXE_SLL_OP      4'd4
-`define EXE_SRL_OP      4'd5
+`define EXE_SLL_OP      5'd4
+`define EXE_SRL_OP      5'd5
 
-`define EXE_MOVZ_OP     4'd6
+`define EXE_MOVZ_OP     5'd6
 
-`define EXE_ADDU_OP     4'd7
-`define EXE_CLZ_OP      4'd8
+`define EXE_ADDU_OP     5'd7
+`define EXE_CLZ_OP      5'd8
 
-`define EXE_LUI_OP      4'd9
+`define EXE_LUI_OP      5'd9
 
-`define EXE_NOP_OP      4'd0
+`define EXE_NOP_OP      5'd0
 
 //jump operations
-`define EXE_J_OP        4'd10
-`define EXE_JAL_OP      4'd11
-`define EXE_JR_OP       4'd12
-`define EXE_BEQ_OP      4'd13
-`define EXE_BGTZ_OP     4'd14
-`define EXE_BNE_OP      4'd15
+`define EXE_J_OP        5'd10
+`define EXE_JAL_OP      5'd11
+`define EXE_JR_OP       5'd12
+`define EXE_BEQ_OP      5'd13
+`define EXE_BGTZ_OP     5'd14
+`define EXE_BNE_OP      5'd15
+
+//Load & Store operations
+`define EXE_LB_OP       5'd16
+
 
 // alu result selection
 `define EXE_RES_LOGIC   3'd1
@@ -89,6 +96,7 @@
 `define EXE_RES_ARITH   3'd4
 `define EXE_RES_LOAD    3'd5
 `define EXE_RES_JUMP_BRANCH 3'd6
+`define EXE_RES_LOAD_STORE 3'd7
 
 
 `define EXE_RES_NOP     3'd0

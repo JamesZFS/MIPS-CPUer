@@ -10,11 +10,17 @@ module ex(
     input wire[`RegBus]           link_address_i,
     input wire                    is_in_delayslot_i,
     input wire                    wreg_i,
+    input wire[`RegBus]           inst_i,
     
     // propagate result to mem (and forward to id)
     output reg                    wreg_o,
     output reg[`RegAddrBus]       wd_o,
     output reg[`RegBus]           wdata_o,
+
+    output wire[`AluOpBus]        aluop_o,
+    output wire[`RegBus]          mem_addr_o,
+    output wire[`RegBus]          reg2_o,
+
 
     // to ctrl
     output reg                    stallreq_o
@@ -25,6 +31,10 @@ reg[`RegBus]    shift_res;
 reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
+
+assign aluop_o = aluop_i;
+assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
+assign reg2_o = reg2_i;
 
 wire[`RegBus]   sum_res = reg1_i + reg2_i;
 // assign          sum_res = reg1_i + reg2_i;
@@ -85,7 +95,6 @@ always @ * begin    // perform arithmetic computation
                     reg1_i[7]?  24 : reg1_i[6]?  25 : reg1_i[5]?  26 : 
                     reg1_i[4]?  27 : reg1_i[3]?  28 : reg1_i[2]?  29 : 
                     reg1_i[1]?  30 : reg1_i[0]?  31 : 32;
-
             default: arith_res <= `ZeroWord;
             
         endcase

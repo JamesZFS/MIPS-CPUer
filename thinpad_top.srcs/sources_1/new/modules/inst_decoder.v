@@ -43,9 +43,13 @@ module id(
     output reg[`RegBus]         link_addr_o,
     output reg                  is_in_delayslot_o,
 
+    output wire[`RegBus]        inst_o,
+
     // to ctrl
     output reg                  stallreq_o
 );
+
+assign inst_o = inst_i;
 
 wire[5:0]       op  = inst_i[31:26];
 wire[4:0]       op2 = inst_i[10:6];
@@ -162,8 +166,8 @@ always @ (*) begin
                             wreg_o <= `WriteDisable;
                             aluop_o <= `EXE_JR_OP;
                             alusel_o <= `EXE_RES_JUMP_BRANCH;
-                            reg1_read_o <= 1'b1;
-                            reg2_read_o <= 1'b0;
+                            reg1_read_o <= `ReadEnable;
+                            reg2_read_o <= `ReadDisable;
                             link_addr_o <= `ZeroWord;
                             branch_target_address_o <= reg1_o;
                             branch_flag_o <= `Branch;
@@ -340,6 +344,17 @@ always @ (*) begin
 			    	next_inst_in_delayslot_o <= `InDelaySlot;		  	
 			    end
             end
+
+            `EXE_LB:begin
+                wreg_o <= `WriteEnable;
+                aluop_o <= `EXE_LB_OP;
+                alusel_o <= `EXE_RES_LOAD_STORE;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadDisable;
+                wd_o <= inst_i[20:16];
+                instvalid <= `InstValid;
+            end
+
             default: ;
 
         endcase // op
