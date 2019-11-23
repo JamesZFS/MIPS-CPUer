@@ -7,9 +7,9 @@ module ex_mem(
     input wire[`RegAddrBus]       ex_wd,
     input wire[`RegBus]           ex_wdata,
 
-    input wire[`AluOpBus]         ex_aluop;
-    input wire[`RegBus]           ex_mem_addr;
-    input wire[`RegBus]           ex_reg2;
+    input wire[`AluOpBus]         ex_aluop,
+    input wire[`RegBus]           ex_mem_addr,
+    input wire[`RegBus]           ex_reg2,
 
 
     input wire[0:5]               stall, // from ctrl
@@ -17,11 +17,11 @@ module ex_mem(
     // signals to mem
     output reg                    mem_wreg,
     output reg[`RegAddrBus]       mem_wd,
-    output reg[`RegBus]           mem_wdata
+    output reg[`RegBus]           mem_wdata,
 
-    output reg[`AluOpBus]         mem_aluop;
-    output reg[`RegBus]           mem_mem_addr;
-    output reg[`RegBug]           mem_reg2;
+    output reg[`AluOpBus]         mem_aluop,
+    output reg[`RegBus]           mem_mem_addr,
+    output reg[`RegBus]           mem_reg2
 
 );
 
@@ -31,7 +31,7 @@ always @(posedge clk) begin
         mem_wreg  <= `WriteDisable;
         mem_wd    <= `NOPRegAddr;
         mem_wdata <= `ZeroWord;
-        ex_aluop <= `EXE_NOP_OP;
+        mem_aluop <= `EXE_NOP_OP;
         mem_mem_addr <= `ZeroWord;
         mem_reg2 <= `ZeroWord;
     end else if (stall[3] == `StallDisable) begin

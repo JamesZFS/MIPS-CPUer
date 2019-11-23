@@ -227,7 +227,7 @@ mips mips0(
     .mem_data_o(mem_data_o),
     .mem_ce_o(mem_ce_o),
     .mem_sel_o(mem_sel_o),
-    .addr_sel(addr_sel),
+    .addr_sel(addr_sel)
 );
 
 mmu mmu0(
@@ -251,8 +251,7 @@ mmu mmu0(
     .base_ram_addr(base_ram_addr),
     .base_ram_ce_n(base_ram_ce_n),
     .base_ram_oe_n(base_ram_oe_n),
-    .base_ram_we_n(base_ram_we_n),
-
+    .base_ram_we_n(base_ram_we_n)
     
 );
 

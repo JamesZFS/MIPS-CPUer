@@ -25,10 +25,11 @@ module id_ex(
 	output reg[`RegAddrBus]       ex_wd,
 	output reg[`RegBus]			  ex_link_address,
 	output reg					  ex_is_in_delayslot,
-	output reg					  is_in_delayslot_o,
 	output reg                    ex_wreg,
 	output reg[`RegBus]			  ex_inst,
 	
+	// to id
+	output reg					  is_in_delayslot_o // forward
 );
 
 always @ (posedge clk) begin

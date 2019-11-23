@@ -8,23 +8,23 @@ module mmu(
     //from mem
     input wire[`RegBus]         mem_addr_i,
     input wire                  mem_we_i,
-    input reg[`RegBus]          mem_data_i,
-    input reg                   mem_ce_i,
-    input reg[3:0]              mem_sel_i,
-    input reg                   addr_sel,
+    input wire[`RegBus]         mem_data_i,
+    input wire                  mem_ce_i,
+    input wire[3:0]             mem_sel_i,
+    input wire                  addr_sel,
 
 
     // to mips
 	output reg[`InstBus]		inst,
 
     // ** inout with BaseRam
-    inout wire[31:0]            base_ram_data,  //BaseRAM数据，低8位与CPLD串口控制器共享
+    inout wire[31:0]            base_ram_data,  //BaseRAM数据，低8位与CPLD串口控制器共�?
 
     // output to BaseRam
     output wire[19:0]           base_ram_addr,  //BaseRAM地址
-    output reg                  base_ram_ce_n,  //BaseRAM片选，低有效
-    output reg                  base_ram_oe_n,  //BaseRAM读使能，低有效
-    output reg                  base_ram_we_n  //BaseRAM写使能，低有效
+    output reg                  base_ram_ce_n,  //BaseRAM片�?�，低有�?
+    output reg                  base_ram_oe_n,  //BaseRAM读使能，低有�?
+    output reg                  base_ram_we_n  //BaseRAM写使能，低有�?
 );
 
 
@@ -32,7 +32,7 @@ reg[31:0] inner_ram_data;
 // reg       ce_n;
 // reg       oe_n;
 // reg       we_n;
-wire[19:0] mem_addr_real = mem_addr_i[21: 2]
+wire[19:0] mem_addr_real = mem_addr_i[21: 2];
 
 assign base_ram_data = inner_ram_data;
 assign base_ram_addr = addr_sel ? mem_addr_real:addr[19: 2];  // div 4

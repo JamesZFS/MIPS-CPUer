@@ -6,15 +6,15 @@ module mips(
     
     output wire[`InstAddrBus]    ram_addr_o,
     output wire                  ram_ce_o,
-    output wire[`RegBus]         debug_o        // signal for debug display
+    output wire[`RegBus]         debug_o,        // signal for debug display
 
     // to mmu
-    output reg[`RegBus]           mem_addr_o,
-    output wire                   mem_we_o;
-    output reg[`RegBus]           mem_data_o,
-    output reg                    mem_ce_o,
-    output reg[3:0]               mem_sel_o,
-    output reg                    addr_sel;
+    output wire[`RegBus]         mem_addr_o,
+    output wire                  mem_we_o,
+    output wire[`RegBus]         mem_data_o,
+    output wire                  mem_ce_o,
+    output wire[3:0]             mem_sel_o,
+    output wire                  addr_sel
 );
 
 wire[`InstAddrBus] pc;
@@ -30,7 +30,7 @@ wire id_wreg_o;
 wire[`RegAddrBus] id_wd_o;
 wire[`RegBus] id_link_address_o;
 wire next_inst_in_delayslot_o;
-wire[`RegBus] inst_o;
+wire[`RegBus] id_inst_o;
 
 //id --> pc
 wire id_branch_flag_o;
@@ -52,6 +52,9 @@ wire[`RegAddrBus] ex_wd_i;
 wire ex_is_in_delayslot_i;
 wire[`RegBus] ex_link_address_i;
 wire[`RegBus] ex_inst;
+
+// id/ex --> id (forward)
+wire is_in_delayslot_i;
 
 // ex --> ex/mem
 wire ex_wreg_o;
@@ -103,7 +106,6 @@ wire[`RegBus] reg1_data;
 wire[`RegBus] reg2_data;
 
 
-
 // ctrl --> *
 wire[0:5] ctrl_stall;
 
@@ -140,8 +142,7 @@ if_id if_id0(
 
     // to id
     .id_pc(id_pc_i),
-    .id_inst(id_inst_i),
-    .inst_o(inst_o)      	
+    .id_inst(id_inst_i)
 );
 
 // ID instance
@@ -184,6 +185,8 @@ id id0(
     .link_addr_o(id_link_address_o),
     .is_in_delayslot_o(id_is_in_delayslot_o),
 
+    .inst_o(id_inst_o),
+
     //from id/ex
     .is_in_delayslot_i(is_in_delayslot_i),
 
@@ -223,7 +226,7 @@ id_ex id_ex0(
     .id_link_address(id_link_address_o),
     .id_is_in_delayslot(id_is_in_delayslot_o),
     .next_inst_in_delayslot_i(next_inst_in_delayslot_o),
-    .id_inst(inst_o),
+    .id_inst(id_inst_o),
 
     // from ctrl
     .stall(ctrl_stall),
@@ -237,9 +240,10 @@ id_ex id_ex0(
     .ex_wreg(ex_wreg_i),
     .ex_link_address(ex_link_address_i),
     .ex_is_in_delayslot(ex_is_in_delayslot_i),
-    .is_in_delayslot_o(is_in_delayslot_i)
+    .is_in_delayslot_o(is_in_delayslot_i),
     .ex_inst(ex_inst)
 
+    // to id
 );		
 
 // EX instance
@@ -314,7 +318,7 @@ mem mem0(
     .wdata_o(mem_wdata_o),
 
     //to mmu
-    .mem_addr_o(mem_addr_o),
+    .mem_addr_o_(mem_addr_o),
     .mem_we_o(mem_we_o),
     .mem_data_o(mem_data_o),
     .mem_ce_o(mem_ce_o),
