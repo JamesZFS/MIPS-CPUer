@@ -118,9 +118,10 @@ end
 // assign base_ram_we_n = `RAMDisable;
 assign base_ram_be_n = `RAMEnable; // enable all bytes
 
-assign ext_ram_ce_n = `RAMDisable;
-assign ext_ram_oe_n = `RAMDisable;
-assign ext_ram_we_n = `RAMDisable;
+// assign ext_ram_ce_n = `RAMDisable;
+// assign ext_ram_oe_n = `RAMDisable;
+// assign ext_ram_we_n = `RAMDisable;
+assign ext_ram_be_n = `RAMEnable;
 
 assign uart_rdn = `UARTDisable;
 assign uart_wrn = `UARTDisable;
@@ -201,9 +202,11 @@ vga #(12, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
 /* ============== Mips32 Pipeline code begin ============== */
 
 wire[`InstAddrBus]  inst_addr; // mips to ram
-wire                rom_ce;    // mips to ram
-wire[`InstBus]      inst;    // ram to mips
+wire                inst_ram_ce;  // mips to ram
+wire[31:0]          mem_data;    // ram to mem
+wire[31:0]          inst;        // ram to if-id
 wire[`RegBus]       debug;   // ** debug signal
+wire                mmu_stallreq;
 
 //mips.mem->mmu
 wire[`RegBus]   mem_addr_o;
@@ -211,15 +214,18 @@ wire            mem_we_o;
 wire[`RegBus]   mem_data_o;
 wire            mem_ce_o;
 wire[3:0]       mem_sel_o;
-wire            addr_sel;
 
 mips mips0(
     .clk(clock_btn),
     .rst(reset_btn),
+    // from mmu
+    .mmu_mem_data_i(mem_data),
     .ram_inst_i(inst),
+    .mmu_stallreq_i(mmu_stallreq),
+
+    // to mmu
     .ram_addr_o(inst_addr),
-    .ram_ce_o(rom_ce),
-    .debug_o(debug),
+    .ram_ce_o(inst_ram_ce),
 
     //from mips.mem to mmu
     .mem_addr_o(mem_addr_o),
@@ -227,15 +233,14 @@ mips mips0(
     .mem_data_o(mem_data_o),
     .mem_ce_o(mem_ce_o),
     .mem_sel_o(mem_sel_o),
-    .addr_sel(addr_sel)
+
+    .debug_o(debug)
 );
 
 mmu mmu0(
-    // .clk(clock_btn),
     .clk(clock_btn),
-    .ce(rom_ce),
-    .addr(inst_addr),
-    .inst(inst),
+    .if_ce_i(inst_ram_ce),
+    .if_addr_i(inst_addr),
 
     // input from mips.mem
     .mem_addr_i(mem_addr_o),
@@ -243,7 +248,10 @@ mmu mmu0(
     .mem_data_i(mem_data_o),
     .mem_ce_i(mem_ce_o),
     .mem_sel_i(mem_sel_o),
-    .addr_sel(addr_sel),
+
+    // to mips
+    .data_o(mem_data),
+    .inst_o(inst),
 
     // inout with BaseRAM
     .base_ram_data(base_ram_data),
@@ -251,8 +259,26 @@ mmu mmu0(
     .base_ram_addr(base_ram_addr),
     .base_ram_ce_n(base_ram_ce_n),
     .base_ram_oe_n(base_ram_oe_n),
-    .base_ram_we_n(base_ram_we_n)
-    
+    .base_ram_we_n(base_ram_we_n),
+
+    // inout with BaseRAM
+    .ext_ram_data(ext_ram_data),
+    // output to BaseRAM
+    .ext_ram_addr(ext_ram_addr),
+    .ext_ram_ce_n(ext_ram_ce_n),
+    .ext_ram_oe_n(ext_ram_oe_n),
+    .ext_ram_we_n(ext_ram_we_n),
+
+    // to uart
+    .uart_rdn(uart_rdn),
+    .uart_wrn(uart_wrn),
+
+    // form uart
+    .uart_dataready(uart_dataready),
+    .uart_tsre(uart_tsre),
+
+    // to control
+    .stallreq_o(mmu_stallreq)
 );
 
 /* ============== Mips32 Pipeline code end   ============== */

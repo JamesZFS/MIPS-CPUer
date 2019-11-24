@@ -1,20 +1,24 @@
 module mips(
     input wire      clk,
     input wire      rst,
+
+    // from mmu
+    input wire[31:0]         mmu_mem_data_i,
+    input wire[31:0]         ram_inst_i,    // instruction input
+    input wire               mmu_stallreq_i, // to ctrl
     
-    input wire[`InstBus]         ram_inst_i,    // instruction input
-    
+    // if-id to mmu
     output wire[`InstAddrBus]    ram_addr_o,
     output wire                  ram_ce_o,
-    output wire[`RegBus]         debug_o,        // signal for debug display
 
-    // to mmu
+    // mem to mmu
     output wire[`RegBus]         mem_addr_o,
     output wire                  mem_we_o,
     output wire[`RegBus]         mem_data_o,
     output wire                  mem_ce_o,
     output wire[3:0]             mem_sel_o,
-    output wire                  addr_sel
+
+    output wire[`RegBus]         debug_o        // signal for debug display
 );
 
 wire[`InstAddrBus] pc;
@@ -87,8 +91,6 @@ wire[`RegBus] mem_reg2;
 wire mem_wreg_o;
 wire[`RegAddrBus] mem_wd_o;
 wire[`RegBus] mem_wdata_o;
-// mem --> ctrl
-wire mem_stallreq_o;
 
 // mem/wb --> wb(regfile)
 wire wb_wreg_i;
@@ -318,18 +320,14 @@ mem mem0(
     .wdata_o(mem_wdata_o),
 
     //to mmu
-    .mem_addr_o_(mem_addr_o),
+    .mem_addr_o(mem_addr_o),
     .mem_we_o(mem_we_o),
     .mem_data_o(mem_data_o),
     .mem_ce_o(mem_ce_o),
     .mem_sel_o(mem_sel_o),
-    .addr_sel(addr_sel),
 
     //from mmu
-    .mem_data_i(ram_inst_i),
-
-    // to ctrl
-    .stallreq_o(mem_stallreq_o)
+    .mem_data_i(mmu_mem_data_i)
 );
 
 // MEM/WB instance
@@ -357,7 +355,7 @@ ctrl ctrl0(
 
     .id_stallreq_i(id_stallreq_o),
     .ex_stallreq_i(ex_stallreq_o),
-    .mem_stallreq_i(mem_stallreq_o),
+    .mmu_stallreq_i(mmu_stallreq_i),
 
     .stall_o(ctrl_stall)
 );

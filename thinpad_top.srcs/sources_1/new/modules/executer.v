@@ -32,6 +32,9 @@ reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
 
+// assign aluop_o = 0;
+// assign mem_addr_o = 0;
+// assign reg2_o = 0;
 assign aluop_o = aluop_i;
 assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
 assign reg2_o = reg2_i;
@@ -159,33 +162,10 @@ always @ * begin    // generate write signal
 end
 
 // pipeline stalling demo:
-/* parameter UNSTALLED = 1'd0, STALLED = 1'd1;
-reg cur_state;
-
-always @(posedge clk) begin
-    if (rst == `RstEnable)
-        cur_state <= UNSTALLED;
-    else if (aluop_i == `EXE_ADDU_OP) begin
-        if (cur_state == UNSTALLED) begin
-            cur_state <= STALLED;
-        end else begin
-            cur_state <= UNSTALLED;
-        end
-    end else
-        cur_state <= UNSTALLED;
-end
-*/
 
 always @* begin
     if (rst == `RstEnable)
         stallreq_o <= `StallDisable;
-    // else if (aluop_i == `EXE_ADDU_OP) begin
-    //     if (cur_state == UNSTALLED) begin
-    //         stallreq_o <= `StallEnable;  // TODO: just for tets
-    //     end else begin
-    //         stallreq_o <= `sStallDisable;
-    //     end
-    // end
     else
         stallreq_o <= `StallDisable;
 end
