@@ -24,6 +24,8 @@
 `define NotBranch       1'b0 //no jump
 `define InDelaySlot     1'b1 //in slot
 `define NotInDelaySlot  1'b0 //not in slot
+`define IsImm           1'b1
+`define IsNotImm        1'b0
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special
@@ -61,6 +63,7 @@
 `define EXE_LBU         6'b100100
 `define EXE_LW          6'b100011
 `define EXE_SW          6'b101011
+`define EXE_SB          6'b101000
 
 
 // alu operation
@@ -93,10 +96,11 @@
 `define EXE_LBU_OP      5'd17
 `define EXE_LW_OP       5'd18
 `define EXE_SW_OP       5'd19
+`define EXE_SB_OP       5'd20
 
 //MMU
-`define MemOccupy       1'd1
-`define MemAddrStart    0x
+// `define MemOccupy       1'd1
+// `define MemAddrStart    0x
 
 // alu result selection
 `define EXE_RES_LOGIC   3'd1

@@ -116,12 +116,12 @@ end
 // assign base_ram_ce_n = `RAMDisable;
 // assign base_ram_oe_n = `RAMDisable;
 // assign base_ram_we_n = `RAMDisable;
-assign base_ram_be_n = `RAMEnable; // enable all bytes
+// assign base_ram_be_n = `RAMEnable; // enable all bytes
 
 // assign ext_ram_ce_n = `RAMDisable;
 // assign ext_ram_oe_n = `RAMDisable;
 // assign ext_ram_we_n = `RAMDisable;
-assign ext_ram_be_n = `RAMEnable;
+// assign ext_ram_be_n = `RAMEnable;
 
 // assign uart_rdn = `UARTDisable;
 // assign uart_wrn = `UARTDisable;
@@ -260,6 +260,7 @@ mmu mmu0(
     .base_ram_ce_n(base_ram_ce_n),
     .base_ram_oe_n(base_ram_oe_n),
     .base_ram_we_n(base_ram_we_n),
+    .base_ram_be_n(base_ram_be_n),
 
     // inout with BaseRAM
     .ext_ram_data(ext_ram_data),
@@ -268,6 +269,7 @@ mmu mmu0(
     .ext_ram_ce_n(ext_ram_ce_n),
     .ext_ram_oe_n(ext_ram_oe_n),
     .ext_ram_we_n(ext_ram_we_n),
+    .ext_ram_be_n(ext_ram_be_n),
 
     // to uart
     .uart_rdn(uart_rdn),
