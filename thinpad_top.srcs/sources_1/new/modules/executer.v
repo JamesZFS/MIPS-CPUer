@@ -126,6 +126,8 @@ always @ * begin    // perform loading
 
             `EXE_LUI_OP: load_res <= reg1_i; // imm || 0^16
 
+            `EXE_LB_OP: load_res <= `ZeroWord; // wdata should be determined at mem stage
+
             default: load_res <= `ZeroWord;
             
         endcase

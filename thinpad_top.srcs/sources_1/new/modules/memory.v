@@ -59,22 +59,22 @@ always @* begin
                 mem_ce_o <= `ChipEnable;
                 case (mem_addr_i[1:0])  // TODO endian!
                     2'b00: begin
-                        wdata_o <= {{24{mem_data_i[31]}},mem_data_i[31:24]};
+                        wdata_o <= {{24{mem_data_i[7]}},mem_data_i[7:0]};
                         mem_sel_o <= 4'b1000;
                     end
                     2'b01: begin
-                        wdata_o <= {{24{mem_data_i[23]}},mem_data_i[23:16]};
+                        wdata_o <= {{24{mem_data_i[15]}},mem_data_i[15:8]};
                         mem_sel_o <= 4'b0100;
                     end
                     2'b10: begin
-                        wdata_o <= {{24{mem_data_i[15]}},mem_data_i[15:8]};
+                        wdata_o <= {{24{mem_data_i[23]}},mem_data_i[23:16]};
                         mem_sel_o <= 4'b0010;
                     end
                     2'b11: begin
-                        wdata_o <= {{24{mem_data_i[7]}},mem_data_i[7:0]};
+                        wdata_o <= {{24{mem_data_i[31]}},mem_data_i[31:24]};
                         mem_sel_o <= 4'b0001;
                     end
-                endcase 
+                endcase
             end
             default:;
         endcase

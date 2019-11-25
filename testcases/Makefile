@@ -27,12 +27,19 @@ all: $(BINS)
 
 %.bin: %.elf
 	$(OBJCOPY) -j .text -O binary $^ $@
+	$(OBJDUMP) -d $^
 
 %.elf: %.o
 	$(LD) $(LDFLAGS) -Ttext 0x80000000 -o $@ $^
 
 %.o: %.s
 	$(CC) $(CFLAGS) -x assembler-with-cpp -g -c -o $@ $^
+
+%.s: %.cpp
+	$(CC) $(CFLAGS) -Og -S -o $@ $^
+
+%.dump: %.elf
+	$(OBJDUMP) -d $^
 
 clean:
 	rm -f *.o *.elf *.bin

@@ -83,10 +83,10 @@ always @(*) begin
     uart_rdn <= `UARTDisable;
     uart_wrn <= `UARTDisable;
 
-    if (mem_access_ext_ram == `ChipEnable) begin
+    if (mem_access_ext_ram) begin
         ext_ram_ce_n <= `RAMEnable;
         // read or write?
-        if (mem_we_i == `RAMDisable) begin // read ext ram
+        if (mem_we_i == `WriteDisable) begin // read ext ram
             ext_ram_we_n <= `RAMDisable;
             ext_ram_oe_n <= `RAMEnable;
             inner_ext_ram_data <= 32'bz;
@@ -97,11 +97,11 @@ always @(*) begin
             // TODO: WHEN TO DISABLE WE_N ?
         end
 
-    end else if (mem_access_base_ram == `ChipEnable) begin
+    end else if (mem_access_base_ram) begin
         // !!
         stallreq_o <= `StallEnable;
         base_ram_ce_n <= `RAMEnable;
-        if (mem_we_i == `RAMDisable) begin // read base ram
+        if (mem_we_i == `WriteDisable) begin // read base ram
             base_ram_we_n <= `RAMDisable;
             base_ram_oe_n <= `RAMEnable;
             inner_base_ram_data <= 32'bz;
@@ -112,10 +112,10 @@ always @(*) begin
             // TODO: WHEN TO DISABLE WE_N ?
         end
 
-    end else if (mem_access_uart_data == `ChipEnable) begin
+    end else if (mem_access_uart_data) begin
         // !!
         stallreq_o <= `StallEnable;
-        if (mem_we_i == `RAMDisable) begin // read uart
+        if (mem_we_i == `WriteDisable) begin // read uart
             uart_rdn <= `UARTEnable;
             uart_wrn <= `UARTDisable;
             inner_base_ram_data <= 32'bz;
@@ -126,7 +126,7 @@ always @(*) begin
             // TODO: WHEN TO DISABLE WE_N ?s
         end
 
-    end else if (mem_access_uart_stat == `ChipEnable) begin // returned in `assign` already
+    end else if (mem_access_uart_stat) begin // returned in `assign` already
         // ok
         uart_rdn <= `UARTDisable;
         uart_wrn <= `UARTDisable;
