@@ -123,8 +123,8 @@ assign base_ram_be_n = `RAMEnable; // enable all bytes
 // assign ext_ram_we_n = `RAMDisable;
 assign ext_ram_be_n = `RAMEnable;
 
-assign uart_rdn = `UARTDisable;
-assign uart_wrn = `UARTDisable;
+// assign uart_rdn = `UARTDisable;
+// assign uart_wrn = `UARTDisable;
 
 // 数码管连接关系示意图，dpy1同理
 // p=dpy0[0] // ---a---
@@ -138,9 +138,9 @@ assign uart_wrn = `UARTDisable;
 //           // ---d---  p
 
 // 7段数码管译码器演示，将number用16进制显示在数码管上面
-reg[7:0] number;
-SEG7_LUT segL(.oSEG1(dpy0), .iDIG(number[3:0])); //dpy0是低位数码管
-SEG7_LUT segH(.oSEG1(dpy1), .iDIG(number[7:4])); //dpy1是高位数码管
+reg[7:0] lcd_number;
+SEG7_LUT segL(.oSEG1(dpy0), .iDIG(lcd_number[3:0])); //dpy0是低位数码管
+SEG7_LUT segH(.oSEG1(dpy1), .iDIG(lcd_number[7:4])); //dpy1是高位数码管
 
 //直连串口接收发送演示，从直连串口收到的数据再发送出去
 wire [7:0] ext_uart_rx;
@@ -291,11 +291,11 @@ assign leds[4:0] = cur_stage;
 
 always@(posedge clock_btn or posedge reset_btn) begin
     if (reset_btn) begin //复位按下，设置LED和数码管为初始值
-        number <= 0;
+        lcd_number <= 0;
         cur_stage <= 5'b00001;
     end
     else begin //每次按下时钟按钮，数码管显示值加1，LED循环右移
-        number <= debug[7:0];
+        lcd_number <= debug[7:0];
         cur_stage <= {cur_stage[0], cur_stage[4:1]};
     end
 end
