@@ -50,10 +50,11 @@ module mmu(
 
 reg[31:0] inner_base_ram_data;
 reg[31:0] inner_ext_ram_data;
-wire mem_access_ext_ram = (mem_ce_i == `ChipEnable) && (mem_addr_i[23:0] >= 24'h400000); // if memory is accessing extram ?
 wire mem_access_base_ram = (mem_ce_i == `ChipEnable) && (mem_addr_i[23:0] < 24'h400000);  // if memory is accessing baseram ?
 wire mem_access_uart_data = (mem_ce_i == `ChipEnable) && (mem_addr_i == 32'hBFD003F8); // serial data
 wire mem_access_uart_stat = (mem_ce_i == `ChipEnable) && (mem_addr_i == 32'hBFD003FC); // serial stat
+wire mem_access_ext_ram = (mem_ce_i == `ChipEnable) && (mem_addr_i[23:0] >= 24'h400000) && mem_access_uart_data==1'b0 && mem_access_uart_stat==1'b0; // if memory is accessing extram ?
+
 
 assign base_ram_data = inner_base_ram_data;
 assign ext_ram_data = inner_ext_ram_data; 
@@ -141,6 +142,7 @@ always @(*) begin // ** handle bus conflicts here
         end
     end else if (mem_access_uart_stat) begin // returned in `assign` already
         // ok
+        stallreq_o <= `StallEnable;
         uart_rdn <= `UARTDisable;
         uart_wrn <= `UARTDisable;
         inner_base_ram_data <= 32'bz;

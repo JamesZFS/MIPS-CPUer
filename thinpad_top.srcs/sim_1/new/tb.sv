@@ -85,6 +85,7 @@ thinpad_top dut(
     .clk_50M(clk_50M),
     .clk_11M0592(clk_11M0592),
     .clock_btn(clock_btn),
+    // .clock_btn(clk_11M0592),
     .reset_btn(reset_btn),
     .touch_btn(touch_btn),
     .dip_sw(dip_sw),
@@ -126,8 +127,8 @@ clock osc(
 );
 // CPLD 串口仿真模型
 cpld_model cpld(
-    .clk_uart(clk_11M0592),
-    // .clk_uart(clk_btn),
+    // .clk_uart(clk_11M0592),
+    .clk_uart(clk_btn),
     .uart_rdn(uart_rdn),
     .uart_wrn(uart_wrn),
     .uart_dataready(uart_dataready),
