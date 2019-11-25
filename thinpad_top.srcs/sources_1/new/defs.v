@@ -57,8 +57,11 @@
 `define EXE_BNE  6'b000101
 
 //Load & Store instruction operations
-`define EXE_LB 6'b100000
-`define EXE_LBU 6'100100
+`define EXE_LB          6'b100000
+`define EXE_LBU         6'b100100
+`define EXE_LW          6'b100011
+`define EXE_SW          6'b101011
+
 
 // alu operation
 `define EXE_AND_OP      5'd1
@@ -87,7 +90,9 @@
 
 //Load & Store operations
 `define EXE_LB_OP       5'd16
-
+`define EXE_LBU_OP      5'd17
+`define EXE_LW_OP       5'd18
+`define EXE_SW_OP       5'd19
 
 //MMU
 `define MemOccupy       1'd1

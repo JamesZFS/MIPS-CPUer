@@ -123,8 +123,8 @@ assign base_ram_be_n = `RAMEnable; // enable all bytes
 // assign ext_ram_we_n = `RAMDisable;
 assign ext_ram_be_n = `RAMEnable;
 
-assign uart_rdn = `UARTDisable;
-assign uart_wrn = `UARTDisable;
+// assign uart_rdn = `UARTDisable;
+// assign uart_wrn = `UARTDisable;
 
 // 数码管连接关系示意图，dpy1同理
 // p=dpy0[0] // ---a---

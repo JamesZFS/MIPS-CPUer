@@ -65,7 +65,7 @@ wire ex_wreg_o;
 wire[`RegAddrBus] ex_wd_o;
 wire[`RegBus] ex_wdata_o;
 wire[`AluOpBus] aluop_o;
-wire[`RegBus] mem_addr_o;
+wire[`RegBus] mem_addr_o_exmem;
 wire[`RegBus] reg2_o;
 
 // ex --> ctrl
@@ -265,7 +265,7 @@ ex ex0(
     .wreg_o(ex_wreg_o),
     .wdata_o(ex_wdata_o),
     .aluop_o(aluop_o),
-    .mem_addr_o(mem_addr_o),
+    .mem_addr_o(mem_addr_o_exmem),
     .reg2_o(reg2_o),
 
     //from id/ex
@@ -287,7 +287,7 @@ ex_mem ex_mem0(
     .ex_wreg(ex_wreg_o),
     .ex_wdata(ex_wdata_o),
     .ex_aluop(aluop_o),
-    .ex_mem_addr(mem_addr_o),
+    .ex_mem_addr(mem_addr_o_exmem),
     .ex_reg2(reg2_o),
 
     // from ctrl
