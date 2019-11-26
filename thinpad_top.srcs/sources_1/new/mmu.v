@@ -61,7 +61,7 @@ assign ext_ram_data = inner_ext_ram_data;
 
 assign inst_o = if_ce_i == `ChipEnable ? base_ram_data : `ZeroWord;
 
-assign data_o = mem_access_uart_stat ? {32{ uart_dataready,uart_tsre }} :
+assign data_o = mem_access_uart_stat ? {uart_dataready,uart_tsre} :
                 mem_access_uart_data ? {32{ base_ram_data[7:0] }} :
                 mem_access_ext_ram ? ext_ram_data :
                 // mem_access_uart_stat ? {32{ uart_dataready, uart_tsre }} :
