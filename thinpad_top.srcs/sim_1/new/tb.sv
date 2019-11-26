@@ -77,6 +77,7 @@ end
 initial begin
     reset_btn = `RstEnable;
     #45 reset_btn= `RstDisable;
+    #50 cpld.pc_send_byte(8'h34);
     #700 $stop;
 end
 
@@ -127,8 +128,8 @@ clock osc(
 );
 // CPLD 串口仿真模型
 cpld_model cpld(
-    // .clk_uart(clk_11M0592),
-    .clk_uart(clk_btn),
+    .clk_uart(clk_11M0592),
+    // .clk_uart(clk_btn),
     .uart_rdn(uart_rdn),
     .uart_wrn(uart_wrn),
     .uart_dataready(uart_dataready),
