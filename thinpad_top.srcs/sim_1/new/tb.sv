@@ -47,7 +47,7 @@ wire uart_tsre;          //数据发送完毕标志
 
 //Windows需要注意路径分隔符的转义，例如"D:\\foo\\bar.bin"
 // TODO: change absolute path!
-parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/uart_test.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/debug.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
 parameter EXT_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/extdata.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
 parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
 
@@ -77,8 +77,7 @@ end
 initial begin
     reset_btn = `RstEnable;
     #45 reset_btn= `RstDisable;
-    #50 cpld.pc_send_byte(8'h34);
-    #700 $stop;
+    #500 $stop;
 end
 
 // 待测试用户设计
@@ -210,7 +209,7 @@ initial begin
     end
     $display("BaseRAM Init Size(words): %d",n_Init_Size);
     for (integer i = 0; i < n_Init_Size; i++) begin
-        $display("inst<< %h", tmp_array[i]);
+        // $display("inst<< %h", tmp_array[i]);
         base1.mem_array0[i] = tmp_array[i][24+:8];
         base1.mem_array1[i] = tmp_array[i][16+:8];
         base2.mem_array0[i] = tmp_array[i][8+:8];

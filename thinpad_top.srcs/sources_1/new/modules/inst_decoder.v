@@ -280,7 +280,7 @@ always @ (*) begin
                 reg1_read_o <= `ReadEnable;
                 reg2_read_o <= `ReadDisable;
                 reg2_is_imm <=`IsImm;
-                imm <= {16'h0, inst_i[15:0]};
+                imm <= {{16{inst_i[15]}}, inst_i[15:0]}; // * caution: ADDIU applies signed extending!
                 wreg_o <= `WriteEnable;
                 wd_o <= inst_i[20:16];
                 instvalid <= `InstValid;
