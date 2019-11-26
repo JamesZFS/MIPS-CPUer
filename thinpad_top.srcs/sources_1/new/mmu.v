@@ -64,7 +64,6 @@ assign inst_o = if_ce_i == `ChipEnable ? base_ram_data : `ZeroWord;
 assign data_o = mem_access_uart_stat ? {uart_dataready,uart_tsre} :
                 mem_access_uart_data ? {32{ base_ram_data[7:0] }} :
                 mem_access_ext_ram ? ext_ram_data :
-                // mem_access_uart_stat ? {32{ uart_dataready, uart_tsre }} :
                 mem_access_base_ram ? base_ram_data : `ZeroWord;  // if disable
 
 
@@ -72,7 +71,7 @@ assign ext_ram_addr = mem_addr_i[21:2]; // minus 0x80400000 then div 4
 
 assign base_ram_addr = mem_access_base_ram ? 
                        mem_addr_i[21:2] :  // minus 0x80000000 then div 4
-                       if_addr_i[19:2];
+                       if_addr_i[21:2];  // pc access baseram
 
 always @(*) begin // handle ext ram alone
 
@@ -92,11 +91,10 @@ always @(*) begin // handle ext ram alone
         end else begin // write ext ram
             // ext_ram_we_n <= `RAMEnable;
             ext_ram_be_n <= mem_sel_i;
-            ext_ram_we_n <= clk;
+            ext_ram_we_n <= clk;   // * write concurrently with clk
             ext_ram_oe_n <= `RAMDisable;
             inner_ext_ram_data <= mem_data_i;
-            // TODO: WHEN TO DISABLE WE_N ? SAME AS CLK
-        end    
+        end
     end
 end
 
@@ -122,7 +120,7 @@ always @(*) begin // ** handle bus conflicts here
         end else begin  // write base ram
             // base_ram_we_n <= `RAMEnable;
             base_ram_be_n <= mem_sel_i;
-            base_ram_we_n <= clk;
+            base_ram_we_n <= clk;   // * write concurrently with clk
             base_ram_oe_n <= `RAMDisable;
             inner_base_ram_data <= mem_data_i;
         end
@@ -130,22 +128,15 @@ always @(*) begin // ** handle bus conflicts here
         // !!
         stallreq_o <= `StallEnable;
         if (mem_we_i == `WriteDisable) begin // read uart
-            uart_rdn <= clk;
+            uart_rdn <= clk;  // * read concurrently with clk
             uart_wrn <= `UARTDisable;
             inner_base_ram_data <= 32'bz;
-            /// WHEM READ STALL **ALL** UNTIL 
         end else begin
             uart_rdn <= `UARTDisable;
-            uart_wrn <= clk;
+            uart_wrn <= clk;  // * write concurrently with clk
             inner_base_ram_data <= mem_data_i;
-            // TODO: WHEN TO DISABLE WE_N ?s
         end
-    end else if (mem_access_uart_stat) begin // returned in `assign` already
-        // ok
-        stallreq_o <= `StallEnable;
-        uart_rdn <= `UARTDisable;
-        uart_wrn <= `UARTDisable;
-        inner_base_ram_data <= 32'bz;
+        // uart stat already returned, no need to stall
     end else if (if_ce_i == `ChipEnable) begin // read pc inst
         // ok
         base_ram_ce_n <= `RAMEnable;
