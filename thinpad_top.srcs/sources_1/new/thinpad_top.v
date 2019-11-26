@@ -202,7 +202,7 @@ wire            mem_ce_o;
 wire[3:0]       mem_sel_o;
 
 mips mips0(
-    .clk(clock_btn),
+    .clk(clk_10M),
     .rst(reset_btn),
     // from mmu
     .mmu_mem_data_i(mem_data),
@@ -224,7 +224,7 @@ mips mips0(
 );
 
 mmu mmu0(
-    .clk(clock_btn),
+    .clk(clk_10M),
     .if_ce_i(inst_ram_ce),
     .if_addr_i(inst_addr),
 

@@ -73,6 +73,8 @@ wire[`RegBus] ex_wdata_o;
 wire[`AluOpBus] aluop_o;
 wire[`RegBus] ex_mem_addr_o;
 wire[`RegBus] reg2_o;
+// ex --> id (resolve conflict)
+wire ex_is_load_o;
 
 // ex --> ctrl
 wire ex_stallreq_o;
@@ -166,6 +168,7 @@ id id0(
     .ex_wreg_i(ex_wreg_o),
     .ex_wd_i(ex_wd_o),
     .ex_wdata_i(ex_wdata_o),
+    .ex_is_load_i(ex_is_load_o), // special conflict 1
 
     // signals to regfile
     .reg1_read_o(reg1_read),
@@ -283,6 +286,7 @@ ex ex0(
     .aluop_o(aluop_o),
     .mem_addr_o(ex_mem_addr_o),
     .reg2_o(reg2_o),
+    .is_load_o(ex_is_load_o), // special conflict 1
 
     //from id/ex
     .link_address_i(ex_link_address_i),

@@ -18,9 +18,10 @@ module id(
     input wire                  ex_wreg_i,
     input wire[`RegAddrBus]     ex_wd_i,
     input wire[`RegBus]         ex_wdata_i,
+    input wire                  ex_is_load_i, // special conflict 1
+
      //from id_ex
     input wire                  is_in_delayslot_i,
-
 
 	// to regfile
 	output reg                  reg1_read_o,
@@ -66,8 +67,6 @@ wire[`RegBus]   pc_plus_4;
 wire[`RegBus]   imm_sll2_signedext;
 reg[`RegBus]	imm;
 reg instvalid;
-
-
 
 assign pc_plus_8 = pc_i + 8;
 assign pc_plus_4 = pc_i + 4;
@@ -303,8 +302,8 @@ always @ (*) begin
 		  		wreg_o <= `WriteDisable;
                 aluop_o <= `EXE_J_OP;
 		  		alusel_o <= `EXE_RES_JUMP_BRANCH;
-                reg1_read_o <= 1'b0;
-                reg2_read_o <= 1'b0;
+                reg1_read_o <= `ReadDisable;
+                reg2_read_o <= `ReadDisable;
 		  		link_addr_o <= `ZeroWord;
 			    branch_flag_o <= `Branch;
 			    next_inst_in_delayslot_o <= `InDelaySlot;		  	
@@ -316,8 +315,8 @@ always @ (*) begin
 		  		wreg_o <= `WriteEnable;
                 aluop_o <= `EXE_JAL_OP;
 		  		alusel_o <= `EXE_RES_JUMP_BRANCH;
-                reg1_read_o <= 1'b0;
-                reg2_read_o <= 1'b0;
+                reg1_read_o <= `ReadDisable;
+                reg2_read_o <= `ReadDisable;
 		  		wd_o <= 5'b11111;	
 		  		link_addr_o <= pc_plus_8 ;
                 branch_flag_o <= `Branch;
@@ -330,8 +329,8 @@ always @ (*) begin
 		  		wreg_o <= `WriteDisable;
                 aluop_o <= `EXE_BEQ_OP;
 		  		alusel_o <= `EXE_RES_JUMP_BRANCH;
-                reg1_read_o <= 1'b1;
-                reg2_read_o <= 1'b1;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadEnable;
 		  		instvalid <= `InstValid;	
 		  		if(reg1_o == reg2_o) begin
 			    	branch_target_address_o <= pc_plus_4 + imm_sll2_signedext;
@@ -344,8 +343,8 @@ always @ (*) begin
 		  		wreg_o <= `WriteDisable;
                 aluop_o <= `EXE_BGTZ_OP;
 		  		alusel_o <= `EXE_RES_JUMP_BRANCH;
-                reg1_read_o <= 1'b1;
-                reg2_read_o <= 1'b0;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadDisable;
 		  		instvalid <= `InstValid;	
 		  		if((reg1_o[31] == 1'b0) && (reg1_o != `ZeroWord)) begin
 			    	branch_target_address_o <= pc_plus_4 + imm_sll2_signedext;
@@ -358,8 +357,8 @@ always @ (*) begin
 		  		wreg_o <= `WriteDisable;
                 aluop_o <= `EXE_BNE_OP;
 		  		alusel_o <= `EXE_RES_JUMP_BRANCH;
-                reg1_read_o <= 1'b1;
-                reg2_read_o <= 1'b1;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadEnable;
 		  		instvalid <= `InstValid;	
 		  		if(reg1_o != reg2_o) begin
 			    	branch_target_address_o <= pc_plus_4 + imm_sll2_signedext;
@@ -429,17 +428,22 @@ end         // always
 // from regfile, to id-ex
 always @ (*) begin
 
-    if(rst == `RstEnable) begin
+    stallreq_o <= `StallDisable;
+
+    // reg1
+    if (rst == `RstEnable) begin
         reg1_o <= `ZeroWord;
     end else if (reg1_read_o == `ReadEnable) begin
 
-        if (ex_wreg_i == `WriteEnable && reg1_addr_o == ex_wd_i) begin // ** conflict type 1 (PRIOR to type 2)
+        // ** critical conflict type 1, needs a pause to recover
+        if (ex_is_load_i && (aluop_o == `EXE_JR_OP || aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BGTZ_OP || aluop_o == `EXE_BNE_OP) && reg1_addr_o == ex_wd_i)
+            stallreq_o <= `StallEnable;
+        else if (ex_wreg_i == `WriteEnable && reg1_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
             reg1_o <= ex_wdata_i;
-        end else if (mem_wreg_i == `WriteEnable && reg1_addr_o == mem_wd_i) begin // ** conflict type 2
+        else if (mem_wreg_i == `WriteEnable && reg1_addr_o == mem_wd_i) // ** conflict type 2
             reg1_o <= mem_wdata_i;
-        end else begin
+        else
             reg1_o <= reg1_data_i;
-        end
 
     end else if (reg1_read_o == `ReadDisable) begin
         reg1_o <= imm;
@@ -447,21 +451,20 @@ always @ (*) begin
         reg1_o <= `ZeroWord;
     end
 
-end
-
-always @ (*) begin
-
-    if(rst == `RstEnable) begin
+    // reg2
+    if (rst == `RstEnable) begin
         reg2_o <= `ZeroWord;
     end else if (reg2_read_o == `ReadEnable) begin
 
-        if (ex_wreg_i == `WriteEnable && reg2_addr_o == ex_wd_i) begin // ** conflict type 1 (PRIOR to type 2)
+        // ** critical conflict type 1, needs a pause to recover
+        if (ex_is_load_i && (aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BNE_OP) && reg2_addr_o == ex_wd_i)
+            stallreq_o <= `StallEnable;
+        if (ex_wreg_i == `WriteEnable && reg2_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
             reg2_o <= ex_wdata_i;
-        end else if (mem_wreg_i == `WriteEnable && reg2_addr_o == mem_wd_i) begin // ** conflict type 2
+        else if (mem_wreg_i == `WriteEnable && reg2_addr_o == mem_wd_i) // ** conflict type 2
             reg2_o <= mem_wdata_i;
-        end else begin
+        else
             reg2_o <= reg2_data_i;
-        end
 
     end else if (reg2_read_o == `ReadDisable) begin
         reg2_o <= imm;
@@ -471,12 +474,6 @@ always @ (*) begin
 
 end
 
-always @* begin
-    if (rst == `RstEnable)
-        stallreq_o <= `StallDisable;
-    else
-        stallreq_o <= `StallDisable;
-end
 
 always @ (*) begin
 		if(rst == `RstEnable) begin

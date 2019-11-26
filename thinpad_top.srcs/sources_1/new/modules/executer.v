@@ -25,6 +25,7 @@ module ex(
     output reg                    wreg_o,
     output reg[`RegAddrBus]       wd_o,
     output reg[`RegBus]           wdata_o,
+    output wire                   is_load_o,  // back to id
 
     output wire[`AluOpBus]        aluop_o,
     output wire[`RegBus]          mem_addr_o,
@@ -50,6 +51,8 @@ wire[31:0]       reg2 = (mem_is_load_i==1'b1 && (mem_wd_i == reg2_addr_i) && reg
 assign aluop_o = aluop_i;
 assign mem_addr_o = reg1 + {{16{inst_i[15]}},inst_i[15:0]};
 assign reg2_o = reg2;
+
+assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP; // ** a very critical kind of conflict 1, needs an urgent stall
 
 wire[`RegBus]   sum_res = reg1 + reg2;
 
@@ -137,7 +140,7 @@ always @ * begin    // perform loading
 
             `EXE_LUI_OP: load_res <= reg1; // imm || 0^16
 
-            `EXE_LB_OP: load_res <= `ZeroWord; // wdata should be determined at mem stage
+            `EXE_LB_OP, `EXE_LBU_OP, `EXE_LW_OP: load_res <= `ZeroWord; // wdata should be determined at mem stage
 
             default: load_res <= `ZeroWord;
             

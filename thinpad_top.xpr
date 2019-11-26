@@ -31,7 +31,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="16"/>
-    <Option Name="WTXSimLaunchSim" Val="700"/>
+    <Option Name="WTXSimLaunchSim" Val="721"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -312,7 +312,7 @@
         <Option Name="XSimWcfgFile" Val="$PPRDIR/sim-waves/ori.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/sim-waves/arith.wcfg"/>
         <Option Name="XSimWcfgFile" Val="$PPRDIR/sim-waves/inst-sram.wcfg"/>
-        <Option Name="xsim.simulate.runtime" Val="10us"/>
+        <Option Name="xsim.simulate.runtime" Val="50us"/>
         <Option Name="NLNetlistMode" Val="funcsim"/>
       </Config>
     </FileSet>
