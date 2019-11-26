@@ -138,7 +138,7 @@ end
 //           // ---d---  p
 
 // 7段数码管译码器演示，将number用16进制显示在数码管上面
-reg[7:0] lcd_number;
+reg[7:0] lcd_number = 0;
 SEG7_LUT segL(.oSEG1(dpy0), .iDIG(lcd_number[3:0])); //dpy0是低位数码管
 SEG7_LUT segH(.oSEG1(dpy1), .iDIG(lcd_number[7:4])); //dpy1是高位数码管
 
@@ -185,6 +185,8 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 
 /* =========== Demo code end =========== */
 
+// `define SIMULATION
+
 /* ============== Mips32 Pipeline code begin ============== */
 
 wire[`InstAddrBus]  inst_addr; // mips to ram
@@ -202,7 +204,11 @@ wire            mem_ce_o;
 wire[3:0]       mem_sel_o;
 
 mips mips0(
+`ifdef SIMULATION
+    .clk(clock_btn),
+`else
     .clk(clk_10M),
+`endif
     .rst(reset_btn),
     // from mmu
     .mmu_mem_data_i(mem_data),
@@ -224,7 +230,11 @@ mips mips0(
 );
 
 mmu mmu0(
+`ifdef SIMULATION
+    .clk(clock_btn),
+`else
     .clk(clk_10M),
+`endif
     .if_ce_i(inst_ram_ce),
     .if_addr_i(inst_addr),
 
@@ -272,21 +282,24 @@ mmu mmu0(
 /* ============== Mips32 Pipeline code end   ============== */
 
 // ***** debug display *****
+`ifndef SIMULATION
 
-reg[4:0] cur_stage; // five stages mips pipeline
-assign leds[15:5] = 0;
-assign leds[4:0] = cur_stage;
+reg[15:0] cur_stage = 1;
+assign leds = cur_stage;
+reg  cur_stop = 0;
 
-always@(posedge clock_btn or posedge reset_btn) begin
-    if (reset_btn) begin //复位按下，设置LED和数码管为初始值
-        lcd_number <= 0;
-        cur_stage <= 5'b00001;
-    end
-    else begin //每次按下时钟按钮，数码管显示值加1，LED循环右移
+always @(posedge clock_btn) begin
+    cur_stop <= !cur_stop;
+end
+
+always@(posedge clk_10M) begin
+    if (!cur_stop) begin
         lcd_number <= debug[7:0];
-        cur_stage <= {cur_stage[0], cur_stage[4:1]};
+        cur_stage <= {cur_stage[0], cur_stage[14:1]};
     end
 end
+
+`endif
 
 // ***** DVI display *****
 

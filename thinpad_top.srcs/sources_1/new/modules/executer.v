@@ -42,8 +42,8 @@ reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
 
 // ** a variant of conflict type 1
-wire[31:0]       reg1 = (mem_is_load_i==1'b1 && (mem_wd_i == reg1_addr_i) && reg1_is_imm==`IsNotImm) ? mem_wdata_i : reg1_i;
-wire[31:0]       reg2 = (mem_is_load_i==1'b1 && (mem_wd_i == reg2_addr_i) && reg2_is_imm==`IsNotImm) ? mem_wdata_i : reg2_i;
+wire[31:0]       reg1 = (mem_is_load_i && (mem_wd_i == reg1_addr_i) && reg1_is_imm==`IsNotImm) ? mem_wdata_i : reg1_i;
+wire[31:0]       reg2 = (mem_is_load_i && (mem_wd_i == reg2_addr_i) && reg2_is_imm==`IsNotImm) ? mem_wdata_i : reg2_i;
 // wire[31:0]          reg1 = reg1_i;
 // wire[31:0]          reg2 = reg2_i;
 

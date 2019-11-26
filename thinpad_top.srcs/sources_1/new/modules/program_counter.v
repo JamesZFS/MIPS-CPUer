@@ -24,9 +24,9 @@ end
 always @ (posedge clk) begin
     if (ce == `ChipDisable)
         pc <= `InstAddrLog2'b0;
-    else if (branch_flag_i == `Branch)begin 
+    else if (branch_flag_i == `Branch && stall[2] == `StallDisable) begin 
         pc <= branch_target_address_i;
-    end else if (stall[0] == `StallDisable)begin
+    end else if (stall[0] == `StallDisable) begin
         pc <= pc + 4;
     end else if (stall[0]==`StallEnable) begin
         pc <= pc;

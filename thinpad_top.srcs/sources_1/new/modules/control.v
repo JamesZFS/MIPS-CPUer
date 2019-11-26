@@ -15,12 +15,15 @@ always @* begin
         stall_o <= 6'b000000; // 0 means continue, 1 means stall enable
     end else begin
         if (ex_stallreq_i == `StallEnable)
+            // stall_o <= stall_o | 6'b111100;
             stall_o <= 6'b111100;
         else if (id_stallreq_i == `StallEnable)
+            // stall_o <= stall_o | 6'b111000;
             stall_o <= 6'b111000;
         else if (mmu_stallreq_i == `StallEnable)
+            // stall_o <= stall_o | 6'b110000;
             stall_o <= 6'b110000;
-        else // no stalling request:
+        else // cancel stalling request:
             stall_o <= 6'b000000;
     end
 

@@ -69,6 +69,6 @@ always @ (*) begin
     end
 end
 
-assign debug_o = regs[1];  // display the 1st reg
+assign debug_o = regs[8];  // display the $t0 reg
 
 endmodule  // regfile
