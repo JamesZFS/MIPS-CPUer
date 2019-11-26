@@ -116,14 +116,15 @@ end
 // assign base_ram_ce_n = `RAMDisable;
 // assign base_ram_oe_n = `RAMDisable;
 // assign base_ram_we_n = `RAMDisable;
-assign base_ram_be_n = `RAMEnable; // enable all bytes
+// assign base_ram_be_n = `RAMEnable; // enable all bytes
 
-assign ext_ram_ce_n = `RAMDisable;
-assign ext_ram_oe_n = `RAMDisable;
-assign ext_ram_we_n = `RAMDisable;
+// assign ext_ram_ce_n = `RAMDisable;
+// assign ext_ram_oe_n = `RAMDisable;
+// assign ext_ram_we_n = `RAMDisable;
+// assign ext_ram_be_n = `RAMEnable;
 
-assign uart_rdn = `UARTDisable;
-assign uart_wrn = `UARTDisable;
+// assign uart_rdn = `UARTDisable;
+// assign uart_wrn = `UARTDisable;
 
 // 数码管连接关系示意图，dpy1同理
 // p=dpy0[0] // ---a---
@@ -137,9 +138,9 @@ assign uart_wrn = `UARTDisable;
 //           // ---d---  p
 
 // 7段数码管译码器演示，将number用16进制显示在数码管上面
-reg[7:0] number;
-SEG7_LUT segL(.oSEG1(dpy0), .iDIG(number[3:0])); //dpy0是低位数码管
-SEG7_LUT segH(.oSEG1(dpy1), .iDIG(number[7:4])); //dpy1是高位数码管
+reg[7:0] lcd_number;
+SEG7_LUT segL(.oSEG1(dpy0), .iDIG(lcd_number[3:0])); //dpy0是低位数码管
+SEG7_LUT segH(.oSEG1(dpy1), .iDIG(lcd_number[7:4])); //dpy1是高位数码管
 
 //直连串口接收发送演示，从直连串口收到的数据再发送出去
 wire [7:0] ext_uart_rx;
@@ -187,24 +188,56 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 /* ============== Mips32 Pipeline code begin ============== */
 
 wire[`InstAddrBus]  inst_addr; // mips to ram
-wire                rom_ce;    // mips to ram
-wire[`InstBus]      inst;    // ram to mips
+wire                inst_ram_ce;  // mips to ram
+wire[31:0]          mem_data;    // ram to mem
+wire[31:0]          inst;        // ram to if-id
 wire[`RegBus]       debug;   // ** debug signal
+wire                mmu_stallreq;
+
+//mips.mem->mmu
+wire[`RegBus]   mem_addr_o;
+wire            mem_we_o;
+wire[`RegBus]   mem_data_o;
+wire            mem_ce_o;
+wire[3:0]       mem_sel_o;
 
 mips mips0(
-    .clk(clock_btn),
+    .clk(clk_10M),
     .rst(reset_btn),
+    // from mmu
+    .mmu_mem_data_i(mem_data),
     .ram_inst_i(inst),
+    .mmu_stallreq_i(mmu_stallreq),
+
+    // to mmu
     .ram_addr_o(inst_addr),
-    .ram_ce_o(rom_ce),
+    .ram_ce_o(inst_ram_ce),
+
+    //from mips.mem to mmu
+    .mem_addr_o(mem_addr_o),
+    .mem_we_o(mem_we_o),
+    .mem_data_o(mem_data_o),
+    .mem_ce_o(mem_ce_o),
+    .mem_sel_o(mem_sel_o),
+
     .debug_o(debug)
 );
 
-inst_ram inst_ram0(
-    // .clk(clock_btn),
-    .ce(rom_ce),
-    .addr(inst_addr),
-    .inst(inst),
+mmu mmu0(
+    .clk(clk_10M),
+    .if_ce_i(inst_ram_ce),
+    .if_addr_i(inst_addr),
+
+    // input from mips.mem
+    .mem_addr_i(mem_addr_o),
+    .mem_we_i(mem_we_o),
+    .mem_data_i(mem_data_o),
+    .mem_ce_i(mem_ce_o),
+    .mem_sel_i(mem_sel_o),
+
+    // to mips
+    .data_o(mem_data),
+    .inst_o(inst),
 
     // inout with BaseRAM
     .base_ram_data(base_ram_data),
@@ -212,7 +245,28 @@ inst_ram inst_ram0(
     .base_ram_addr(base_ram_addr),
     .base_ram_ce_n(base_ram_ce_n),
     .base_ram_oe_n(base_ram_oe_n),
-    .base_ram_we_n(base_ram_we_n)
+    .base_ram_we_n(base_ram_we_n),
+    .base_ram_be_n(base_ram_be_n),
+
+    // inout with BaseRAM
+    .ext_ram_data(ext_ram_data),
+    // output to BaseRAM
+    .ext_ram_addr(ext_ram_addr),
+    .ext_ram_ce_n(ext_ram_ce_n),
+    .ext_ram_oe_n(ext_ram_oe_n),
+    .ext_ram_we_n(ext_ram_we_n),
+    .ext_ram_be_n(ext_ram_be_n),
+
+    // to uart
+    .uart_rdn(uart_rdn),
+    .uart_wrn(uart_wrn),
+
+    // form uart
+    .uart_dataready(uart_dataready),
+    .uart_tsre(uart_tsre),
+
+    // to control
+    .stallreq_o(mmu_stallreq)
 );
 
 /* ============== Mips32 Pipeline code end   ============== */
@@ -225,11 +279,11 @@ assign leds[4:0] = cur_stage;
 
 always@(posedge clock_btn or posedge reset_btn) begin
     if (reset_btn) begin //复位按下，设置LED和数码管为初始值
-        number <= 0;
+        lcd_number <= 0;
         cur_stage <= 5'b00001;
     end
     else begin //每次按下时钟按钮，数码管显示值加1，LED循环右移
-        number <= debug[7:0];
+        lcd_number <= debug[7:0];
         cur_stage <= {cur_stage[0], cur_stage[4:1]};
     end
 end

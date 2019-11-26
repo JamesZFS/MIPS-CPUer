@@ -47,8 +47,8 @@ wire uart_tsre;          //数据发送完毕标志
 
 //Windows需要注意路径分隔符的转义，例如"D:\\foo\\bar.bin"
 // TODO: change absolute path!
-parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/datagen/a.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
-parameter EXT_RAM_INIT_FILE = "/tmp/eram.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
+parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/uart_test.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+parameter EXT_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/extdata.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
 parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
 
 assign rxd = 1'b1; //idle state
@@ -77,7 +77,8 @@ end
 initial begin
     reset_btn = `RstEnable;
     #45 reset_btn= `RstDisable;
-    #600 $stop;
+    #50 cpld.pc_send_byte(8'h34);
+    #700 $stop;
 end
 
 // 待测试用户设计
@@ -85,6 +86,7 @@ thinpad_top dut(
     .clk_50M(clk_50M),
     .clk_11M0592(clk_11M0592),
     .clock_btn(clock_btn),
+    // .clock_btn(clk_11M0592),
     .reset_btn(reset_btn),
     .touch_btn(touch_btn),
     .dip_sw(dip_sw),
@@ -127,6 +129,7 @@ clock osc(
 // CPLD 串口仿真模型
 cpld_model cpld(
     .clk_uart(clk_11M0592),
+    // .clk_uart(clk_btn),
     .uart_rdn(uart_rdn),
     .uart_wrn(uart_wrn),
     .uart_dataready(uart_dataready),
@@ -168,21 +171,21 @@ sram_model ext2(/*autoinst*/
             .WE_n(ext_ram_we_n),
             .LB_n(ext_ram_be_n[2]),
             .UB_n(ext_ram_be_n[3]));
-// Flash 仿真模型
-x28fxxxp30 #(.FILENAME_MEM(FLASH_INIT_FILE)) flash(
-    .A(flash_a[1+:22]), 
-    .DQ(flash_d), 
-    .W_N(flash_we_n),    // Write Enable 
-    .G_N(flash_oe_n),    // Output Enable
-    .E_N(flash_ce_n),    // Chip Enable
-    .L_N(1'b0),    // Latch Enable
-    .K(1'b0),      // Clock
-    .WP_N(flash_vpen),   // Write Protect
-    .RP_N(flash_rp_n),   // Reset/Power-Down
-    .VDD('d3300), 
-    .VDDQ('d3300), 
-    .VPP('d1800), 
-    .Info(1'b1));
+// // Flash 仿真模型
+// x28fxxxp30 #(.FILENAME_MEM(FLASH_INIT_FILE)) flash(
+//     .A(flash_a[1+:22]), 
+//     .DQ(flash_d), 
+//     .W_N(flash_we_n),    // Write Enable 
+//     .G_N(flash_oe_n),    // Output Enable
+//     .E_N(flash_ce_n),    // Chip Enable
+//     .L_N(1'b0),    // Latch Enable
+//     .K(1'b0),      // Clock
+//     .WP_N(flash_vpen),   // Write Protect
+//     .RP_N(flash_rp_n),   // Reset/Power-Down
+//     .VDD('d3300), 
+//     .VDDQ('d3300), 
+//     .VPP('d1800), 
+//     .Info(1'b1));
 
 /*
 initial begin 
@@ -216,7 +219,7 @@ initial begin
 end
 
 // 从文件加载 ExtRAM
-/*initial begin 
+initial begin 
     reg [31:0] tmp_array[0:1048575];
     integer n_File_ID, n_Init_Size;
     n_File_ID = $fopen(EXT_RAM_INIT_FILE, "rb");
@@ -236,6 +239,6 @@ end
         ext2.mem_array1[i] = tmp_array[i][0+:8];
     end
 end
-*/
+
 
 endmodule

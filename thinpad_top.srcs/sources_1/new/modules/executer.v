@@ -4,17 +4,31 @@ module ex(
     // signals from id
     input wire[`AluOpBus]         aluop_i,
     input wire[`AluSelBus]        alusel_i,
+    input wire[`RegAddrBus]       reg1_addr_i,
+	input wire[`RegAddrBus]       reg2_addr_i, 
     input wire[`RegBus]           reg1_i,
     input wire[`RegBus]           reg2_i,
     input wire[`RegAddrBus]       wd_i,
     input wire[`RegBus]           link_address_i,
     input wire                    is_in_delayslot_i,
     input wire                    wreg_i,
+    input wire[`RegBus]           inst_i,
+    input wire                    reg1_is_imm,
+    input wire                    reg2_is_imm,
+
+    // from mem  ** a variant of conflict type 1
+    input wire                    mem_is_load_i, // only handle load type conflict
+    input wire[`RegAddrBus]       mem_wd_i,  // which reg may be conflicting?
+    input wire[`RegBus]           mem_wdata_i,
     
     // propagate result to mem (and forward to id)
     output reg                    wreg_o,
     output reg[`RegAddrBus]       wd_o,
     output reg[`RegBus]           wdata_o,
+
+    output wire[`AluOpBus]        aluop_o,
+    output wire[`RegBus]          mem_addr_o,
+    output wire[`RegBus]          reg2_o,
 
     // to ctrl
     output reg                    stallreq_o
@@ -26,8 +40,18 @@ reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
 
-wire[`RegBus]   sum_res = reg1_i + reg2_i;
-// assign          sum_res = reg1_i + reg2_i;
+// ** a variant of conflict type 1
+wire[31:0]       reg1 = (mem_is_load_i==1'b1 && (mem_wd_i == reg1_addr_i) && reg1_is_imm==`IsNotImm) ? mem_wdata_i : reg1_i;
+wire[31:0]       reg2 = (mem_is_load_i==1'b1 && (mem_wd_i == reg2_addr_i) && reg2_is_imm==`IsNotImm) ? mem_wdata_i : reg2_i;
+// wire[31:0]          reg1 = reg1_i;
+// wire[31:0]          reg2 = reg2_i;
+
+
+assign aluop_o = aluop_i;
+assign mem_addr_o = reg1 + {{16{inst_i[15]}},inst_i[15:0]};
+assign reg2_o = reg2;
+
+wire[`RegBus]   sum_res = reg1 + reg2;
 
 always @ * begin    // perform logical computation
     if (rst == `RstEnable) begin
@@ -35,11 +59,11 @@ always @ * begin    // perform logical computation
     end else begin
         case (aluop_i)      // ** case various alu operations **
 
-            `EXE_OR_OP: logic_res <= reg1_i | reg2_i;
+            `EXE_OR_OP: logic_res <= reg1 | reg2;
 
-            `EXE_AND_OP: logic_res <= reg1_i & reg2_i;
+            `EXE_AND_OP: logic_res <= reg1 & reg2;
             
-            `EXE_XOR_OP: logic_res <= reg1_i ^ reg2_i;
+            `EXE_XOR_OP: logic_res <= reg1 ^ reg2;
 
             default: logic_res <= `ZeroWord;
             
@@ -53,9 +77,9 @@ always @ * begin    // perform shift computation
     end else begin
         case (aluop_i)      // ** case various alu operations **
 
-            `EXE_SLL_OP: shift_res <= reg1_i << reg2_i[4:0]; // shift less than 32 bits
+            `EXE_SLL_OP: shift_res <= reg1 << reg2[4:0]; // shift less than 32 bits
 
-            `EXE_SRL_OP: shift_res <= reg1_i >> reg2_i[4:0];
+            `EXE_SRL_OP: shift_res <= reg1 >> reg2[4:0];
 
             default: shift_res <= `ZeroWord;
             
@@ -74,18 +98,17 @@ always @ * begin    // perform arithmetic computation
 
             `EXE_CLZ_OP:  // count leading zeros in reg_1
                 arith_res <= 
-                    reg1_i[31]? 0  : reg1_i[30]? 1  : reg1_i[29]? 2  :
-                    reg1_i[28]? 3  : reg1_i[27]? 4  : reg1_i[26]? 5  :
-                    reg1_i[25]? 6  : reg1_i[24]? 7  : reg1_i[23]? 8  : 
-                    reg1_i[22]? 9  : reg1_i[21]? 10 : reg1_i[20]? 11 :
-                    reg1_i[19]? 12 : reg1_i[18]? 13 : reg1_i[17]? 14 : 
-                    reg1_i[16]? 15 : reg1_i[15]? 16 : reg1_i[14]? 17 : 
-                    reg1_i[13]? 18 : reg1_i[12]? 19 : reg1_i[11]? 20 :
-                    reg1_i[10]? 21 : reg1_i[9]?  22 : reg1_i[8]?  23 : 
-                    reg1_i[7]?  24 : reg1_i[6]?  25 : reg1_i[5]?  26 : 
-                    reg1_i[4]?  27 : reg1_i[3]?  28 : reg1_i[2]?  29 : 
-                    reg1_i[1]?  30 : reg1_i[0]?  31 : 32;
-
+                    reg1[31]? 0  : reg1[30]? 1  : reg1[29]? 2  :
+                    reg1[28]? 3  : reg1[27]? 4  : reg1[26]? 5  :
+                    reg1[25]? 6  : reg1[24]? 7  : reg1[23]? 8  : 
+                    reg1[22]? 9  : reg1[21]? 10 : reg1[20]? 11 :
+                    reg1[19]? 12 : reg1[18]? 13 : reg1[17]? 14 : 
+                    reg1[16]? 15 : reg1[15]? 16 : reg1[14]? 17 : 
+                    reg1[13]? 18 : reg1[12]? 19 : reg1[11]? 20 :
+                    reg1[10]? 21 : reg1[9]?  22 : reg1[8]?  23 : 
+                    reg1[7]?  24 : reg1[6]?  25 : reg1[5]?  26 : 
+                    reg1[4]?  27 : reg1[3]?  28 : reg1[2]?  29 : 
+                    reg1[1]?  30 : reg1[0]?  31 : 32;
             default: arith_res <= `ZeroWord;
             
         endcase
@@ -98,7 +121,7 @@ always @ * begin    // perform moving
     end else begin
         case (aluop_i)
 
-            `EXE_MOVZ_OP: move_res <= reg1_i;   // write or not is determined by wreg_o in id stage
+            `EXE_MOVZ_OP: move_res <= reg1;   // write or not is determined by wreg_o in id stage
 
             default: move_res <= `ZeroWord;
             
@@ -112,7 +135,9 @@ always @ * begin    // perform loading
     end else begin
         case (aluop_i)
 
-            `EXE_LUI_OP: load_res <= reg1_i; // imm || 0^16
+            `EXE_LUI_OP: load_res <= reg1; // imm || 0^16
+
+            `EXE_LB_OP: load_res <= `ZeroWord; // wdata should be determined at mem stage
 
             default: load_res <= `ZeroWord;
             
@@ -150,33 +175,10 @@ always @ * begin    // generate write signal
 end
 
 // pipeline stalling demo:
-/* parameter UNSTALLED = 1'd0, STALLED = 1'd1;
-reg cur_state;
-
-always @(posedge clk) begin
-    if (rst == `RstEnable)
-        cur_state <= UNSTALLED;
-    else if (aluop_i == `EXE_ADDU_OP) begin
-        if (cur_state == UNSTALLED) begin
-            cur_state <= STALLED;
-        end else begin
-            cur_state <= UNSTALLED;
-        end
-    end else
-        cur_state <= UNSTALLED;
-end
-*/
 
 always @* begin
     if (rst == `RstEnable)
         stallreq_o <= `StallDisable;
-    // else if (aluop_i == `EXE_ADDU_OP) begin
-    //     if (cur_state == UNSTALLED) begin
-    //         stallreq_o <= `StallEnable;  // TODO: just for tets
-    //     end else begin
-    //         stallreq_o <= `sStallDisable;
-    //     end
-    // end
     else
         stallreq_o <= `StallDisable;
 end

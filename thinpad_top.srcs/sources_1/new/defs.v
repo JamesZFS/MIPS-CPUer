@@ -6,7 +6,7 @@
 `define WriteDisable    1'b0
 `define ReadEnable      1'b1
 `define ReadDisable     1'b0
-`define AluOpBus        3:0
+`define AluOpBus        4:0
 `define AluSelBus       2:0
 `define InstValid       1'b1
 `define InstInvalid     1'b0
@@ -24,6 +24,8 @@
 `define NotBranch       1'b0 //no jump
 `define InDelaySlot     1'b1 //in slot
 `define NotInDelaySlot  1'b0 //not in slot
+`define IsImm           1'b1
+`define IsNotImm        1'b0
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special
@@ -56,31 +58,49 @@
 `define EXE_BGTZ  6'b000111
 `define EXE_BNE  6'b000101
 
+//Load & Store instruction operations
+`define EXE_LB          6'b100000
+`define EXE_LBU         6'b100100
+`define EXE_LW          6'b100011
+`define EXE_SW          6'b101011
+`define EXE_SB          6'b101000
 
-// alu operation
-`define EXE_AND_OP      4'd1
-`define EXE_OR_OP       4'd2
-`define EXE_XOR_OP      4'd3
 
-`define EXE_SLL_OP      4'd4
-`define EXE_SRL_OP      4'd5
+// alu operations:
+`define EXE_NOP_OP      5'h0
 
-`define EXE_MOVZ_OP     4'd6
+`define EXE_AND_OP      5'h1
+`define EXE_OR_OP       5'h2
+`define EXE_XOR_OP      5'h3
 
-`define EXE_ADDU_OP     4'd7
-`define EXE_CLZ_OP      4'd8
+`define EXE_SLL_OP      5'h4
+`define EXE_SRL_OP      5'h5
 
-`define EXE_LUI_OP      4'd9
+`define EXE_MOVZ_OP     5'h6
 
-`define EXE_NOP_OP      4'd0
+`define EXE_ADDU_OP     5'h7
+`define EXE_CLZ_OP      5'h8
+
+`define EXE_LUI_OP      5'h9
 
 //jump operations
-`define EXE_J_OP        4'd10
-`define EXE_JAL_OP      4'd11
-`define EXE_JR_OP       4'd12
-`define EXE_BEQ_OP      4'd13
-`define EXE_BGTZ_OP     4'd14
-`define EXE_BNE_OP      4'd15
+`define EXE_J_OP        5'ha
+`define EXE_JAL_OP      5'hb
+`define EXE_JR_OP       5'hc
+`define EXE_BEQ_OP      5'hd
+`define EXE_BGTZ_OP     5'he
+`define EXE_BNE_OP      5'hf
+
+//Load & Store operations
+`define EXE_LB_OP       5'h10
+`define EXE_LBU_OP      5'h11
+`define EXE_LW_OP       5'h12
+`define EXE_SW_OP       5'h13
+`define EXE_SB_OP       5'h14
+
+//MMU
+// `define MemOccupy       1'd1
+// `define MemAddrStart    0x
 
 // alu result selection
 `define EXE_RES_LOGIC   3'd1
@@ -89,6 +109,7 @@
 `define EXE_RES_ARITH   3'd4
 `define EXE_RES_LOAD    3'd5
 `define EXE_RES_JUMP_BRANCH 3'd6
+`define EXE_RES_LOAD_STORE 3'd7
 
 
 `define EXE_RES_NOP     3'd0

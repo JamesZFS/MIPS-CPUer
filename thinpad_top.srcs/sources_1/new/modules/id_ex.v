@@ -13,6 +13,12 @@ module id_ex(
 	input wire					  id_is_in_delayslot,
 	input wire					  next_inst_in_delayslot_i,
 	input wire                    id_wreg,	
+	input wire[`RegBus]			  id_inst,
+	input wire[`RegAddrBus]       id_reg1_addr,
+	input wire[`RegAddrBus]       id_reg2_addr, 
+	input wire 					  id_reg1_is_imm,
+	input wire 					  id_reg2_is_imm,
+
 
 	input wire[0:5]               stall, // from ctrl
 	
@@ -24,9 +30,15 @@ module id_ex(
 	output reg[`RegAddrBus]       ex_wd,
 	output reg[`RegBus]			  ex_link_address,
 	output reg					  ex_is_in_delayslot,
-	output reg					  is_in_delayslot_o,
-	output reg                    ex_wreg
+	output reg                    ex_wreg,
+	output reg[`RegBus]			  ex_inst,
+	output reg[`RegAddrBus]       ex_reg1_addr,
+	output reg[`RegAddrBus]       ex_reg2_addr, 
+	output reg 					  ex_reg1_is_imm,
+	output reg 					  ex_reg2_is_imm,
 	
+	// to id
+	output reg					  is_in_delayslot_o // forward
 );
 
 always @ (posedge clk) begin
@@ -40,7 +52,12 @@ always @ (posedge clk) begin
         ex_wreg   <= `WriteDisable;
 		ex_link_address <= `ZeroWord;
 		ex_is_in_delayslot <= `NotInDelaySlot;
-		is_in_delayslot_o <= `NotInDelaySlot; 
+		is_in_delayslot_o <= `NotInDelaySlot;
+		ex_inst <= `ZeroWord; 
+		ex_reg1_addr <= `NOPRegAddr;
+		ex_reg2_addr <= `NOPRegAddr;
+		ex_reg1_is_imm <= `IsNotImm;
+		ex_reg2_is_imm <= `IsNotImm;
     end else if (stall[2] == `StallDisable) begin
         ex_aluop <= id_aluop;
         ex_alusel <= id_alusel;
@@ -51,6 +68,11 @@ always @ (posedge clk) begin
 		ex_link_address <= id_link_address;
 		ex_is_in_delayslot <= id_is_in_delayslot;
 		is_in_delayslot_o <= next_inst_in_delayslot_i;
+		ex_inst <= id_inst;
+		ex_reg2_addr <= id_reg2_addr;
+		ex_reg1_addr <= id_reg1_addr;
+		ex_reg1_is_imm <= id_reg1_is_imm;
+		ex_reg2_is_imm <= id_reg2_is_imm;
     end // else: hold on
 end
 	
