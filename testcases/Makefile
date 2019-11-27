@@ -1,5 +1,11 @@
 
-GCCPREFIX:=mips-mti-elf-
+ifeq ($(OS),Windows_NT)
+  PLATFORM="Windows"
+  GCCPREFIX:=mips-mti-elf-
+else
+  PLATFORM="macOS"
+  GCCPREFIX:=mipsel-linux-musl-
+endif
 
 override CFLAGS	 += -fno-builtin -nostdlib  -nostdinc -g  -EL -G0 -Wformat
 override LDFLAGS += -nostdlib -EL -n -G0
