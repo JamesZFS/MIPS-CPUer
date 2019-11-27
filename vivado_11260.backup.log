@@ -1,0 +1,1308 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sun Nov 24 14:20:17 2019
+# Process ID: 11260
+# Current directory: C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent6436 C:\Users\japan\Desktop\CPU_BIG_PROJECT\cs-exc2\cod19grp16\thinpad_top.xpr
+# Log file: C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/vivado.log
+# Journal file: C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.xpr
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-509] GeneratedRun file for 'impl_1' not found
+WARNING: [filemgmt 56-3] IPUserFilesDir: Could not find the directory 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.ip_user_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.3/data/ip'.
+update_compile_order -fileset sources_1
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+ERROR: [VRFC 10-3805] use of undefined macro 'EXE_MFC0_OP' [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:118]
+ERROR: [VRFC 10-1412] syntax error near : [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:118]
+ERROR: [VRFC 10-3805] use of undefined macro 'EXE_MTC0_OP' [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:186]
+ERROR: [VRFC 10-1412] syntax error near ) [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:186]
+ERROR: [VRFC 10-1412] syntax error near else [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:190]
+ERROR: [VRFC 10-2790] Verilog 2000 keyword else used in incorrect context [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:190]
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:119]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:120]
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:122]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:123]
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:125]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:126]
+ERROR: [VRFC 10-554] default case should appear only once [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:130]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:173]
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:187]
+ERROR: [VRFC 10-2865] module 'ex' ignored due to previous errors [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:1]
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:05 . Memory (MB): peak = 705.574 ; gain = 0.000
+INFO: [USF-XSim-69] 'compile' step finished in '6' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 705.574 ; gain = 0.000
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:119]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:120]
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:122]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:123]
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:125]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:126]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:173]
+ERROR: [VRFC 10-2989] 'inst_i' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:187]
+ERROR: [VRFC 10-2865] module 'ex' ignored due to previous errors [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:1]
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:122]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:125]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:128]
+ERROR: [VRFC 10-2989] 'moveres' is not declared [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:175]
+ERROR: [VRFC 10-2865] module 'ex' ignored due to previous errors [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v:1]
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+ERROR: [VRFC 10-1412] syntax error near . [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:318]
+ERROR: [VRFC 10-1247] port connections cannot be mixed ordered and named [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:325]
+ERROR: [VRFC 10-2865] module 'mips' ignored due to previous errors [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:1]
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+ERROR: [VRFC 10-1247] port connections cannot be mixed ordered and named [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [VRFC 10-2865] module 'mips' ignored due to previous errors [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:1]
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+ERROR: [VRFC 10-1247] port connections cannot be mixed ordered and named [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [VRFC 10-2865] module 'mips' ignored due to previous errors [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:1]
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+INFO: [VRFC 10-2458] undeclared symbol int_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:334]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/program_counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:29]
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:36]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/sram_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sram_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/thinpad_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module thinpad_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/vga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vga
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/tb.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'glbl' [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/glbl.v:6]
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <mem> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <mem_wb> not found while processing module instance <mem_wb0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:300]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+run_program: Time (s): cpu = 00:00:00 ; elapsed = 00:00:06 . Memory (MB): peak = 729.504 ; gain = 0.000
+INFO: [USF-XSim-69] 'elaborate' step finished in '7' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+launch_simulation: Time (s): cpu = 00:00:02 ; elapsed = 00:00:10 . Memory (MB): peak = 729.504 ; gain = 1.434
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/program_counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:29]
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:36]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/sram_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sram_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/thinpad_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module thinpad_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/vga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vga
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <memory> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <mem_wb> not found while processing module instance <mem_wb0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:300]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+update_compile_order -fileset sources_1
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/mem_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/program_counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:29]
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:36]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/sram_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sram_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/thinpad_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module thinpad_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/vga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vga
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'glbl' [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/glbl.v:6]
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <mem> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+add_files -norecurse {C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/coprocessor0.v C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/memory.v}
+WARNING: [filemgmt 56-12] File 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/memory.v' cannot be added to the project because it already exists in the project, skipping this file
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <mem> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+update_compile_order -fileset sources_1
+add_files -norecurse C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/coprocessor0.v
+WARNING: [filemgmt 56-12] File 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/coprocessor0.v' cannot be added to the project because it already exists in the project, skipping this file
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <mem> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+add_files -norecurse C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/coprocessor0.v
+WARNING: [filemgmt 56-12] File 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/coprocessor0.v' cannot be added to the project because it already exists in the project, skipping this file
+add_files -norecurse C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/memory.v
+WARNING: [filemgmt 56-12] File 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/memory.v' cannot be added to the project because it already exists in the project, skipping this file
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/mem_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/program_counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:29]
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:36]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/sram_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sram_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/thinpad_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module thinpad_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/vga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vga
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <mempry> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/mem_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/program_counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:29]
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:36]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/sram_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sram_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/thinpad_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module thinpad_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/vga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vga
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'glbl' [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/glbl.v:6]
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <memory> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+add_files -fileset sim_1 -norecurse C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/coprocessor0.v
+update_compile_order -fileset sim_1
+launch_simulation
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'C:/Xilinx/Vivado/2018.3/data/xsim/xsim.ini' copied to run dir:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_top.mem'
+INFO: [SIM-utils-43] Exported 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/CFImemory64Mb_bottom.mem'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj tb_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pll_example
+INFO: [VRFC 10-311] analyzing module pll_example_pll_example_clk_wiz
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/28F640P30.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module BankLib
+INFO: [VRFC 10-311] analyzing module TimingDataModule
+INFO: [VRFC 10-311] analyzing module TimingLibModule
+INFO: [VRFC 10-311] analyzing module BlockLockModule
+INFO: [VRFC 10-311] analyzing module CFIqueryModule
+INFO: [VRFC 10-311] analyzing module DataErrorModule
+INFO: [VRFC 10-311] analyzing module ConfigRegModule
+INFO: [VRFC 10-311] analyzing module SignatureModule
+INFO: [VRFC 10-311] analyzing module CUIdecoder1
+INFO: [VRFC 10-311] analyzing module CUIdecoder2
+INFO: [VRFC 10-311] analyzing module CUIdecoder_Busy1
+INFO: [VRFC 10-311] analyzing module EraseModule
+INFO: [VRFC 10-311] analyzing module MemoryModule
+INFO: [VRFC 10-311] analyzing module OutputBufferModule
+INFO: [VRFC 10-311] analyzing module ProgramModule
+INFO: [VRFC 10-311] analyzing module BuffEnhancedFactProgramModule
+INFO: [VRFC 10-311] analyzing module ProtectRegModule
+INFO: [VRFC 10-311] analyzing module ReadModule
+INFO: [VRFC 10-311] analyzing module StatusRegModule
+INFO: [VRFC 10-311] analyzing module KernelModule
+INFO: [VRFC 10-311] analyzing module x28fxxxp30
+INFO: [VRFC 10-311] analyzing module BurstModule
+INFO: [VRFC 10-311] analyzing module BlankCheckModule
+INFO: [VRFC 10-311] analyzing module ProgramBufferModule
+INFO: [VRFC 10-311] analyzing module DebugModule
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/SEG7_LUT.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module SEG7_LUT
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/async.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module async_transmitter
+INFO: [VRFC 10-311] analyzing module async_receiver
+INFO: [VRFC 10-311] analyzing module ASSERTION_ERROR
+INFO: [VRFC 10-311] analyzing module BaudTickGen
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clock
+WARNING: [VRFC 10-3676] redeclaration of ansi port 'clk_50M' is not allowed [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/clock.v:8]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/control.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/cpld_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpld_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/display.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DVI_display
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/executer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/flag_sync_cpld.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module flag_sync_cpld
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/inst_decoder.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/inst_ram.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_ram
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/mem_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2458] undeclared symbol is_in_delayslot_i, assumed default net type wire [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:172]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/program_counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:29]
+WARNING: [VRFC 10-2019] loop variable declaration is not allowed in this mode of verilog [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/modules/registers.v:36]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sim_1/new/sram_model.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sram_model
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/thinpad_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module thinpad_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/vga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vga
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/defs.v" into library xil_defaultlib
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 1e0777dd008c45fcbaffd6b18f2c35e9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-2063] Module <memory> not found while processing module instance <mem0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:282]
+ERROR: [VRFC 10-2063] Module <coprocessor0> not found while processing module instance <cp0> [C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.srcs/sources_1/new/mips.v:324]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Nov 24 15:11:20 2019...

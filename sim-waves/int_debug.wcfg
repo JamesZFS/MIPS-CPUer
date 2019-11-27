@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="4921500000fs"></ZoomStartTime>
+      <ZoomEndTime time="5045700001fs"></ZoomEndTime>
+      <Cursor1Time time="4939700000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="171"></NameColumnWidth>
+      <ValueColumnWidth column_width="76"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="47" />
+   <wave_markers>
+      <marker time="11438400000" label="" />
+      <marker time="11541914000" label="" />
+      <marker time="11745600000" label="" />
+      <marker time="11804800000" label="" />
+   </wave_markers>
+   <wvobject fp_name="/tb/clock_btn" type="logic">
+      <obj_property name="ElementShortName">clock_btn</obj_property>
+      <obj_property name="ObjectShortName">clock_btn</obj_property>
+      <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/reset_btn" type="logic">
+      <obj_property name="ElementShortName">reset_btn</obj_property>
+      <obj_property name="ObjectShortName">reset_btn</obj_property>
+      <obj_property name="CustomSignalColor">#DCDCDC</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/pc_i" type="array">
+      <obj_property name="ElementShortName">pc_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/inst_i" type="array">
+      <obj_property name="ElementShortName">inst_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg1_data_i" type="array">
+      <obj_property name="ElementShortName">reg1_data_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg1_data_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg2_data_i" type="array">
+      <obj_property name="ElementShortName">reg2_data_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg2_data_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/mem_wreg_i" type="logic">
+      <obj_property name="ElementShortName">mem_wreg_i</obj_property>
+      <obj_property name="ObjectShortName">mem_wreg_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/mem_wd_i" type="array">
+      <obj_property name="ElementShortName">mem_wd_i[4:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_wd_i[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/mem_wdata_i" type="array">
+      <obj_property name="ElementShortName">mem_wdata_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_wdata_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/ex_wreg_i" type="logic">
+      <obj_property name="ElementShortName">ex_wreg_i</obj_property>
+      <obj_property name="ObjectShortName">ex_wreg_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/ex_wd_i" type="array">
+      <obj_property name="ElementShortName">ex_wd_i[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_wd_i[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/ex_wdata_i" type="array">
+      <obj_property name="ElementShortName">ex_wdata_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_wdata_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/ex_is_load_i" type="logic">
+      <obj_property name="ElementShortName">ex_is_load_i</obj_property>
+      <obj_property name="ObjectShortName">ex_is_load_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/is_in_delayslot_i" type="logic">
+      <obj_property name="ElementShortName">is_in_delayslot_i</obj_property>
+      <obj_property name="ObjectShortName">is_in_delayslot_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg1_read_o" type="logic">
+      <obj_property name="ElementShortName">reg1_read_o</obj_property>
+      <obj_property name="ObjectShortName">reg1_read_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg2_read_o" type="logic">
+      <obj_property name="ElementShortName">reg2_read_o</obj_property>
+      <obj_property name="ObjectShortName">reg2_read_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg1_addr_o" type="array">
+      <obj_property name="ElementShortName">reg1_addr_o[4:0]</obj_property>
+      <obj_property name="ObjectShortName">reg1_addr_o[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg2_addr_o" type="array">
+      <obj_property name="ElementShortName">reg2_addr_o[4:0]</obj_property>
+      <obj_property name="ObjectShortName">reg2_addr_o[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/aluop_o" type="array">
+      <obj_property name="ElementShortName">aluop_o[4:0]</obj_property>
+      <obj_property name="ObjectShortName">aluop_o[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/alusel_o" type="array">
+      <obj_property name="ElementShortName">alusel_o[2:0]</obj_property>
+      <obj_property name="ObjectShortName">alusel_o[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg1_o" type="array">
+      <obj_property name="ElementShortName">reg1_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg1_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg2_o" type="array">
+      <obj_property name="ElementShortName">reg2_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">reg2_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/wreg_o" type="logic">
+      <obj_property name="ElementShortName">wreg_o</obj_property>
+      <obj_property name="ObjectShortName">wreg_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/wd_o" type="array">
+      <obj_property name="ElementShortName">wd_o[4:0]</obj_property>
+      <obj_property name="ObjectShortName">wd_o[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/inst_o" type="array">
+      <obj_property name="ElementShortName">inst_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">inst_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/next_inst_in_delayslot_o" type="logic">
+      <obj_property name="ElementShortName">next_inst_in_delayslot_o</obj_property>
+      <obj_property name="ObjectShortName">next_inst_in_delayslot_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/branch_flag_o" type="logic">
+      <obj_property name="ElementShortName">branch_flag_o</obj_property>
+      <obj_property name="ObjectShortName">branch_flag_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/branch_target_address_o" type="array">
+      <obj_property name="ElementShortName">branch_target_address_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">branch_target_address_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/link_addr_o" type="array">
+      <obj_property name="ElementShortName">link_addr_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">link_addr_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/is_in_delayslot_o" type="logic">
+      <obj_property name="ElementShortName">is_in_delayslot_o</obj_property>
+      <obj_property name="ObjectShortName">is_in_delayslot_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg1_is_imm" type="logic">
+      <obj_property name="ElementShortName">reg1_is_imm</obj_property>
+      <obj_property name="ObjectShortName">reg1_is_imm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/reg2_is_imm" type="logic">
+      <obj_property name="ElementShortName">reg2_is_imm</obj_property>
+      <obj_property name="ObjectShortName">reg2_is_imm</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/excepttype_o" type="array">
+      <obj_property name="ElementShortName">excepttype_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">excepttype_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/current_inst_address_o" type="array">
+      <obj_property name="ElementShortName">current_inst_address_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">current_inst_address_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/stallreq_o" type="logic">
+      <obj_property name="ElementShortName">stallreq_o</obj_property>
+      <obj_property name="ObjectShortName">stallreq_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/op" type="array">
+      <obj_property name="ElementShortName">op[5:0]</obj_property>
+      <obj_property name="ObjectShortName">op[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/op2" type="array">
+      <obj_property name="ElementShortName">op2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">op2[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/op3" type="array">
+      <obj_property name="ElementShortName">op3[5:0]</obj_property>
+      <obj_property name="ObjectShortName">op3[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/op4" type="array">
+      <obj_property name="ElementShortName">op4[4:0]</obj_property>
+      <obj_property name="ObjectShortName">op4[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/pc_plus_8" type="array">
+      <obj_property name="ElementShortName">pc_plus_8[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_plus_8[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/pc_plus_4" type="array">
+      <obj_property name="ElementShortName">pc_plus_4[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_plus_4[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/imm_sll2_signedext" type="array">
+      <obj_property name="ElementShortName">imm_sll2_signedext[31:0]</obj_property>
+      <obj_property name="ObjectShortName">imm_sll2_signedext[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/imm" type="array">
+      <obj_property name="ElementShortName">imm[31:0]</obj_property>
+      <obj_property name="ObjectShortName">imm[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/instvalid" type="logic">
+      <obj_property name="ElementShortName">instvalid</obj_property>
+      <obj_property name="ObjectShortName">instvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/excepttype_is_syscall" type="logic">
+      <obj_property name="ElementShortName">excepttype_is_syscall</obj_property>
+      <obj_property name="ObjectShortName">excepttype_is_syscall</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id0/excepttype_is_eret" type="logic">
+      <obj_property name="ElementShortName">excepttype_is_eret</obj_property>
+      <obj_property name="ObjectShortName">excepttype_is_eret</obj_property>
+   </wvobject>
+</wave_config>

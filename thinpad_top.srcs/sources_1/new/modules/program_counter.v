@@ -5,10 +5,13 @@ module pc_reg(
 
     // from ctrl
     input wire[0:5]             stall,
+    input wire[`RegBus]           new_pc,
+    input wire                    flush,
 
     //for jmp
     input wire                  branch_flag_i,
     input wire[`RegBus]         branch_target_address_i,
+    
     // to rom
     output  reg[`InstAddrBus]   pc,
     output  reg                 ce
@@ -22,16 +25,17 @@ always @ (posedge clk) begin
 end
 
 always @ (posedge clk) begin
-    if (ce == `ChipDisable)
-        pc <= `InstAddrLog2'b0;
-    else if (branch_flag_i == `Branch && stall[2] == `StallDisable) begin 
+    if (ce == `ChipDisable) begin
+        pc <= 32'b0;
+    end else if (flush == 1'b1) begin
+        pc <= new_pc;
+    end else if (branch_flag_i == `Branch && stall[2] == `StallDisable) begin 
         pc <= branch_target_address_i;
     end else if (stall[0] == `StallDisable) begin
         pc <= pc + 4;
-    end else if (stall[0]==`StallEnable) begin
+    end else if (stall[0]==`StallEnable) begin // else: when stalling, hold pc
         pc <= pc;
     end
-    // else: when stalling, hold pc
 end
 
 endmodule   // pc_reg

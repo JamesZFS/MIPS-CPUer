@@ -8,8 +8,8 @@
 `define ReadDisable     1'b0
 `define AluOpBus        4:0
 `define AluSelBus       2:0
-`define InstValid       1'b1
-`define InstInvalid     1'b0
+`define InstValid       1'b0
+`define InstInvalid     1'b1
 `define True_v          1'b1
 `define False_v         1'b0
 `define ChipEnable      1'b1
@@ -26,6 +26,10 @@
 `define NotInDelaySlot  1'b0 //not in slot
 `define IsImm           1'b1
 `define IsNotImm        1'b0
+`define InterruptAssert 1'b1
+`define InterruptNotAssert 1'b0
+`define TrapAssert 1'b1
+`define TrapNotAssert 1'b0
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special
@@ -49,6 +53,8 @@
 `define EXE_NOP         6'b000000
 `define EXE_SPECIAL     6'b000000
 `define EXE_SPECIAL2    6'b011100
+`define EXE_REGIMM_INST 6'b000001
+
 
 //jmp instruction operations
 `define EXE_J  6'b000010 
@@ -64,6 +70,21 @@
 `define EXE_LW          6'b100011
 `define EXE_SW          6'b101011
 `define EXE_SB          6'b101000
+`define EXE_TEQ         6'b110100
+`define EXE_TEQI        5'b01100
+`define EXE_TGE         6'b110000
+`define EXE_TGEI        5'b01000
+`define EXE_TGEIU       5'b01001
+`define EXE_TGEU        6'b110001
+`define EXE_TLT         6'b110010
+`define EXE_TLTI        5'b01010
+`define EXE_TLTIU       5'b01011
+`define EXE_TLTU        6'b110011
+`define EXE_TNE         6'b110110
+`define EXE_TNEI        5'b01110
+`define EXE_SYSCALL     6'b001100
+`define EXE_ERET        32'b01000010000000000000000000011000
+
 
 
 // alu operations:
@@ -102,6 +123,27 @@
 // `define MemOccupy       1'd1
 // `define MemAddrStart    0x
 
+
+//cp0 operations
+`define EXE_MFC0_OP 5'd16
+`define EXE_MTC0_OP 5'd17
+
+`define EXE_TEQ_OP 5'd18
+`define EXE_TEQI_OP 5'd19
+`define EXE_TGE_OP 5'd20
+`define EXE_TGEI_OP 5'd21
+`define EXE_TGEIU_OP 5'd22
+`define EXE_TGEU_OP 5'd23
+`define EXE_TLT_OP 5'd24
+`define EXE_TLTI_OP 5'd25
+`define EXE_TLTIU_OP 5'd26
+`define EXE_TLTU_OP 5'd27
+`define EXE_TNE_OP 5'd28
+`define EXE_TNEI_OP 5'd29
+`define EXE_SYSCALL_OP 5'd30
+
+`define EXE_ERET_OP 5'd31
+
 // alu result selection
 `define EXE_RES_LOGIC   3'd1
 `define EXE_RES_SHIFT   3'd2
@@ -130,6 +172,14 @@
 `define RegNum          32
 `define RegNumLog2      5
 `define NOPRegAddr      5'b00000
+
+`define CP0_REG_COUNT    5'b01001       
+`define CP0_REG_COMPARE    5'b01011     
+`define CP0_REG_STATUS    5'b01100      
+`define CP0_REG_CAUSE    5'b01101       
+`define CP0_REG_EPC    5'b01110         
+`define CP0_REG_PrId    5'b01111        
+`define CP0_REG_CONFIG    5'b10000   
 
 // DVI
 `define HVDataWidth     12

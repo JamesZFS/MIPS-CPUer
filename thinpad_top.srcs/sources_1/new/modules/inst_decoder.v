@@ -38,18 +38,24 @@ module id(
 	output reg[`RegBus]         reg2_o,  // value of num2
 	output reg                  wreg_o,  // write back or not?
 	output reg[`RegAddrBus]     wd_o,  // addr of $rd
+    output wire[`RegBus]        inst_o,
 
+    // to ex
     output reg                  next_inst_in_delayslot_o,
-
+    
+    // to pc
     output reg                  branch_flag_o,
     output reg[`RegBus]         branch_target_address_o,
+
+    // to ex
     output reg[`RegBus]         link_addr_o,
     output reg                  is_in_delayslot_o,
 
-    output wire[`RegBus]        inst_o,
-
     output reg                  reg1_is_imm,
     output reg                  reg2_is_imm,
+
+    output wire[31:0]           excepttype_o,
+    output wire[`RegBus]        current_inst_address_o,
 
     // to ctrl
     output reg                  stallreq_o
@@ -68,13 +74,24 @@ wire[`RegBus]   imm_sll2_signedext;
 reg[`RegBus]	imm;
 reg instvalid;
 
+reg excepttype_is_syscall;
+reg excepttype_is_eret;
+
 assign pc_plus_8 = pc_i + 8;
 assign pc_plus_4 = pc_i + 4;
 assign imm_sll2_signedext = {{14{inst_i[15]}}, inst_i[15:0], 2'b00};
+assign inst_o = inst_i;
 
+//stores the type of exception in this part and sends it to te next prt of mips.
+assign excepttype_o = {19'b0, excepttype_is_eret, 2'b0, instvalid, excepttype_is_syscall, 8'b0};
+
+assign current_inst_address_o = pc_i;
 
 // decode from inst, to ex
 always @ (*) begin
+
+    excepttype_is_syscall <= `False_v;	
+	excepttype_is_eret <= `False_v;	
 
     if (rst == `RstEnable) begin
 
@@ -115,13 +132,13 @@ always @ (*) begin
         next_inst_in_delayslot_o <= `NotInDelaySlot;
         reg1_is_imm <= `IsNotImm;
         reg2_is_imm <= `IsNotImm;
-
-        case (op)
-
-            `EXE_SPECIAL:
+        
+        if(inst_i == `ZeroWord)
+            instvalid <= `InstValid;
+        else case (op)
+            `EXE_SPECIAL: 
                 if (op2 == 5'b00000)
                     case (op3)
-
                         `EXE_OR: begin
                             aluop_o <= `EXE_OR_OP;
                             alusel_o <= `EXE_RES_LOGIC;
@@ -174,7 +191,7 @@ always @ (*) begin
                             instvalid <= `InstValid;
                         end
 
-                         `EXE_JR: begin
+                        `EXE_JR: begin
                             wreg_o <= `WriteDisable;
                             aluop_o <= `EXE_JR_OP;
                             alusel_o <= `EXE_RES_JUMP_BRANCH;
@@ -187,7 +204,15 @@ always @ (*) begin
                             next_inst_in_delayslot_o <= `InDelaySlot;
                             instvalid <= `InstValid;
                         end
-
+                        `EXE_SYSCALL: begin
+								wreg_o <= `WriteDisable;		
+                                aluop_o <= `EXE_SYSCALL_OP;
+		  						alusel_o <= `EXE_RES_NOP;  
+                                reg1_read_o <= 1'b0;	
+                                reg2_read_o <= 1'b0;
+		  						instvalid <= `InstValid; 
+                                excepttype_is_syscall<= `True_v;
+		  					end	
                         default: ;
                     endcase 
 
@@ -221,6 +246,7 @@ always @ (*) begin
 
                         default: ; 
                     endcase
+
                 // else: unknown
             // EXE_SPECIAL
 
@@ -419,6 +445,32 @@ always @ (*) begin
             // default: ;
 
         endcase // op
+        
+        if(inst_i == `EXE_ERET) begin
+				            wreg_o <= `WriteDisable;		
+                            aluop_o <= `EXE_ERET_OP;
+		  	                alusel_o <= `EXE_RES_NOP;  
+                            reg1_read_o <= 1'b0;	
+                            reg2_read_o <= 1'b0;
+		  	                instvalid <= `InstValid; 
+                            excepttype_is_eret<= `True_v;				
+        end if(inst_i[31:21] == 11'b01000000000 && inst_i[10:0] == 11'b00000000000) begin //MFC0 OP
+                            aluop_o <= `EXE_MFC0_OP;
+                            alusel_o <= `EXE_RES_MOVE;
+                            wd_o <= inst_i[20:16];
+                            wreg_o <= `WriteEnable;
+                            instvalid <= `InstValid;	   
+                            reg1_read_o <= 1'b0;
+                            reg2_read_o <= 1'b0;		
+        end else if(inst_i[31:21] == 11'b01000000100 && inst_i[10:0] == 11'b00000000000) begin //MTC0 OP
+                            aluop_o <= `EXE_MTC0_OP;
+                            alusel_o <= `EXE_RES_NOP;
+                            wreg_o <= `WriteDisable;
+                            instvalid <= `InstValid;	   
+                            reg1_read_o <= 1'b1;
+                            reg1_addr_o <= inst_i[20:16];
+                            reg2_read_o <= 1'b0;					
+        end 
 
     end       // if
 
@@ -429,7 +481,8 @@ end         // always
 always @ (*) begin
 
     stallreq_o <= `StallDisable;
-
+    reg1_o <= `ZeroWord;
+    
     // reg1
     if (rst == `RstEnable) begin
         reg1_o <= `ZeroWord;
@@ -452,6 +505,7 @@ always @ (*) begin
     end
 
     // reg2
+    reg2_o <= `ZeroWord;
     if (rst == `RstEnable) begin
         reg2_o <= `ZeroWord;
     end else if (reg2_read_o == `ReadEnable) begin

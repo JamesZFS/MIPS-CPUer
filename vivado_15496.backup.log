@@ -1,0 +1,27 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Sun Nov 24 14:19:45 2019
+# Process ID: 15496
+# Current directory: C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent25064 C:\Users\japan\Desktop\CPU_BIG_PROJECT\cs-exc2\cod19grp16\thinpad_top.xpr
+# Log file: C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/vivado.log
+# Journal file: C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.xpr
+INFO: [Project 1-313] Project file moved from 'C:/Users/admin/CPUer/cod19grp16' since last save.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-509] GeneratedRun file for 'synth_1' not found
+WARNING: [Project 1-509] GeneratedRun file for 'pll_example_synth_1' not found
+WARNING: [Project 1-509] GeneratedRun file for 'impl_1' not found
+WARNING: [filemgmt 56-2] IPUserFilesDir: Could not find the directory 'C:/Users/japan/Desktop/CPU_BIG_PROJECT/cs-exc2/cod19grp16/thinpad_top.ip_user_files', nor could it be found using path 'C:/Users/admin/CPUer/cod19grp16/thinpad_top.ip_user_files'.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2018.3/data/ip'.
+open_project: Time (s): cpu = 00:00:16 ; elapsed = 00:00:06 . Memory (MB): peak = 649.844 ; gain = 49.152
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Nov 24 14:20:16 2019...

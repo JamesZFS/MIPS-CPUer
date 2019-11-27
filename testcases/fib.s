@@ -12,9 +12,9 @@ init:
 
 loop:
   addu $3, $1, $2 # an+1 = an + an-1
-  jal pause
+  # jal pause
   ori $1, $2, 0
-  jal print
+  # jal print
   ori $2, $3, 0
   j loop
   nop

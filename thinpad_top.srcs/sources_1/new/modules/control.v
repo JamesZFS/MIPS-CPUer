@@ -5,26 +5,59 @@ module ctrl(
     input wire      ex_stallreq_i,
     input wire      mmu_stallreq_i,
 
+    input wire[31:0]             excepttype_i,
+	input wire[`RegBus]          cp0_epc_i,
+
+    output reg[`RegBus]          new_pc,
+	output reg                   flush,
     // from 0 to 5: pc(0), if(1), id(2), ex(3), mem(4), wb(5)
     output reg[0:5] stall_o
 );
 
 always @* begin
+    new_pc <= `ZeroWord;
+    flush <= 1'b0;
     
     if (rst == `RstEnable) begin
         stall_o <= 6'b000000; // 0 means continue, 1 means stall enable
+        flush <= 1'b0;
+		new_pc <= `ZeroWord;
+
+    end else if(excepttype_i != `ZeroWord) begin
+
+	    flush <= 1'b1;
+	    stall_o <= 6'b000000;
+        case (excepttype_i)           //new pc value for the exception handling
+            32'h00000001:		begin   //interrupt
+                new_pc <= 32'h00000020;
+            end
+            32'h00000008:		begin   //syscall
+                new_pc <= 32'h00000040;
+            end
+            32'h0000000a:		begin   //inst_invalid
+                new_pc <= 32'h00000040;
+            end
+            32'h0000000d:		begin   //trap
+                new_pc <= 32'h00000040;
+            end
+            32'h0000000c:		begin   //ov
+                new_pc <= 32'h00000040;
+            end
+            32'h0000000e:		begin   //eret
+                new_pc <= cp0_epc_i;
+            end
+            default	:;
+        endcase 
     end else begin
-        if (ex_stallreq_i == `StallEnable)
-            // stall_o <= stall_o | 6'b111100;
+        if (ex_stallreq_i == `StallEnable) begin
             stall_o <= 6'b111100;
-        else if (id_stallreq_i == `StallEnable)
-            // stall_o <= stall_o | 6'b111000;
+        end else if (id_stallreq_i == `StallEnable) begin
             stall_o <= 6'b111000;
-        else if (mmu_stallreq_i == `StallEnable)
-            // stall_o <= stall_o | 6'b110000;
+        end else if (mmu_stallreq_i == `StallEnable) begin
             stall_o <= 6'b110000;
-        else // cancel stalling request:
+        end else begin // cancel stalling request
             stall_o <= 6'b000000;
+        end
     end
 
 end

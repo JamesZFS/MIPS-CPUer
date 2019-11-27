@@ -47,7 +47,7 @@ wire uart_tsre;          //数据发送完毕标志
 
 //Windows需要注意路径分隔符的转义，例如"D:\\foo\\bar.bin"
 // TODO: change absolute path!
-parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/UTEST_4MDCT.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/and.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
 parameter EXT_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/extdata.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
 parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
 

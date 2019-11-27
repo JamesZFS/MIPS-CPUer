@@ -19,6 +19,10 @@ module id_ex(
 	input wire 					  id_reg1_is_imm,
 	input wire 					  id_reg2_is_imm,
 
+	input wire[`RegBus]           id_current_inst_address,
+	input wire[31:0]              id_excepttype,	
+
+	input wire                    flush,
 
 	input wire[0:5]               stall, // from ctrl
 	
@@ -36,13 +40,15 @@ module id_ex(
 	output reg[`RegAddrBus]       ex_reg2_addr, 
 	output reg 					  ex_reg1_is_imm,
 	output reg 					  ex_reg2_is_imm,
-	
+	output reg[31:0]              ex_excepttype,
+	output reg[`RegBus]           ex_current_inst_address,		
+
 	// to id
 	output reg					  is_in_delayslot_o // forward
 );
 
 always @ (posedge clk) begin
-    if (rst == `RstEnable || (stall[2] == `StallEnable && stall[3] == `StallDisable)) begin
+    if (rst == `RstEnable || (stall[2] == `StallEnable && stall[3] == `StallDisable) || (flush == 1'b1)) begin
 		// reset or ** at the tail of a stall sequence
         ex_aluop  <= `EXE_NOP_OP;
         ex_alusel <= `EXE_RES_NOP;
@@ -58,6 +64,9 @@ always @ (posedge clk) begin
 		ex_reg2_addr <= `NOPRegAddr;
 		ex_reg1_is_imm <= `IsNotImm;
 		ex_reg2_is_imm <= `IsNotImm;
+		ex_excepttype <= `ZeroWord;
+	    ex_current_inst_address <= `ZeroWord;
+
     end else if (stall[2] == `StallDisable) begin
         ex_aluop <= id_aluop;
         ex_alusel <= id_alusel;
@@ -73,6 +82,9 @@ always @ (posedge clk) begin
 		ex_reg1_addr <= id_reg1_addr;
 		ex_reg1_is_imm <= id_reg1_is_imm;
 		ex_reg2_is_imm <= id_reg2_is_imm;
+		ex_excepttype <= id_excepttype;
+	    ex_current_inst_address <= id_current_inst_address;			
+
     end // else: hold on
 end
 	
