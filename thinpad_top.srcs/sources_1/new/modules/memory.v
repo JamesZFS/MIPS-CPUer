@@ -58,8 +58,6 @@ reg mem_we;
 
 assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP;
 
-// wire[`RegBus] zeros32;
-// assign zeros32 = `ZeroWord;
 
 reg[`RegBus]          cp0_status;
 reg[`RegBus]          cp0_cause;
@@ -106,6 +104,7 @@ always @* begin
 
         case (aluop_i)
             `EXE_LB_OP: begin
+                $display("mem: lb");
                 mem_addr_o <= mem_addr_i;
                 mem_we <= `WriteDisable;
                 mem_ce_o <= `ChipEnable;
@@ -128,7 +127,8 @@ always @* begin
                     end
                 endcase
             end
-            `EXE_LBU_OP:begin
+            `EXE_LBU_OP: begin
+                $display("mem: lbu");
                 mem_addr_o <= mem_addr_i;
                 mem_we <= `WriteDisable;
                 mem_ce_o<=`ChipEnable;
@@ -153,6 +153,7 @@ always @* begin
             end
 
             `EXE_LW_OP: begin
+                $display("mem: lw");
                 mem_addr_o <= mem_addr_i;
                 mem_we <= `WriteDisable;
                 wdata_o <= mem_data_i;
@@ -161,6 +162,7 @@ always @* begin
             end
 
             `EXE_SW_OP: begin
+                $display("mem: sw");
                 mem_addr_o <= mem_addr_i;
                 mem_we <= `WriteEnable;
                 mem_ce_o <= `ChipEnable;
@@ -169,6 +171,7 @@ always @* begin
             end
 
             `EXE_SB_OP:begin
+                $display("mem: sw");
                 mem_addr_o <= mem_addr_i;
                 mem_we <= `WriteEnable;
                 mem_ce_o <= `ChipEnable;
@@ -189,7 +192,7 @@ always @* begin
                 endcase
             end
 
-            default:;
+            default: $display("mem: default");
         endcase
     end
 end

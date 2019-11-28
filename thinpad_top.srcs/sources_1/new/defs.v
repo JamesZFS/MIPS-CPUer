@@ -123,24 +123,10 @@
 
 
 //cp0 operations
-`define EXE_MFC0_OP 5'd16
-`define EXE_MTC0_OP 5'd17
-
-`define EXE_TEQ_OP 5'd18
-`define EXE_TEQI_OP 5'd19
-`define EXE_TGE_OP 5'd20
-`define EXE_TGEI_OP 5'd21
-`define EXE_TGEIU_OP 5'd22
-`define EXE_TGEU_OP 5'd23
-`define EXE_TLT_OP 5'd24
-`define EXE_TLTI_OP 5'd25
-`define EXE_TLTIU_OP 5'd26
-`define EXE_TLTU_OP 5'd27
-`define EXE_TNE_OP 5'd28
-`define EXE_TNEI_OP 5'd29
-`define EXE_SYSCALL_OP 5'd30
-
-`define EXE_ERET_OP 5'd31
+`define EXE_MFC0_OP    5'h15
+`define EXE_MTC0_OP    5'h16
+`define EXE_SYSCALL_OP 5'h1a
+`define EXE_ERET_OP    5'h1b
 
 // alu result selection
 `define EXE_RES_LOGIC   3'd1

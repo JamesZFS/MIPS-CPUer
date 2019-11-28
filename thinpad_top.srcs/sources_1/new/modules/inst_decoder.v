@@ -205,15 +205,16 @@ always @ (*) begin
                             instvalid <= `InstValid;
                         end
                         `EXE_SYSCALL: begin
-								wreg_o <= `WriteDisable;		
-                                aluop_o <= `EXE_SYSCALL_OP;
-		  						alusel_o <= `EXE_RES_NOP;  
-                                reg1_read_o <= 1'b0;	
-                                reg2_read_o <= 1'b0;
-		  						instvalid <= `InstValid; 
-                                excepttype_is_syscall<= `True_v;
-		  					end	
-                        default: ;
+                            $display("id: syscall");
+                            wreg_o <= `WriteDisable;		
+                            aluop_o <= `EXE_SYSCALL_OP;
+                            alusel_o <= `EXE_RES_NOP;  
+                            reg1_read_o <= 1'b0;	
+                            reg2_read_o <= 1'b0;
+                            instvalid <= `InstValid; 
+                            excepttype_is_syscall<= `True_v;
+                        end	
+                        default: $display("unknown op3!");
                     endcase 
 
                 else if (inst_i[25:21] == 5'b00000)
@@ -442,35 +443,37 @@ always @ (*) begin
                 alusel_o <= `EXE_RES_LOAD_STORE;
             end
 
-            default: $display("unknown op!");
+            default: begin
+                if(inst_i == `EXE_ERET) begin
+                    wreg_o <= `WriteDisable;		
+                    aluop_o <= `EXE_ERET_OP;
+                    alusel_o <= `EXE_RES_NOP;  
+                    reg1_read_o <= 1'b0;	
+                    reg2_read_o <= 1'b0;
+                    instvalid <= `InstValid; 
+                    excepttype_is_eret<= `True_v;				
+                end else if(inst_i[31:21] == 11'b01000000000 && inst_i[10:0] == 11'b00000000000) begin //MFC0 OP
+                    $display("id: mfc0");
+                    aluop_o <= `EXE_MFC0_OP;
+                    alusel_o <= `EXE_RES_MOVE;
+                    wd_o <= inst_i[20:16];
+                    wreg_o <= `WriteEnable;
+                    instvalid <= `InstValid;	   
+                    reg1_read_o <= 1'b0;
+                    reg2_read_o <= 1'b0;		
+                end else if(inst_i[31:21] == 11'b01000000100 && inst_i[10:0] == 11'b00000000000) begin //MTC0 OP
+                    $display("id: mtc0");
+                    aluop_o <= `EXE_MTC0_OP;
+                    alusel_o <= `EXE_RES_NOP;
+                    wreg_o <= `WriteDisable;
+                    instvalid <= `InstValid;	   
+                    reg1_read_o <= 1'b1;
+                    reg1_addr_o <= inst_i[20:16];
+                    reg2_read_o <= 1'b0;					
+                end
+            end
 
         endcase // op
-        
-        if(inst_i == `EXE_ERET) begin
-            wreg_o <= `WriteDisable;		
-            aluop_o <= `EXE_ERET_OP;
-            alusel_o <= `EXE_RES_NOP;  
-            reg1_read_o <= 1'b0;	
-            reg2_read_o <= 1'b0;
-            instvalid <= `InstValid; 
-            excepttype_is_eret<= `True_v;				
-        end else if(inst_i[31:21] == 11'b01000000000 && inst_i[10:0] == 11'b00000000000) begin //MFC0 OP
-            aluop_o <= `EXE_MFC0_OP;
-            alusel_o <= `EXE_RES_MOVE;
-            wd_o <= inst_i[20:16];
-            wreg_o <= `WriteEnable;
-            instvalid <= `InstValid;	   
-            reg1_read_o <= 1'b0;
-            reg2_read_o <= 1'b0;		
-        end else if(inst_i[31:21] == 11'b01000000100 && inst_i[10:0] == 11'b00000000000) begin //MTC0 OP
-            aluop_o <= `EXE_MTC0_OP;
-            alusel_o <= `EXE_RES_NOP;
-            wreg_o <= `WriteDisable;
-            instvalid <= `InstValid;	   
-            reg1_read_o <= 1'b1;
-            reg1_addr_o <= inst_i[20:16];
-            reg2_read_o <= 1'b0;					
-        end 
 
     end       // if
 
