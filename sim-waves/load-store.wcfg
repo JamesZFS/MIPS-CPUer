@@ -11,9 +11,9 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="36860000000fs"></ZoomStartTime>
-      <ZoomEndTime time="52630000001fs"></ZoomEndTime>
-      <Cursor1Time time="50000000000fs"></Cursor1Time>
+      <ZoomStartTime time="10180000000fs"></ZoomStartTime>
+      <ZoomEndTime time="41720000001fs"></ZoomEndTime>
+      <Cursor1Time time="29360000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="172"></NameColumnWidth>
@@ -72,12 +72,6 @@
       <obj_property name="CustomSignalColor">#008080</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/id_ex0/id_aluop" type="array">
-      <obj_property name="ElementShortName">id_aluop[4:0]</obj_property>
-      <obj_property name="ObjectShortName">id_aluop[4:0]</obj_property>
-      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb/dut/mips0/id0/instvalid" type="logic">
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">instvalid</obj_property>
@@ -85,6 +79,12 @@
       <obj_property name="CustomSignalColor">#FF0000</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="label">id_instvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id_ex0/id_aluop" type="array">
+      <obj_property name="ElementShortName">id_aluop[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_aluop[4:0]</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/id0/reg1_addr_o" type="array">
       <obj_property name="DisplayName">label</obj_property>
