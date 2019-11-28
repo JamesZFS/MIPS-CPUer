@@ -11,17 +11,17 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="10180000000fs"></ZoomStartTime>
-      <ZoomEndTime time="41720000001fs"></ZoomEndTime>
-      <Cursor1Time time="29360000000fs"></Cursor1Time>
+      <ZoomStartTime time="11676670000fs"></ZoomStartTime>
+      <ZoomEndTime time="12638670001fs"></ZoomEndTime>
+      <Cursor1Time time="12060670000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="172"></NameColumnWidth>
-      <ValueColumnWidth column_width="75"></ValueColumnWidth>
+      <ValueColumnWidth column_width="71"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="56" />
+   <WVObjectSize size="58" />
    <wave_markers>
-      <marker time="4690200000" label="" />
+      <marker time="11672670000" label="" />
    </wave_markers>
    <wvobject fp_name="/tb/clock_btn" type="logic">
       <obj_property name="ElementShortName">clock_btn</obj_property>
@@ -236,7 +236,6 @@
       <obj_property name="CustomSignalColor">#008080</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="Radix">HEXRADIX</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb/dut/mips0/regfile0/regs[0]" type="array">
          <obj_property name="ElementShortName">[0][31:0]</obj_property>
          <obj_property name="ObjectShortName">[0][31:0]</obj_property>
@@ -527,6 +526,18 @@
    <wvobject fp_name="/tb/dut/mmu0/ext_ram_addr" type="array">
       <obj_property name="ElementShortName">ext_ram_addr[19:0]</obj_property>
       <obj_property name="ObjectShortName">ext_ram_addr[19:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/if_id0/if_pc" type="array">
+      <obj_property name="ElementShortName">if_pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">if_pc[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/if_id0/if_inst" type="array">
+      <obj_property name="ElementShortName">if_inst[31:0]</obj_property>
+      <obj_property name="ObjectShortName">if_inst[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_wb0/mem_wreg" type="logic">
       <obj_property name="ElementShortName">mem_wreg</obj_property>

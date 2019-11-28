@@ -90,8 +90,9 @@ module cpld_model(
         repeat(2)
             @(posedge clk_out2);
         uart_tsre = 0;
-        #20 // 实际串口发送时间更长，为了加快仿真，等待时间较短
-        $display("send: 0x%02x", TxD_data_sync);
+        #25 // 实际串口发送时间更长，为了加快仿真，等待时间较短
+        $display("uart send: 0x%02x `%c`", TxD_data_sync, TxD_data_sync);
+        #25
         uart_tsre = 1;
     end
 

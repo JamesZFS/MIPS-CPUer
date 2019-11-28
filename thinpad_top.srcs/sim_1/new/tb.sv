@@ -23,7 +23,7 @@ wire base_ram_ce_n;       //BaseRAM片选，低有效
 wire base_ram_oe_n;       //BaseRAM读使能，低有效
 wire base_ram_we_n;       //BaseRAM写使能，低有效
 
-wire[31:0] ext_ram_data; //ExtRAM数据
+wire[31:0] ext_ram_data; //ExtRAM数据   
 wire[19:0] ext_ram_addr; //ExtRAM地址
 wire[3:0] ext_ram_be_n;  //ExtRAM字节使能，低有效。如果不使用字节使能，请保持为0
 wire ext_ram_ce_n;       //ExtRAM片选，低有效
@@ -47,8 +47,8 @@ wire uart_tsre;          //数据发送完毕标志
 
 //Windows需要注意路径分隔符的转义，例如"D:\\foo\\bar.bin"
 // TODO: change absolute path!
-// parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/kernel-int.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
-parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/mips32lab/supervisor-32/kernel/kernel.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/kernel-basic.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+// parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/mips32lab/supervisor-32/kernel/kernel.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
 parameter EXT_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/extdata.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
 parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
 

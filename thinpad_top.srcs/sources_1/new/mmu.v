@@ -91,7 +91,7 @@ always @(*) begin // handle ext ram alone
         end else begin // write ext ram
             // ext_ram_we_n <= `RAMEnable;
             ext_ram_be_n <= mem_sel_i;
-            ext_ram_we_n <= clk;   // * write concurrently with clk
+            ext_ram_we_n <= `RAMEnable;   // * write concurrently with clk
             ext_ram_oe_n <= `RAMDisable;
             inner_ext_ram_data <= mem_data_i;
         end
@@ -120,7 +120,7 @@ always @(*) begin // ** handle bus conflicts here
         end else begin  // write base ram
             // base_ram_we_n <= `RAMEnable;
             base_ram_be_n <= mem_sel_i;
-            base_ram_we_n <= clk;   // * write concurrently with clk
+            base_ram_we_n <= `RAMEnable;   // * write concurrently with clk
             base_ram_oe_n <= `RAMDisable;
             inner_base_ram_data <= mem_data_i;
         end
@@ -128,12 +128,12 @@ always @(*) begin // ** handle bus conflicts here
         // !!
         stallreq_o <= `StallEnable;
         if (mem_we_i == `WriteDisable) begin // read uart
-            uart_rdn <= clk;  // * read concurrently with clk
+            uart_rdn <= `UARTEnable;
             uart_wrn <= `UARTDisable;
             inner_base_ram_data <= 32'bz;
         end else begin
             uart_rdn <= `UARTDisable;
-            uart_wrn <= clk;  // * write concurrently with clk
+            uart_wrn <= `UARTEnable;  // * write concurrently with clk
             inner_base_ram_data <= mem_data_i;
         end
         // uart stat already returned, no need to stall
