@@ -81,21 +81,21 @@ always @(*) begin // handle ext ram alone
     ext_ram_be_n <= 4'b0000;
     inner_ext_ram_data <= 32'bz;
 
-    // if (mem_access_ext_ram) begin
-    //     ext_ram_ce_n <= `RAMEnable;
-    //     // read or write?
-    //     if (mem_we_i == `WriteDisable) begin // read ext ram
-    //         ext_ram_we_n <= `RAMDisable;
-    //         ext_ram_oe_n <= `RAMEnable;
-    //         inner_ext_ram_data <= 32'bz;
-    //     end else begin // write ext ram
-    //         // ext_ram_we_n <= `RAMEnable;
-    //         ext_ram_be_n <= mem_sel_i;
-    //         ext_ram_we_n <= clk;   // * write concurrently with clk
-    //         ext_ram_oe_n <= `RAMDisable;
-    //         inner_ext_ram_data <= mem_data_i;
-    //     end
-    // end
+    if (mem_access_ext_ram) begin
+        ext_ram_ce_n <= `RAMEnable;
+        // read or write?
+        if (mem_we_i == `WriteDisable) begin // read ext ram
+            ext_ram_we_n <= `RAMDisable;
+            ext_ram_oe_n <= `RAMEnable;
+            inner_ext_ram_data <= 32'bz;
+        end else begin // write ext ram
+            // ext_ram_we_n <= `RAMEnable;
+            ext_ram_be_n <= mem_sel_i;
+            ext_ram_we_n <= clk;   // * write concurrently with clk
+            ext_ram_oe_n <= `RAMDisable;
+            inner_ext_ram_data <= mem_data_i;
+        end
+    end
 end
 
 always @(*) begin // ** handle bus conflicts here 
@@ -111,31 +111,31 @@ always @(*) begin // ** handle bus conflicts here
 
     if (mem_access_base_ram) begin
         // !!
-        // stallreq_o <= `StallEnable;
-        // base_ram_ce_n <= `RAMEnable;
-        // if (mem_we_i == `WriteDisable) begin // read base ram
-        //     base_ram_we_n <= `RAMDisable;
-        //     base_ram_oe_n <= `RAMEnable;
-        //     inner_base_ram_data <= 32'bz;
-        // end else begin  // write base ram
-        //     // base_ram_we_n <= `RAMEnable;
-        //     base_ram_be_n <= mem_sel_i;
-        //     base_ram_we_n <= clk;   // * write concurrently with clk
-        //     base_ram_oe_n <= `RAMDisable;
-        //     inner_base_ram_data <= mem_data_i;
-        // end
+        stallreq_o <= `StallEnable;
+        base_ram_ce_n <= `RAMEnable;
+        if (mem_we_i == `WriteDisable) begin // read base ram
+            base_ram_we_n <= `RAMDisable;
+            base_ram_oe_n <= `RAMEnable;
+            inner_base_ram_data <= 32'bz;
+        end else begin  // write base ram
+            // base_ram_we_n <= `RAMEnable;
+            base_ram_be_n <= mem_sel_i;
+            base_ram_we_n <= clk;   // * write concurrently with clk
+            base_ram_oe_n <= `RAMDisable;
+            inner_base_ram_data <= mem_data_i;
+        end
     end else if (mem_access_uart_data) begin
         // !!
-        // stallreq_o <= `StallEnable;
-        // if (mem_we_i == `WriteDisable) begin // read uart
-        //     uart_rdn <= clk;  // * read concurrently with clk
-        //     uart_wrn <= `UARTDisable;
-        //     inner_base_ram_data <= 32'bz;
-        // end else begin
-        //     uart_rdn <= `UARTDisable;
-        //     uart_wrn <= clk;  // * write concurrently with clk
-        //     inner_base_ram_data <= mem_data_i;
-        // end
+        stallreq_o <= `StallEnable;
+        if (mem_we_i == `WriteDisable) begin // read uart
+            uart_rdn <= clk;  // * read concurrently with clk
+            uart_wrn <= `UARTDisable;
+            inner_base_ram_data <= 32'bz;
+        end else begin
+            uart_rdn <= `UARTDisable;
+            uart_wrn <= clk;  // * write concurrently with clk
+            inner_base_ram_data <= mem_data_i;
+        end
         // uart stat already returned, no need to stall
     end else if (if_ce_i == `ChipEnable) begin // read pc inst
         // ok

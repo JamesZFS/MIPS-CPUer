@@ -10,7 +10,7 @@ module coprocessor0(
 	input wire[4:0]               raddr_i,
 	input wire[`RegBus]           data_i,
 	
-	input wire[5:0]               int_i,
+	// input wire[5:0]               int_i,
 
 	input wire[31:0]              excepttype_i,
 	input wire[`RegBus]           current_inst_addr_i,
@@ -28,7 +28,7 @@ module coprocessor0(
 	// output reg                   timer_int_o    
 	
 );
-/*
+
 always @ (posedge clk) begin
 	cause_o <= `ZeroWord;
 	if(rst == `RstEnable) begin
@@ -39,10 +39,10 @@ always @ (posedge clk) begin
 		epc_o <= `ZeroWord;
 		config_o <= 32'b00000000000000001000000000000000;
 		prid_o <= 32'b00000000010011000000000100000010;
-//   timer_int_o <= `InterruptNotAssert;
+		//   timer_int_o <= `InterruptNotAssert;
 	end else begin
 		count_o <= count_o + 1 ;
-	//   cause_o[15:10] <= int_i;
+		//   cause_o[15:10] <= int_i;
 	
 		// if(compare_o != `ZeroWord && count_o == compare_o) begin
 		// 	timer_int_o <= `InterruptAssert;
@@ -176,5 +176,5 @@ always @ (*) begin
 			endcase  //case addr_i			
 	end    //if
 end      //always
-*/
+
 endmodule

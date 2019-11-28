@@ -58,19 +58,13 @@ module ex(
     output reg                    stallreq_o
 );
 
-wire[`RegBus] reg2_i_mux;
-wire[`RegBus] result_sum;
-wire reg1_lt_reg2;
-wire ov_sum;
-
 reg[`RegBus]    logic_res;
 reg[`RegBus]    shift_res;
 reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
 reg[`RegBus]    load_res;
-reg trapassert;
-reg ovassert;
-
+wire trapassert = 1'b0; // unimplemented
+wire ovassert   = 1'b0; // unimplemented
 
 assign excepttype_o = {excepttype_i[31:12],ovassert,trapassert,excepttype_i[9:8],8'h00};
 assign is_in_delayslot_o = is_in_delayslot_i;
@@ -79,8 +73,6 @@ assign current_inst_address_o = current_inst_address_i;
 // ** a variant of conflict type 1
 wire[31:0]       reg1 = (mem_is_load_i && (mem_wd_i == reg1_addr_i) && reg1_is_imm==`IsNotImm) ? mem_wdata_i : reg1_i;
 wire[31:0]       reg2 = (mem_is_load_i && (mem_wd_i == reg2_addr_i) && reg2_is_imm==`IsNotImm) ? mem_wdata_i : reg2_i;
-// wire[31:0]          reg1 = reg1_i;
-// wire[31:0]          reg2 = reg2_i;
 
 
 assign aluop_o = aluop_i;
@@ -201,21 +193,14 @@ end
 
 
 always @ * begin    // generate write signal
-    ovassert <= 0;
     if (rst == `RstEnable) begin      //  TODO: block this case or not?
         wd_o <= `NOPRegAddr;
         wreg_o <= `WriteDisable;
         wdata_o <= `ZeroWord;
     end else begin
         wd_o <= wd_i;
-        if(ov_sum == 1'b1) begin //double check
-            wreg_o <= `WriteDisable;
-            ovassert <= 1'b1;
-        end else begin
-            wreg_o <= wreg_i;
-            ovassert <= 1'b0;
-        end
-            case (alusel_i)     // alu result selection
+        wreg_o <= wreg_i;
+        case (alusel_i)     // alu result selection
 
             `EXE_RES_LOGIC: wdata_o <= logic_res; 
 
@@ -236,71 +221,20 @@ always @ * begin    // generate write signal
 end
 
 always @ (*) begin
-		if(rst == `RstEnable) begin
-			cp0_reg_write_addr_o <= 5'b00000;
-			cp0_reg_we_o <= `WriteDisable;
-			cp0_reg_data_o <= `ZeroWord;
-		end else if(aluop_i == `EXE_MTC0_OP) begin
-			cp0_reg_write_addr_o <= inst_i[15:11];
-			cp0_reg_we_o <= `WriteEnable;
-			cp0_reg_data_o <= reg1_i;
-	  end else begin
-			cp0_reg_write_addr_o <= 5'b00000;
-			cp0_reg_we_o <= `WriteDisable;
-			cp0_reg_data_o <= `ZeroWord;
-		end				
-	end	
-
-//the below dozen lines are useless for now. 
-//But keep it here just in case it is useful in the test
-assign reg2_i_mux = ((aluop_i == `EXE_TLT_OP)  ||
-	                 (aluop_i == `EXE_TLTI_OP) || 
-                     (aluop_i == `EXE_TGE_OP)  ||
-	                 (aluop_i == `EXE_TGEI_OP)) ? (~reg2_i)+1 : reg2_i;
-
-assign result_sum = reg1_i + reg2_i_mux;										 
-
-assign ov_sum = ((!reg1_i[31] && !reg2_i_mux[31]) && result_sum[31]) || ((reg1_i[31] && reg2_i_mux[31]) && (!result_sum[31]));  
-								
-assign reg1_lt_reg2 = ((aluop_i == `EXE_TLT_OP) ||
-	                   (aluop_i == `EXE_TLTI_OP)|| 
-                       (aluop_i == `EXE_TGE_OP) ||
-	                   (aluop_i == `EXE_TGEI_OP)) ? ((reg1_i[31] && !reg2_i[31]) || (!reg1_i[31] && !reg2_i[31] && result_sum[31])|| (reg1_i[31] && reg2_i[31] && result_sum[31])):(reg1_i < reg2_i);
-
-//determine if it is a trap exception
-always @ (*) begin
-		if(rst == `RstEnable) begin
-			trapassert <= `TrapNotAssert;
-		end else begin
-			trapassert <= `TrapNotAssert;
-			case (aluop_i)
-				`EXE_TEQ_OP, `EXE_TEQI_OP:		begin
-					if( reg1_i == reg2_i ) begin
-						trapassert <= `TrapAssert;
-					end
-				end
-				`EXE_TGE_OP, `EXE_TGEI_OP, `EXE_TGEIU_OP, `EXE_TGEU_OP:		begin
-					if( ~reg1_lt_reg2 ) begin
-						trapassert <= `TrapAssert;
-					end
-				end
-				`EXE_TLT_OP, `EXE_TLTI_OP, `EXE_TLTIU_OP, `EXE_TLTU_OP:		begin
-					if( reg1_lt_reg2 ) begin
-						trapassert <= `TrapAssert;
-					end
-				end
-				`EXE_TNE_OP, `EXE_TNEI_OP:		begin
-					if( reg1_i != reg2_i ) begin
-						trapassert <= `TrapAssert;
-					end
-				end
-				default:				begin
-					trapassert <= `TrapNotAssert;
-				end
-			endcase
-		end
-	end
-
+    if(rst == `RstEnable) begin
+        cp0_reg_write_addr_o <= 5'b00000;
+        cp0_reg_we_o <= `WriteDisable;
+        cp0_reg_data_o <= `ZeroWord;
+    end else if(aluop_i == `EXE_MTC0_OP) begin
+        cp0_reg_write_addr_o <= inst_i[15:11];
+        cp0_reg_we_o <= `WriteEnable;
+        cp0_reg_data_o <= reg1_i;
+    end else begin
+        cp0_reg_write_addr_o <= 5'b00000;
+        cp0_reg_we_o <= `WriteDisable;
+        cp0_reg_data_o <= `ZeroWord;
+    end
+end
 
 
 // pipeline stalling demo:

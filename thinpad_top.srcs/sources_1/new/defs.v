@@ -28,8 +28,6 @@
 `define IsNotImm        1'b0
 `define InterruptAssert 1'b1
 `define InterruptNotAssert 1'b0
-`define TrapAssert 1'b1
-`define TrapNotAssert 1'b0
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special

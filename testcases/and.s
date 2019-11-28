@@ -17,7 +17,14 @@
 # ori  $1, $0, 0x1
 # nop
 # nop
-ori  $1, $0, 0x1
+lui  $1,  0x1
+or   $1,  $2, $3
+clz  $1,  $2
+andi $t0, $0, 0xAC
+# ori  $t0, $0, 0xAC
+nop
+nop
+loop:
 nop
 nop
 nop
@@ -27,9 +34,8 @@ nop
 nop
 nop
 nop
+j loop
 nop
-nop
-
 # ori $1, $0, 0x00000001
 # nop
 # ori $2, $1, 0x00001000  # conflict 2

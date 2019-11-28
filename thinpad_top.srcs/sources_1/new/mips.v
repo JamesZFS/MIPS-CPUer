@@ -333,7 +333,7 @@ id_ex id_ex0(
 ex ex0(
     .rst(rst),
 
-    // to ex
+    // from id/ex
     .aluop_i(ex_aluop_i),
     .alusel_i(ex_alusel_i),
     .reg1_i(ex_reg1_i),

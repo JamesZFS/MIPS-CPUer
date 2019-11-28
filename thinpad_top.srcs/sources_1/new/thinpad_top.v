@@ -185,7 +185,7 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 
 /* =========== Demo code end =========== */
 
-`define SIMULATION
+// `define SIMULATION
 
 /* ============== Mips32 Pipeline code begin ============== */
 
@@ -207,7 +207,7 @@ mips mips0(
 `ifdef SIMULATION
     .clk(clock_btn),
 `else
-    .clk(clk_10M),
+    .clk(clk_20M),
 `endif
     .rst(reset_btn),
     // from mmu
@@ -233,7 +233,7 @@ mmu mmu0(
 `ifdef SIMULATION
     .clk(clock_btn),
 `else
-    .clk(clk_10M),
+    .clk(clk_20M),
 `endif
     .if_ce_i(inst_ram_ce),
     .if_addr_i(inst_addr),

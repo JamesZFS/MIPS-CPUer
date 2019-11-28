@@ -133,9 +133,9 @@ always @ (*) begin
         reg1_is_imm <= `IsNotImm;
         reg2_is_imm <= `IsNotImm;
         
-        if(inst_i == `ZeroWord)
+        if(inst_i == `ZeroWord) begin
             instvalid <= `InstValid;
-        else case (op)
+        end else case (op)
             `EXE_SPECIAL: 
                 if (op2 == 5'b00000)
                     case (op3)
@@ -244,10 +244,11 @@ always @ (*) begin
                             instvalid <= `InstValid;
                         end
 
-                        default: ; 
+                        default: $display("unknown op3!"); 
                     endcase
 
-                // else: unknown
+                else
+                    $display("unknown EXE_SPECIAL!");
             // EXE_SPECIAL
 
             `EXE_SPECIAL2:
@@ -260,8 +261,7 @@ always @ (*) begin
                     wreg_o <= `WriteEnable;
                     wd_o <= inst_i[15:11];  // $rd
                     instvalid <= `InstValid;
-                end
-                // else: unknown
+                end else $display("unknown EXE_SPECIAL2!");
                 
             `EXE_ORI: begin     // ori $rd, $rs, imm
                 aluop_o <= `EXE_OR_OP;
@@ -322,7 +322,7 @@ always @ (*) begin
                 wreg_o <= `WriteEnable;  // $rt
                 wd_o <= inst_i[20:16];
                 instvalid <= `InstValid;
-            end // else: unknown
+            end else $display("unknown!");
             
             `EXE_J: begin
 		  		wreg_o <= `WriteDisable;
@@ -442,34 +442,34 @@ always @ (*) begin
                 alusel_o <= `EXE_RES_LOAD_STORE;
             end
 
-            // default: ;
+            default: $display("unknown op!");
 
         endcase // op
         
         if(inst_i == `EXE_ERET) begin
-				            wreg_o <= `WriteDisable;		
-                            aluop_o <= `EXE_ERET_OP;
-		  	                alusel_o <= `EXE_RES_NOP;  
-                            reg1_read_o <= 1'b0;	
-                            reg2_read_o <= 1'b0;
-		  	                instvalid <= `InstValid; 
-                            excepttype_is_eret<= `True_v;				
-        end if(inst_i[31:21] == 11'b01000000000 && inst_i[10:0] == 11'b00000000000) begin //MFC0 OP
-                            aluop_o <= `EXE_MFC0_OP;
-                            alusel_o <= `EXE_RES_MOVE;
-                            wd_o <= inst_i[20:16];
-                            wreg_o <= `WriteEnable;
-                            instvalid <= `InstValid;	   
-                            reg1_read_o <= 1'b0;
-                            reg2_read_o <= 1'b0;		
+            wreg_o <= `WriteDisable;		
+            aluop_o <= `EXE_ERET_OP;
+            alusel_o <= `EXE_RES_NOP;  
+            reg1_read_o <= 1'b0;	
+            reg2_read_o <= 1'b0;
+            instvalid <= `InstValid; 
+            excepttype_is_eret<= `True_v;				
+        end else if(inst_i[31:21] == 11'b01000000000 && inst_i[10:0] == 11'b00000000000) begin //MFC0 OP
+            aluop_o <= `EXE_MFC0_OP;
+            alusel_o <= `EXE_RES_MOVE;
+            wd_o <= inst_i[20:16];
+            wreg_o <= `WriteEnable;
+            instvalid <= `InstValid;	   
+            reg1_read_o <= 1'b0;
+            reg2_read_o <= 1'b0;		
         end else if(inst_i[31:21] == 11'b01000000100 && inst_i[10:0] == 11'b00000000000) begin //MTC0 OP
-                            aluop_o <= `EXE_MTC0_OP;
-                            alusel_o <= `EXE_RES_NOP;
-                            wreg_o <= `WriteDisable;
-                            instvalid <= `InstValid;	   
-                            reg1_read_o <= 1'b1;
-                            reg1_addr_o <= inst_i[20:16];
-                            reg2_read_o <= 1'b0;					
+            aluop_o <= `EXE_MTC0_OP;
+            alusel_o <= `EXE_RES_NOP;
+            wreg_o <= `WriteDisable;
+            instvalid <= `InstValid;	   
+            reg1_read_o <= 1'b1;
+            reg1_addr_o <= inst_i[20:16];
+            reg2_read_o <= 1'b0;					
         end 
 
     end       // if
@@ -481,7 +481,6 @@ end         // always
 always @ (*) begin
 
     stallreq_o <= `StallDisable;
-    reg1_o <= `ZeroWord;
     
     // reg1
     if (rst == `RstEnable) begin
@@ -489,9 +488,11 @@ always @ (*) begin
     end else if (reg1_read_o == `ReadEnable) begin
 
         // ** critical conflict type 1, needs a pause to recover
-        if (ex_is_load_i && (aluop_o == `EXE_JR_OP || aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BGTZ_OP || aluop_o == `EXE_BNE_OP) && reg1_addr_o == ex_wd_i)
+        if (ex_is_load_i && (aluop_o == `EXE_JR_OP || aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BGTZ_OP || aluop_o == `EXE_BNE_OP) && reg1_addr_o == ex_wd_i) begin
+            $display("** critical conflict type 1");
+            reg1_o <= `ZeroWord;
             stallreq_o <= `StallEnable;
-        else if (ex_wreg_i == `WriteEnable && reg1_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
+        end else if (ex_wreg_i == `WriteEnable && reg1_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
             reg1_o <= ex_wdata_i;
         else if (mem_wreg_i == `WriteEnable && reg1_addr_o == mem_wd_i) // ** conflict type 2
             reg1_o <= mem_wdata_i;
@@ -505,15 +506,16 @@ always @ (*) begin
     end
 
     // reg2
-    reg2_o <= `ZeroWord;
     if (rst == `RstEnable) begin
         reg2_o <= `ZeroWord;
     end else if (reg2_read_o == `ReadEnable) begin
 
         // ** critical conflict type 1, needs a pause to recover
-        if (ex_is_load_i && (aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BNE_OP) && reg2_addr_o == ex_wd_i)
+        if (ex_is_load_i && (aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BNE_OP) && reg2_addr_o == ex_wd_i) begin
+            $display("** critical conflict type 1");
+            reg2_o <= `ZeroWord;
             stallreq_o <= `StallEnable;
-        if (ex_wreg_i == `WriteEnable && reg2_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
+        end else if (ex_wreg_i == `WriteEnable && reg2_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
             reg2_o <= ex_wdata_i;
         else if (mem_wreg_i == `WriteEnable && reg2_addr_o == mem_wd_i) // ** conflict type 2
             reg2_o <= mem_wdata_i;
