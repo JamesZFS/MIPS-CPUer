@@ -157,11 +157,6 @@ wire[`RegBus]	cp0_status;
 wire[`RegBus]	cp0_cause;
 wire[`RegBus]	cp0_epc;
 
-wire[`RegBus] cp0_count;
-wire[`RegBus]	cp0_compare;
-wire[`RegBus]	cp0_config;
-wire[`RegBus]	cp0_prid; 
-
 // ctrl --> *
 wire[0:5] ctrl_stall;
 wire flush;
@@ -532,33 +527,29 @@ mem_wb mem_wb0(
 
 coprocessor0 cp_0(
     
-		.clk(clk),
-		.rst(rst),
-		
-		.we_i(wb_cp0_reg_we_i),
-		.waddr_i(wb_cp0_reg_write_addr_i),
-		.raddr_i(cp0_raddr_i),
-		.data_i(wb_cp0_reg_data_i),
-		
-		.data_o(cp0_data_o),
+    .clk(clk),
+    .rst(rst),
+    
+    .we_i(wb_cp0_reg_we_i),
+    .waddr_i(wb_cp0_reg_write_addr_i),
+    .raddr_i(cp0_raddr_i),
+    .data_i(wb_cp0_reg_data_i),
+    
 
-        //from mem            
-        .current_inst_addr_i(mem_current_inst_address_o),
-        .is_in_delayslot_i(mem_is_in_delayslot_o),
-        .excepttype_i(mem_excepttype_o),
+    //from mem            
+    .excepttype_i(mem_excepttype_o),
+    .current_inst_addr_i(mem_current_inst_address_o),
+    .is_in_delayslot_i(mem_is_in_delayslot_o),
 
-        //to mem
-        .status_o(cp0_status),
-        .cause_o(cp0_cause),
-        .epc_o(cp0_epc),
+    // to ex
+    .data_o(cp0_data_o),
 
-        .count_o(cp0_count),
-		.compare_o(cp0_compare),
-        .config_o(cp0_config),
-		.prid_o(cp0_prid)
+    //to mem
+    .status_o(cp0_status),
+    .cause_o(cp0_cause),
+    .epc_o(cp0_epc)
 
-		// .timer_int_o(timer_int_o)  			
-	);
+);
 
 // CTRL instance
 ctrl ctrl0(

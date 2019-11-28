@@ -5,6 +5,7 @@ module ctrl(
     input wire      ex_stallreq_i,
     input wire      mmu_stallreq_i,
 
+    // from mem
     input wire[31:0]             excepttype_i,
 	input wire[`RegBus]          cp0_epc_i,
 
@@ -28,20 +29,14 @@ always @* begin
 	    flush <= 1'b1;
 	    stall_o <= 6'b000000;
         case (excepttype_i)           //new pc value for the exception handling
-            32'h00000001:		begin   //interrupt
-                new_pc <= 32'h00000020;
-            end
+            // 32'h00000001:		begin   //interrupt
+            //     new_pc <= 32'h00000020;
+            // end
             32'h00000008:		begin   //syscall
-                new_pc <= 32'h00000040;
+                new_pc <= `EHANDLERLOCATE;
             end
             32'h0000000a:		begin   //inst_invalid
-                new_pc <= 32'h00000040;
-            end
-            32'h0000000d:		begin   //trap
-                new_pc <= 32'h00000040;
-            end
-            32'h0000000c:		begin   //ov
-                new_pc <= 32'h00000040;
+                new_pc <= `EHANDLERLOCATE;
             end
             32'h0000000e:		begin   //eret
                 new_pc <= cp0_epc_i;

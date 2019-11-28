@@ -185,7 +185,7 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 
 /* =========== Demo code end =========== */
 
-`define SIMULATION
+// `define SIMULATION
 
 /* ============== Mips32 Pipeline code begin ============== */
 

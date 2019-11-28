@@ -452,7 +452,7 @@ always @ (*) begin
                     reg2_read_o <= 1'b0;
                     instvalid <= `InstValid; 
                     excepttype_is_eret<= `True_v;				
-                end else if(inst_i[31:21] == 11'b01000000000 && inst_i[10:0] == 11'b00000000000) begin //MFC0 OP
+                end else if (inst_i[31:21] == 11'b01000000000 && inst_i[10:1] == 10'b0000000000) begin //MFC0 OP
                     $display("id: mfc0");
                     aluop_o <= `EXE_MFC0_OP;
                     alusel_o <= `EXE_RES_MOVE;
@@ -461,7 +461,7 @@ always @ (*) begin
                     instvalid <= `InstValid;	   
                     reg1_read_o <= 1'b0;
                     reg2_read_o <= 1'b0;		
-                end else if(inst_i[31:21] == 11'b01000000100 && inst_i[10:0] == 11'b00000000000) begin //MTC0 OP
+                end else if(inst_i[31:21] == 11'b01000000100 && inst_i[10:1] == 10'b0000000000) begin //MTC0 OP
                     $display("id: mtc0");
                     aluop_o <= `EXE_MTC0_OP;
                     alusel_o <= `EXE_RES_NOP;
@@ -470,7 +470,7 @@ always @ (*) begin
                     reg1_read_o <= 1'b1;
                     reg1_addr_o <= inst_i[20:16];
                     reg2_read_o <= 1'b0;					
-                end
+                end else $display("error in id: invalid inst!");
             end
 
         endcase // op

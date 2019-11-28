@@ -29,6 +29,8 @@
 `define InterruptAssert 1'b1
 `define InterruptNotAssert 1'b0
 
+`define EHANDLERLOCATE  32'h80001180
+
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special
 `define EXE_ANDI        6'b001100
@@ -157,13 +159,10 @@
 `define RegNumLog2      5
 `define NOPRegAddr      5'b00000
 
-`define CP0_REG_COUNT    5'b01001       
-`define CP0_REG_COMPARE    5'b01011     
-`define CP0_REG_STATUS    5'b01100      
-`define CP0_REG_CAUSE    5'b01101       
-`define CP0_REG_EPC    5'b01110         
-`define CP0_REG_PrId    5'b01111        
-`define CP0_REG_CONFIG    5'b10000   
+`define CP0_REG_STATUS   5'd12     
+`define CP0_REG_CAUSE    5'd13       
+`define CP0_REG_EPC      5'd14         
+`define CP0_REG_EBASE    5'd15        
 
 // DVI
 `define HVDataWidth     12
