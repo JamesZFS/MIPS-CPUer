@@ -32,7 +32,7 @@ always @ (posedge clk) begin
     end else if (branch_flag_i == `Branch && stall[2] == `StallDisable) begin 
         pc <= branch_target_address_i;
     end else if (stall[0] == `StallDisable) begin
-        $display("clk!  pc = 0x%8x", pc);
+        // $display("clk!  pc = 0x%8x", pc);
         pc <= pc + 4;
     end else if (stall[0]==`StallEnable) begin // else: when stalling, hold pc
         pc <= pc;

@@ -453,7 +453,7 @@ always @ (*) begin
                     instvalid <= `InstValid; 
                     excepttype_is_eret<= `True_v;				
                 end else if (inst_i[31:21] == 11'b01000000000 && inst_i[10:1] == 10'b0000000000) begin //MFC0 OP
-                    $display("id: mfc0");
+                    // $display("id: mfc0");
                     aluop_o <= `EXE_MFC0_OP;
                     alusel_o <= `EXE_RES_MOVE;
                     wd_o <= inst_i[20:16];
@@ -462,7 +462,7 @@ always @ (*) begin
                     reg1_read_o <= 1'b0;
                     reg2_read_o <= 1'b0;		
                 end else if(inst_i[31:21] == 11'b01000000100 && inst_i[10:1] == 10'b0000000000) begin //MTC0 OP
-                    $display("id: mtc0");
+                    // $display("id: mtc0");
                     aluop_o <= `EXE_MTC0_OP;
                     alusel_o <= `EXE_RES_NOP;
                     wreg_o <= `WriteDisable;
@@ -492,7 +492,7 @@ always @ (*) begin
 
         // ** critical conflict type 1, needs a pause to recover
         if (ex_is_load_i && (aluop_o == `EXE_JR_OP || aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BGTZ_OP || aluop_o == `EXE_BNE_OP) && reg1_addr_o == ex_wd_i) begin
-            $display("** critical conflict type 1");
+            // $display("** critical conflict type 1");
             reg1_o <= `ZeroWord;
             stallreq_o <= `StallEnable;
         end else if (ex_wreg_i == `WriteEnable && reg1_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
@@ -515,7 +515,7 @@ always @ (*) begin
 
         // ** critical conflict type 1, needs a pause to recover
         if (ex_is_load_i && (aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BNE_OP) && reg2_addr_o == ex_wd_i) begin
-            $display("** critical conflict type 1");
+            // $display("** critical conflict type 1");
             reg2_o <= `ZeroWord;
             stallreq_o <= `StallEnable;
         end else if (ex_wreg_i == `WriteEnable && reg2_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)

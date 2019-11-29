@@ -22,7 +22,7 @@ module coprocessor0(
 );
 
 always @ (posedge clk) begin
-	cause_o <= `ZeroWord;
+	
 	if(rst == `RstEnable) begin
 		status_o <= 32'b00010000000000000000000000000000;
 		cause_o <= `ZeroWord;

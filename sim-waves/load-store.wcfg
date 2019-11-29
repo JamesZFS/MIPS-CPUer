@@ -11,17 +11,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="11676670000fs"></ZoomStartTime>
-      <ZoomEndTime time="12638670001fs"></ZoomEndTime>
-      <Cursor1Time time="12060670000fs"></Cursor1Time>
+      <ZoomStartTime time="25581500000fs"></ZoomStartTime>
+      <ZoomEndTime time="25891000001fs"></ZoomEndTime>
+      <Cursor1Time time="25793000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="172"></NameColumnWidth>
       <ValueColumnWidth column_width="71"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="58" />
+   <WVObjectSize size="63" />
    <wave_markers>
-      <marker time="11672670000" label="" />
+      <marker time="25810000000" label="" />
+      <marker time="23714167000" label="" />
    </wave_markers>
    <wvobject fp_name="/tb/clock_btn" type="logic">
       <obj_property name="ElementShortName">clock_btn</obj_property>
@@ -150,24 +151,6 @@
       <obj_property name="ElementShortName">ex_wdata[31:0]</obj_property>
       <obj_property name="ObjectShortName">ex_wdata[31:0]</obj_property>
       <obj_property name="CustomSignalColor">#FFD700</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/cp_0/status_o" type="array">
-      <obj_property name="ElementShortName">status_o[31:0]</obj_property>
-      <obj_property name="ObjectShortName">status_o[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/cp_0/cause_o" type="array">
-      <obj_property name="ElementShortName">cause_o[31:0]</obj_property>
-      <obj_property name="ObjectShortName">cause_o[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/cp_0/epc_o" type="array">
-      <obj_property name="ElementShortName">epc_o[31:0]</obj_property>
-      <obj_property name="ObjectShortName">epc_o[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/regfile0/regs[8]" type="array">
@@ -490,10 +473,14 @@
    <wvobject fp_name="/tb/dut/mmu0/uart_dataready" type="logic">
       <obj_property name="ElementShortName">uart_dataready</obj_property>
       <obj_property name="ObjectShortName">uart_dataready</obj_property>
+      <obj_property name="CustomSignalColor">#00FF7F</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mmu0/uart_tsre" type="logic">
       <obj_property name="ElementShortName">uart_tsre</obj_property>
       <obj_property name="ObjectShortName">uart_tsre</obj_property>
+      <obj_property name="CustomSignalColor">#00FF7F</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mmu0/base_ram_addr" type="array">
       <obj_property name="ElementShortName">base_ram_addr[19:0]</obj_property>
@@ -519,13 +506,17 @@
       <obj_property name="CustomSignalColor">#800080</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mmu0/ext_ram_data" type="array">
-      <obj_property name="ElementShortName">ext_ram_data[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ext_ram_data[31:0]</obj_property>
+   <wvobject fp_name="/tb/dut/mmu0/base_ram_data" type="array">
+      <obj_property name="ElementShortName">base_ram_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">base_ram_data[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mmu0/ext_ram_addr" type="array">
       <obj_property name="ElementShortName">ext_ram_addr[19:0]</obj_property>
       <obj_property name="ObjectShortName">ext_ram_addr[19:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mmu0/ext_ram_data" type="array">
+      <obj_property name="ElementShortName">ext_ram_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ext_ram_data[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/if_id0/if_pc" type="array">
       <obj_property name="ElementShortName">if_pc[31:0]</obj_property>
@@ -539,22 +530,64 @@
       <obj_property name="CustomSignalColor">#FF00FF</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/ctrl0/flush" type="logic">
+      <obj_property name="ElementShortName">flush</obj_property>
+      <obj_property name="ObjectShortName">flush</obj_property>
+      <obj_property name="CustomSignalColor">#FF0000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/id_excepttype_o" type="array">
+      <obj_property name="ElementShortName">id_excepttype_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">id_excepttype_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/ex_excepttype_o" type="array">
+      <obj_property name="ElementShortName">ex_excepttype_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_excepttype_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/mem_excepttype_o" type="array">
+      <obj_property name="ElementShortName">mem_excepttype_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_excepttype_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#D2691E</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/cp_0/status_o" type="array">
+      <obj_property name="ElementShortName">status_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">status_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/cp_0/cause_o" type="array">
+      <obj_property name="ElementShortName">cause_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cause_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/cp_0/epc_o" type="array">
+      <obj_property name="ElementShortName">epc_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">epc_o[31:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_wb0/mem_wreg" type="logic">
       <obj_property name="ElementShortName">mem_wreg</obj_property>
       <obj_property name="ObjectShortName">mem_wreg</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_wb0/mem_wd" type="array">
       <obj_property name="ElementShortName">mem_wd[4:0]</obj_property>
       <obj_property name="ObjectShortName">mem_wd[4:0]</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_wb0/mem_wdata" type="array">
       <obj_property name="ElementShortName">mem_wdata[31:0]</obj_property>
       <obj_property name="ObjectShortName">mem_wdata[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
+      <obj_property name="CustomSignalColor">#808000</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_wb0/wb_wreg" type="logic">
