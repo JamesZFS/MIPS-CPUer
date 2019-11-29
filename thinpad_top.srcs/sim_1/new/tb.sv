@@ -49,8 +49,8 @@ wire uart_tsre;          //数据发送完毕标志
 // TODO: change absolute path!
 // parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/UTEST_4MDCT.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
 // parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/uart_test.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
-parameter BASE_RAM_INIT_FILE = "C:/Users/admin/CPUer/mips32lab/supervisor-32/kernel/kernel.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
-parameter EXT_RAM_INIT_FILE = "C:/Users/admin/CPUer/cod19grp16/testcases/extdata.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
+parameter BASE_RAM_INIT_FILE = "C:/Users/Administrator/Desktop/cod19grp16/testcases/UTEST_4MDCT.bin"; //BaseRAM初始化文件，请修改为实际的绝对路径
+parameter EXT_RAM_INIT_FILE = "C:/Users/Administrator/Desktop/cod19grp16/testcases/extdata.bin";    //ExtRAM初始化文件，请修改为实际的绝对路径
 parameter FLASH_INIT_FILE = "/tmp/kernel.elf";    //Flash初始化文件，请修改为实际的绝对路径
 
 assign rxd = 1'b1; //idle state
@@ -79,7 +79,7 @@ end
 initial begin
     reset_btn = `RstEnable;
     #45 reset_btn= `RstDisable;
-    #50000 $stop;
+    #500 $stop;
     // #1000 $stop;
 end
 
