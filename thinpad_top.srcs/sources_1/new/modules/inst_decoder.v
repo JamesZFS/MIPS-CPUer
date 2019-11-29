@@ -535,11 +535,11 @@ end
 
 
 always @ (*) begin
-		if(rst == `RstEnable) begin
-			is_in_delayslot_o <= `NotInDelaySlot;
-		end else begin
-		  is_in_delayslot_o <= is_in_delayslot_i;		
-	  end
-	end
+    if(rst == `RstEnable) begin
+        is_in_delayslot_o <= `NotInDelaySlot;
+    end else begin
+        is_in_delayslot_o <= is_in_delayslot_i;		
+    end
+end
 
 endmodule

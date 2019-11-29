@@ -6,6 +6,7 @@ module mips(
     input wire[31:0]         mmu_mem_data_i,
     input wire[31:0]         ram_inst_i,    // instruction input
     input wire               mmu_stallreq_i, // to ctrl
+    input wire               uart_int_i, // to mem
     
     // if-id to mmu
     output wire[`InstAddrBus]    ram_addr_o,
@@ -540,6 +541,9 @@ coprocessor0 cp_0(
     .excepttype_i(mem_excepttype_o),
     .current_inst_addr_i(mem_current_inst_address_o),
     .is_in_delayslot_i(mem_is_in_delayslot_o),
+
+    // from top level
+    .uart_int_i(uart_int_i),
 
     // to ex
     .data_o(cp0_data_o),

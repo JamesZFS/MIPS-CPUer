@@ -139,6 +139,7 @@ always @ * begin    // perform arithmetic computation
                     reg1[7]?  24 : reg1[6]?  25 : reg1[5]?  26 : 
                     reg1[4]?  27 : reg1[3]?  28 : reg1[2]?  29 : 
                     reg1[1]?  30 : reg1[0]?  31 : 32;
+
             default: arith_res <= `ZeroWord;
             
         endcase
@@ -146,9 +147,9 @@ always @ * begin    // perform arithmetic computation
 end
 
 always @ * begin    // perform moving
-    cp0_reg_read_addr_o <= 0;
 
     if (rst == `RstEnable) begin
+        cp0_reg_read_addr_o <= 0;
         move_res <= `ZeroWord;
     end else begin
         case (aluop_i)

@@ -29,9 +29,9 @@ always @* begin
 	    flush <= 1'b1;
 	    stall_o <= 6'b000000;
         case (excepttype_i)           //new pc value for the exception handling
-            // 32'h00000001:		begin   //interrupt
-            //     new_pc <= 32'h00000020;
-            // end
+            32'h00000001:		begin   //interrupt
+                new_pc <= `EHANDLERLOCATE;
+            end
             32'h00000008:		begin   //syscall
                 new_pc <= `EHANDLERLOCATE;
             end

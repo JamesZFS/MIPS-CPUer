@@ -185,8 +185,6 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 
 /* =========== Demo code end =========== */
 
-`define SIMULATION
-
 /* ============== Mips32 Pipeline code begin ============== */
 
 wire[`InstAddrBus]  inst_addr; // mips to ram
@@ -214,6 +212,7 @@ mips mips0(
     .mmu_mem_data_i(mem_data),
     .ram_inst_i(inst),
     .mmu_stallreq_i(mmu_stallreq),
+    .uart_int_i(uart_dataready),
 
     // to mmu
     .ram_addr_o(inst_addr),
@@ -273,6 +272,7 @@ mmu mmu0(
 
     // form uart
     .uart_dataready(uart_dataready),
+    .uart_tbre(uart_tbre),
     .uart_tsre(uart_tsre),
 
     // to control

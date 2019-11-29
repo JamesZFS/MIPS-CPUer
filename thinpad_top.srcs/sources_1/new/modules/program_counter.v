@@ -28,6 +28,7 @@ always @ (posedge clk) begin
     if (ce == `ChipDisable) begin
         pc <= 32'b0;
     end else if (flush == 1'b1) begin
+        $display("clk!  pc new = 0x%8x", pc);
         pc <= new_pc;
     end else if (branch_flag_i == `Branch && stall[2] == `StallDisable) begin 
         pc <= branch_target_address_i;

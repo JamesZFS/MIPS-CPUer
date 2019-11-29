@@ -4,7 +4,6 @@ module coprocessor0(
 	input wire   				  clk,
 	input wire					  rst,
 	
-	
 	input wire                    we_i,
 	input wire[4:0]               waddr_i,
 	input wire[4:0]               raddr_i,
@@ -13,6 +12,9 @@ module coprocessor0(
 	input wire[31:0]              excepttype_i,
 	input wire[`RegBus]           current_inst_addr_i,
 	input wire                    is_in_delayslot_i,
+
+	// from top, hardware interruptions:
+	input wire 					  uart_int_i, // uart interruption
 	
 	output reg[`RegBus]           data_o,
 	output reg[`RegBus]           status_o,
@@ -20,6 +22,15 @@ module coprocessor0(
 	output reg[`RegBus]           epc_o,
 	output reg[`RegBus]           ebase_o
 );
+
+reg uart_int_prev;
+
+always @(posedge clk) begin
+	if (rst == `RstEnable)
+		uart_int_prev <= 0;
+	else
+		uart_int_prev <= uart_int_i;
+end
 
 always @ (posedge clk) begin
 	
@@ -29,8 +40,10 @@ always @ (posedge clk) begin
 		epc_o <= `ZeroWord;
 		ebase_o <= 32'h80001000; // defined by the supervisor
 	end else begin
+		if (uart_int_prev == 0 && uart_int_i == 1)	
+			cause_o[10] <= 1'b1; // cause[10], i.e. IP[2] means uart interrupt, see P291
 	
-		if(we_i == `WriteEnable) begin
+		if (we_i == `WriteEnable) begin
 			case (waddr_i) 
 				`CP0_REG_STATUS:	begin
 					status_o <= data_i;
@@ -50,7 +63,7 @@ always @ (posedge clk) begin
 			endcase  //case addr_i
 		end
 		case (excepttype_i)
-			32'h00000001:		begin
+			32'h00000001:		begin // uart IRQ
 				if(is_in_delayslot_i == `InDelaySlot ) begin
 					epc_o <= current_inst_addr_i - 4 ;
 					cause_o[31] <= 1'b1;
@@ -59,9 +72,10 @@ always @ (posedge clk) begin
 					cause_o[31] <= 1'b0;
 				end
 				status_o[1] <= 1'b1;
-				cause_o[6:2] <= 5'b00001;
+				cause_o[10] <= 1'b0;  // clear exception signal
+				cause_o[6:2] <= 5'b00000;
 			end
-			32'h00000008:		begin
+			32'h00000008:		begin // syscall
 				if(status_o[1] == 1'b0) begin
 					if(is_in_delayslot_i == `InDelaySlot ) begin
 						epc_o <= current_inst_addr_i - 4 ;
@@ -74,7 +88,7 @@ always @ (posedge clk) begin
 				status_o[1] <= 1'b1;
 				cause_o[6:2] <= 5'b01000;			
 			end
-			32'h0000000a:		begin
+			32'h0000000a:		begin // invalid inst
 				if(status_o[1] == 1'b0) begin
 					if(is_in_delayslot_i == `InDelaySlot ) begin
 						epc_o <= current_inst_addr_i - 4 ;
@@ -87,19 +101,19 @@ always @ (posedge clk) begin
 				status_o[1] <= 1'b1;
 				cause_o[6:2] <= 5'b01010;					
 			end
-			32'h0000000d:		begin
-				if(status_o[1] == 1'b0) begin
-					if(is_in_delayslot_i == `InDelaySlot ) begin
-						epc_o <= current_inst_addr_i - 4 ;
-						cause_o[31] <= 1'b1;
-					end else begin
-						epc_o <= current_inst_addr_i;
-						cause_o[31] <= 1'b0;
-					end
-				end
-				status_o[1] <= 1'b1;
-				cause_o[6:2] <= 5'b01101;					
-			end
+			// 32'h0000000d:		begin	// 
+			// 	if(status_o[1] == 1'b0) begin
+			// 		if(is_in_delayslot_i == `InDelaySlot ) begin
+			// 			epc_o <= current_inst_addr_i - 4 ;
+			// 			cause_o[31] <= 1'b1;
+			// 		end else begin
+			// 			epc_o <= current_inst_addr_i;
+			// 			cause_o[31] <= 1'b0;
+			// 		end
+			// 	end
+			// 	status_o[1] <= 1'b1;
+			// 	cause_o[6:2] <= 5'b01101;					
+			// end
 			32'h0000000c:		begin
 				if(status_o[1] == 1'b0) begin
 					if(is_in_delayslot_i == `InDelaySlot ) begin
@@ -110,9 +124,9 @@ always @ (posedge clk) begin
 					cause_o[31] <= 1'b0;
 					end
 				end
-					status_o[1] <= 1'b1;
-					cause_o[6:2] <= 5'b01100;					
-			end				
+				status_o[1] <= 1'b1;
+				cause_o[6:2] <= 5'b01100;					
+			end
 			32'h0000000e:   begin
 				status_o[1] <= 1'b0;
 			end
