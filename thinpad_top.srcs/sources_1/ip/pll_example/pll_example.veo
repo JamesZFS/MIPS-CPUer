@@ -1,5 +1,4 @@
 
-// file: pll_example.v
 // 
 // (c) Copyright 2008 - 2013 Xilinx, Inc. All rights reserved.
 // 
@@ -66,36 +65,22 @@
 //----------------------------------------------------------------------------
 // __primary______________50____________0.010
 
-`timescale 1ps/1ps
+// The following must be inserted into your Verilog file for this
+// core to be instantiated. Change the instance name and port connections
+// (in parentheses) to your own signal names.
 
-(* CORE_GENERATION_INFO = "pll_example,clk_wiz_v6_0_2_0_0,{component_name=pll_example,use_phase_alignment=true,use_min_o_jitter=false,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,enable_axi=0,feedback_source=FDBK_AUTO,PRIMITIVE=MMCM,num_out_clk=4,clkin1_period=20.000,clkin2_period=10.0,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,feedback_type=SINGLE,CLOCK_MGR_TYPE=NA,manual_override=false}" *)
+//----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 
-module pll_example 
- (
-  // Clock out ports
-  output        clk_out1,
-  output        clk_out2,
-  output        clk_out3,
-  output        clk_out4,
-  // Status and control signals
-  input         reset,
-  output        locked,
- // Clock in ports
-  input         clk_in1
- );
-
-  pll_example_clk_wiz inst
-  (
-  // Clock out ports  
-  .clk_out1(clk_out1),
-  .clk_out2(clk_out2),
-  .clk_out3(clk_out3),
-  .clk_out4(clk_out4),
-  // Status and control signals               
-  .reset(reset), 
-  .locked(locked),
- // Clock in ports
-  .clk_in1(clk_in1)
-  );
-
-endmodule
+  pll_example instance_name
+   (
+    // Clock out ports
+    .clk_out1(clk_out1),     // output clk_out1
+    .clk_out2(clk_out2),     // output clk_out2
+    .clk_out3(clk_out3),     // output clk_out3
+    .clk_out4(clk_out4),     // output clk_out4
+    // Status and control signals
+    .reset(reset), // input reset
+    .locked(locked),       // output locked
+   // Clock in ports
+    .clk_in1(clk_in1));      // input clk_in1
+// INST_TAG_END ------ End INSTANTIATION Template ---------
