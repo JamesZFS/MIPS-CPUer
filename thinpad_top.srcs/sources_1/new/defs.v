@@ -1,6 +1,6 @@
 // ** cpu config **
 // `define SIMULATION
-`define CPU_CLK clk_20M
+`define CPU_CLK clk_10M
 
 // global
 `define RstEnable       1'b1
