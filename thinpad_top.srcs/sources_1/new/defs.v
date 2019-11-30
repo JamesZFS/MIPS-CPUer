@@ -31,7 +31,7 @@
 `define InterruptAssert 1'b1
 `define InterruptNotAssert 1'b0
 
-`define EHANDLERLOCATE  32'h80000000
+`define EHANDLERLOCATE  32'h8000000
 
 // instrcution macros -- first 6 bits
 `define EXE_AND         6'b100100 // special

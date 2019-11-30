@@ -231,7 +231,6 @@ always @ (*) begin
     if(rst == `RstEnable) begin
         excepttype_o <= `ZeroWord;
     end else begin
-        
         if(current_inst_address_i != `ZeroWord) begin
             // if (((cp0_cause[15:8] & (cp0_status[15:8])) != 8'h00) && (cp0_status[1] == 1'b0) && (cp0_status[0] == 1'b1)) begin
             if (cp0_status[1:0] == 2'b01 && cp0_cause[10] == 1'b1) begin // if enable interrupt and not in exception state and exists uart interrupt, see P290
@@ -245,6 +244,8 @@ always @ (*) begin
                 excepttype_o <= 32'h0000000c;        //over  
             end else if(excepttype_i[12] == 1'b1) begin  
                 excepttype_o <= 32'h0000000e;       //eret
+            end else begin
+                excepttype_o <= 32'h00000000;
             end
         end	else begin
             excepttype_o <= `ZeroWord;

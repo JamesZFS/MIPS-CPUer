@@ -10,15 +10,15 @@ UTEST_4MDCT:
     li $t0, 0x10
     addiu $sp, $sp, -4
 .LC3:
-    sw $t0, 0($sp)
-    lw $t1, 0($sp)
-    addiu $t1, $t1, -1
-    sw $t1, 0($sp)
-    lw $t0, 0($sp)
-    bne $t0, $zero, .LC3
-    nop
+    #sw $t0, 0($sp)
+    #lw $t1, 0($sp)
+    #addiu $t1, $t1, -1
+    #sw $t1, 0($sp)
+    #lw $t0, 0($sp)
+    #bne $t0, $zero, .LC3
+    #nop
 
-    addiu $sp, $sp, 4
+    #addiu $sp, $sp, 4
     li $t0, 0xAC
 final:
     j  final
