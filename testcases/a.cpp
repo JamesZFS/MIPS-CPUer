@@ -1,5 +1,7 @@
 void fun() {
-
+    int a;
+    int c;
+    int b = a / c;
 }
 
 int main() {

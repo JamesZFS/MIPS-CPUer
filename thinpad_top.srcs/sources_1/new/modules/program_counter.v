@@ -26,6 +26,7 @@ end
 
 always @ (posedge clk) begin
     if (ce == `ChipDisable) begin
+        $display("clk!  pc <= 0");
         pc <= 32'b0;
     end else if (flush == 1'b1) begin
         $display("clk!  pc new = 0x%8x", pc);

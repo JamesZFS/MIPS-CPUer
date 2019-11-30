@@ -13,6 +13,7 @@ module id(
     input wire                  mem_wreg_i,
     input wire[`RegAddrBus]     mem_wd_i,  // which reg may be conflicting?
     input wire[`RegBus]         mem_wdata_i,
+    input wire                  mem_is_load_i,
 
     // from ex
     input wire                  ex_wreg_i,
@@ -490,16 +491,21 @@ always @ (*) begin
         reg1_o <= `ZeroWord;
     end else if (reg1_read_o == `ReadEnable) begin
 
-        // ** critical conflict type 1, needs a pause to recover
-        if (ex_is_load_i && (aluop_o == `EXE_JR_OP || aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BGTZ_OP || aluop_o == `EXE_BNE_OP) && reg1_addr_o == ex_wd_i) begin
-            // $display("** critical conflict type 1");
-            reg1_o <= `ZeroWord;
-            stallreq_o <= `StallEnable;
-        end else if (ex_wreg_i == `WriteEnable && reg1_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
-            reg1_o <= ex_wdata_i;
-        else if (mem_wreg_i == `WriteEnable && reg1_addr_o == mem_wd_i) // ** conflict type 2
-            reg1_o <= mem_wdata_i;
-        else
+        if (ex_wreg_i == `WriteEnable && reg1_addr_o == ex_wd_i) begin // ** conflict type 1 (PRIOR to type 2)
+            if (ex_is_load_i) begin
+                stallreq_o <= `StallEnable; // critical conflict type 1, wait 2 clks
+                reg1_o <= `ZeroWord;
+            end else
+                reg1_o <= ex_wdata_i;
+
+        end else if (mem_wreg_i == `WriteEnable && reg1_addr_o == mem_wd_i) begin // ** conflict type 2
+            if (mem_is_load_i) begin // mem is loading, wait 1 clk
+                stallreq_o <= `StallEnable;
+                reg1_o <= `ZeroWord;
+            end else
+                reg1_o <= mem_wdata_i;
+
+        end else
             reg1_o <= reg1_data_i;
 
     end else if (reg1_read_o == `ReadDisable) begin
@@ -513,16 +519,21 @@ always @ (*) begin
         reg2_o <= `ZeroWord;
     end else if (reg2_read_o == `ReadEnable) begin
 
-        // ** critical conflict type 1, needs a pause to recover
-        if (ex_is_load_i && (aluop_o == `EXE_BEQ_OP || aluop_o == `EXE_BNE_OP) && reg2_addr_o == ex_wd_i) begin
-            // $display("** critical conflict type 1");
-            reg2_o <= `ZeroWord;
-            stallreq_o <= `StallEnable;
-        end else if (ex_wreg_i == `WriteEnable && reg2_addr_o == ex_wd_i) // ** normal conflict type 1 (PRIOR to type 2)
-            reg2_o <= ex_wdata_i;
-        else if (mem_wreg_i == `WriteEnable && reg2_addr_o == mem_wd_i) // ** conflict type 2
-            reg2_o <= mem_wdata_i;
-        else
+        if (ex_wreg_i == `WriteEnable && reg2_addr_o == ex_wd_i) begin // ** conflict type 1 (PRIOR to type 2)
+            if (ex_is_load_i) begin
+                stallreq_o <= `StallEnable; // critical conflict type 1, wait 2 clks
+                reg2_o <= `ZeroWord;
+            end else
+                reg2_o <= ex_wdata_i;
+
+        end else if (mem_wreg_i == `WriteEnable && reg2_addr_o == mem_wd_i) begin // ** conflict type 2
+            if (mem_is_load_i) begin // mem is loading, wait 1 clk
+                stallreq_o <= `StallEnable;
+                reg2_o <= `ZeroWord;
+            end else
+                reg2_o <= mem_wdata_i;
+                
+        end else
             reg2_o <= reg2_data_i;
 
     end else if (reg2_read_o == `ReadDisable) begin

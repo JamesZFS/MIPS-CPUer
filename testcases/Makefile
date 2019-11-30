@@ -42,7 +42,7 @@ all: $(BINS)
 	$(CC) $(CFLAGS) -x assembler-with-cpp -g -c -o $@ $^
 
 %.s: %.cpp
-	$(CC) $(CFLAGS) -Og -S -o $@ $^
+	$(CC) $(CFLAGS) -O0 -S -o $@ $^
 
 %.dump: %.elf
 	$(OBJDUMP) -d $^

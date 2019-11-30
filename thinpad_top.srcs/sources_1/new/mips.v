@@ -120,8 +120,9 @@ wire mem_wstate_i;
 
 assign wstate_o = mem_wstate_i; // to mmu
 
-// mem -> ex
+// mem -> id
 wire mem_is_load_o;
+// mem -> ex
 wire mem_cp0_reg_we_o;
 wire[4:0] mem_cp0_reg_write_addr_o;
 wire[`RegBus] mem_cp0_reg_data_o;	
@@ -229,15 +230,16 @@ id id0(
     .reg2_data_i(reg2_data),
 
     // forward from mem
-    .mem_wreg_i(mem_wreg_o),
-    .mem_wd_i(mem_wd_o),
-    .mem_wdata_i(mem_wdata_o),
+    .mem_wreg_i(mem_wreg_i),
+    .mem_wd_i(mem_wd_i),
+    .mem_wdata_i(mem_wdata_i),
+    .mem_is_load_i(mem_is_load_o),  // special conflict 2, wait 1 clk
 
     // forward from ex
     .ex_wreg_i(ex_wreg_o),
     .ex_wd_i(ex_wd_o),
     .ex_wdata_i(ex_wdata_o),
-    .ex_is_load_i(ex_is_load_o), // special conflict 1
+    .ex_is_load_i(ex_is_load_o), // special conflict 1, wait 2 clks
 
     // signals to regfile
     .reg1_read_o(reg1_read),
@@ -350,11 +352,6 @@ ex ex0(
     .wd_i(ex_wd_i),
     .wreg_i(ex_wreg_i),
 
-    // from mem
-    .mem_is_load_i(mem_is_load_o),
-    .mem_wd_i(mem_wd_o),
-    .mem_wdata_i(mem_wdata_o),
-    
     // to ex/mem and forward to id
     .wd_o(ex_wd_o),
     .wreg_o(ex_wreg_o),

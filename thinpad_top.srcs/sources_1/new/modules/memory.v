@@ -118,22 +118,18 @@ always @* begin
                 mem_addr_o <= mem_addr_i;
                 mem_we_o <= `WriteDisable;
                 mem_ce <= `ChipEnable;
-                case (mem_addr_i[1:0])  // TODO endian!
+                case (mem_addr_i[1:0])
                     2'b00: begin
                         wdata_o <= {{24{mem_data_i[7]}},mem_data_i[7:0]};
-                        // mem_sel_o <= 4'b0001;
                     end
                     2'b01: begin
                         wdata_o <= {{24{mem_data_i[15]}},mem_data_i[15:8]};
-                        // mem_sel_o <= 4'b0010;
                     end
                     2'b10: begin
                         wdata_o <= {{24{mem_data_i[23]}},mem_data_i[23:16]};
-                        // mem_sel_o <= 4'b0100;
                     end
                     2'b11: begin
                         wdata_o <= {{24{mem_data_i[31]}},mem_data_i[31:24]};
-                        // mem_sel_o <= 4'b1000;
                     end
                 endcase
             end
@@ -142,21 +138,17 @@ always @* begin
                 mem_we_o <= `WriteDisable;
                 mem_ce<=`ChipEnable;
                 case(mem_addr_i[1:0])
-                    2'b00: begin        //TODO endian
+                    2'b00: begin
                         wdata_o <= {{24{1'b0}},mem_data_i[7:0]};
-                        // mem_sel_o <= 4'b0001;
                     end
                     2'b01: begin
                         wdata_o <= {{24{1'b0}},mem_data_i[15:8]};
-                        // mem_sel_o <= 4'b0010;
                     end
                     2'b10: begin
                         wdata_o <= {{24{1'b0}},mem_data_i[23:16]};
-                        // mem_sel_o <= 4'b0100;
                     end
                     2'b11: begin 
                         wdata_o <= {{24{1'b0}},mem_data_i[31:24]};
-                        // mem_sel_o <= 4'b1000;
                     end
                 endcase
             end
@@ -165,7 +157,6 @@ always @* begin
                 mem_addr_o <= mem_addr_i;
                 mem_we_o <= `WriteDisable;
                 wdata_o <= mem_data_i;
-                // mem_sel_o <= 4'b0000;
                 mem_ce <= `ChipEnable;
             end
 
@@ -184,7 +175,6 @@ always @* begin
                 mem_we_o <= `WriteEnable;
                 mem_ce <= `ChipEnable;
                 mem_data_o <= reg2_i;
-                // mem_sel_o <= 4'b0000;
             end
 
             `EXE_SB_OP:begin

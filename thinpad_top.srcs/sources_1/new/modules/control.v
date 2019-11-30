@@ -44,7 +44,9 @@ always @* begin
             end
             default: $display("unknown excepttype_i 0x%x in control.v", excepttype_i);
         endcase
-    end else begin
+
+    end else begin // ** handle pipeline stalling
+
         if (mem_stallreq_i == `StallEnable) begin
             stall_o <= 6'b111110;
         end else if (ex_stallreq_i == `StallEnable) begin
@@ -56,6 +58,7 @@ always @* begin
         end else begin // cancel stalling request
             stall_o <= 6'b000000;
         end
+        
     end
 
 end

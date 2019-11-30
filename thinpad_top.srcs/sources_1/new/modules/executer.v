@@ -16,10 +16,6 @@ module ex(
     input wire                    reg1_is_imm,
     input wire                    reg2_is_imm,
 
-    // from mem  ** a variant of conflict type 1
-    input wire                    mem_is_load_i, // only handle load type conflict
-    input wire[`RegAddrBus]       mem_wd_i,  // which reg may be conflicting?
-    input wire[`RegBus]           mem_wdata_i,
     input wire[31:0]              excepttype_i,
 	input wire[`RegBus]           current_inst_address_i,
 
@@ -70,18 +66,14 @@ assign excepttype_o = {excepttype_i[31:12],ovassert,trapassert,excepttype_i[9:8]
 assign is_in_delayslot_o = is_in_delayslot_i;
 assign current_inst_address_o = current_inst_address_i;
 
-// ** a variant of conflict type 1
-wire[31:0]       reg1 = (mem_is_load_i && (mem_wd_i == reg1_addr_i) && reg1_is_imm==`IsNotImm) ? mem_wdata_i : reg1_i;
-wire[31:0]       reg2 = (mem_is_load_i && (mem_wd_i == reg2_addr_i) && reg2_is_imm==`IsNotImm) ? mem_wdata_i : reg2_i;
-
 
 assign aluop_o = aluop_i;
-assign mem_addr_o = reg1 + {{16{inst_i[15]}},inst_i[15:0]};
-assign reg2_o = reg2;
+assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
+assign reg2_o = reg2_i;
 
 assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP; // ** a very critical kind of conflict 1, needs an urgent stall
 
-wire[`RegBus]   sum_res = reg1 + reg2;
+wire[`RegBus]   sum_res = reg1_i + reg2_i;
 
 always @ * begin    // perform logical computation
     if (rst == `RstEnable) begin
@@ -89,11 +81,11 @@ always @ * begin    // perform logical computation
     end else begin
         case (aluop_i)      // ** case various alu operations **
 
-            `EXE_OR_OP: logic_res <= reg1 | reg2;
+            `EXE_OR_OP: logic_res <= reg1_i | reg2_i;
 
-            `EXE_AND_OP: logic_res <= reg1 & reg2;
+            `EXE_AND_OP: logic_res <= reg1_i & reg2_i;
             
-            `EXE_XOR_OP: logic_res <= reg1 ^ reg2;
+            `EXE_XOR_OP: logic_res <= reg1_i ^ reg2_i;
 
             default: logic_res <= `ZeroWord;
             
@@ -107,9 +99,9 @@ always @ * begin    // perform shift computation
     end else begin
         case (aluop_i)      // ** case various alu operations **
 
-            `EXE_SLL_OP: shift_res <= reg1 << reg2[4:0]; // shift less than 32 bits
+            `EXE_SLL_OP: shift_res <= reg1_i << reg2_i[4:0]; // shift less than 32 bits
 
-            `EXE_SRL_OP: shift_res <= reg1 >> reg2[4:0];
+            `EXE_SRL_OP: shift_res <= reg1_i >> reg2_i[4:0];
 
             default: shift_res <= `ZeroWord;
             
@@ -128,17 +120,17 @@ always @ * begin    // perform arithmetic computation
 
             `EXE_CLZ_OP:  // count leading zeros in reg_1
                 arith_res <= 
-                    reg1[31]? 0  : reg1[30]? 1  : reg1[29]? 2  :
-                    reg1[28]? 3  : reg1[27]? 4  : reg1[26]? 5  :
-                    reg1[25]? 6  : reg1[24]? 7  : reg1[23]? 8  : 
-                    reg1[22]? 9  : reg1[21]? 10 : reg1[20]? 11 :
-                    reg1[19]? 12 : reg1[18]? 13 : reg1[17]? 14 : 
-                    reg1[16]? 15 : reg1[15]? 16 : reg1[14]? 17 : 
-                    reg1[13]? 18 : reg1[12]? 19 : reg1[11]? 20 :
-                    reg1[10]? 21 : reg1[9]?  22 : reg1[8]?  23 : 
-                    reg1[7]?  24 : reg1[6]?  25 : reg1[5]?  26 : 
-                    reg1[4]?  27 : reg1[3]?  28 : reg1[2]?  29 : 
-                    reg1[1]?  30 : reg1[0]?  31 : 32;
+                    reg1_i[31]? 0  : reg1_i[30]? 1  : reg1_i[29]? 2  :
+                    reg1_i[28]? 3  : reg1_i[27]? 4  : reg1_i[26]? 5  :
+                    reg1_i[25]? 6  : reg1_i[24]? 7  : reg1_i[23]? 8  : 
+                    reg1_i[22]? 9  : reg1_i[21]? 10 : reg1_i[20]? 11 :
+                    reg1_i[19]? 12 : reg1_i[18]? 13 : reg1_i[17]? 14 : 
+                    reg1_i[16]? 15 : reg1_i[15]? 16 : reg1_i[14]? 17 : 
+                    reg1_i[13]? 18 : reg1_i[12]? 19 : reg1_i[11]? 20 :
+                    reg1_i[10]? 21 : reg1_i[9]?  22 : reg1_i[8]?  23 : 
+                    reg1_i[7]?  24 : reg1_i[6]?  25 : reg1_i[5]?  26 : 
+                    reg1_i[4]?  27 : reg1_i[3]?  28 : reg1_i[2]?  29 : 
+                    reg1_i[1]?  30 : reg1_i[0]?  31 : 32;
 
             default: arith_res <= `ZeroWord;
             
@@ -156,7 +148,7 @@ always @ * begin    // perform moving
         move_res <= `ZeroWord;
         case (aluop_i)
 
-            `EXE_MOVZ_OP: move_res <= reg1;   // write or not is determined by wreg_o in id stage
+            `EXE_MOVZ_OP: move_res <= reg1_i;   // write or not is determined by wreg_o in id stage
 
             `EXE_MFC0_OP:		begin
 	   	        cp0_reg_read_addr_o <= inst_i[15:11];
@@ -184,7 +176,7 @@ always @ * begin    // perform loading
     end else begin
         case (aluop_i)
 
-            `EXE_LUI_OP: load_res <= reg1; // imm || 0^16
+            `EXE_LUI_OP: load_res <= reg1_i; // imm || 0^16
 
             `EXE_LB_OP, `EXE_LBU_OP, `EXE_LW_OP: load_res <= `ZeroWord; // wdata should be determined at mem stage
 
