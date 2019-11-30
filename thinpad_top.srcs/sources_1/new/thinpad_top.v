@@ -187,6 +187,52 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 
 /* =========== Demo code end =========== */
 
+/* =========== Video memory code begin =========== */
+
+//图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
+assign video_clk = clk_50M;
+
+// from mmu to blk_ram  TODO
+wire       blk_ram_we_n;
+wire[18:0] blk_ram_waddr;
+wire[7:0]  blk_ram_data_i;
+
+// from bram to top
+wire[7:0]  blk_ram_data_o;
+
+// from dvi gen to bram
+wire[11:0] dvi_x;
+wire[11:0] dvi_y;
+wire[18:0] blk_ram_raddr;
+
+// WIDTH ADDRWID ADDRMAX HSIZE  HFP  HSP  HMAX VSIZE  VFP  VSP VMAX HSPP VSPP
+dvi #(12,     19, 480000,  800, 856, 976, 1040,  600, 637, 643, 666,   1,   1) dvi800x600at75_gen (
+    // in:
+    .clk(video_clk), 
+    // out:
+    .hdata(dvi_x), //横坐标
+    .vdata(dvi_y), //纵坐标
+    .addr(blk_ram_raddr),
+    .hsync(video_hsync),
+    .vsync(video_vsync),
+    .data_enable(video_de)
+);
+
+blk_mem_gen_0 video_mem_gen(
+    // write port in:
+    .clka(`CPU_CLK), 
+    .wea(blk_ram_we_n), 
+    .addra(blk_ram_waddr), 
+    .dina(blk_ram_data_i), 
+    // read port in:
+    .clkb(video_clk), 
+    .addrb(blk_ram_raddr), 
+    // read port out:
+    .doutb(blk_ram_data_o)
+);
+
+/* =========== Video memory code end =========== */
+
 /* ============== Mips32 Pipeline code begin ============== */
 
 wire[`InstAddrBus]  inst_addr; // mips to ram
@@ -318,39 +364,5 @@ always@(posedge `CPU_CLK) begin
 end
 
 `endif
-
-// ***** DVI display *****
-
-//图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
-wire[`HVDataBus] hdata;
-wire[`HVDataBus] vdata;
-assign video_clk = clk_50M;
-
-// WIDTH HSIZE HFP  HSP  HMAX VSIZE VFP  VSP VMAX HSPP VSPP
-vga #(`HVDataWidth, 800, 856, 976, 1040, 600, 637, 643, 666, 1, 1) vga800x600at75 (
-    // in:
-    .clk(clk_50M), 
-    // out:
-    .hdata(hdata), //横坐标
-    .vdata(vdata), //纵坐标
-    .hsync(video_hsync),
-    .vsync(video_vsync),
-    .data_enable(video_de)
-);
-
-wire[1:0] div_debug;
-
-DVI_display dvi_disp0(
-    // in:
-    .clk(clock_btn),
-    .rst(reset_btn),
-    .x(hdata),
-    .y(vdata),
-    // out:
-    .r(video_red),
-    .g(video_green),
-    .b(video_blue),
-    .debug(div_debug)
-);
 
 endmodule

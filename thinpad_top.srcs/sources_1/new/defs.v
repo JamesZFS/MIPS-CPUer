@@ -1,5 +1,5 @@
 // ** cpu config **
-// `define SIMULATION
+`define SIMULATION
 `define CPU_CLK clk_40M
 
 // global
@@ -201,8 +201,6 @@
 `define DivStop 1'b0
 
 // DVI
-`define HVDataWidth     12
-`define HVDataBus       11:0
 `define RED             3'b111
 `define GREEN           3'b111
 `define BLUE            2'b11
