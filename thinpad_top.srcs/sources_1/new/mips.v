@@ -19,7 +19,8 @@ module mips(
     output wire                  mem_ce_o,
     output wire[3:0]             mem_sel_o,
 
-    output wire[`RegBus]         debug_o        // signal for debug display
+    output wire[`RegBus]         debug1_o,        // signal for debug display
+    output wire[`RegBus]         debug2_o        // signal for debug display
 );
 
 wire[`InstAddrBus] pc;
@@ -185,6 +186,8 @@ pc_reg pc_reg0(
     .ce(ram_ce_o)
 );
 
+assign debug2_o = pc;
+
 assign ram_addr_o = pc; // output to inst_ram
 
 // IF/ID instance
@@ -273,7 +276,8 @@ regfile regfile0(
     .re2(reg2_read),
     .raddr2(reg2_addr),
     .rdata2(reg2_data),
-    .debug_o(debug_o)  // ** debug signal
+    .debug1_o(debug1_o)  // ** debug signal
+    // .debug2_o(debug2_o)  // ** debug signal
 );
 
 // ID/EX instance

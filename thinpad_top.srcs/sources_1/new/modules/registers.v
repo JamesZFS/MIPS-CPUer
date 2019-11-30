@@ -19,7 +19,8 @@ module regfile(
     output reg[`RegBus]         rdata2,
 
     // debug display
-    output wire[`RegBus]        debug_o
+    output wire[`RegBus]        debug1_o,
+    output wire[`RegBus]        debug2_o
 );
 
 // ** definition of 32 registers **
@@ -69,6 +70,7 @@ always @ (*) begin
     end
 end
 
-assign debug_o = regs[8];  // display the $t0 reg
+assign debug1_o = regs[8];  // display the $t0 reg
+assign debug2_o = regs[9];  // display the $t1 reg
 
 endmodule  // regfile

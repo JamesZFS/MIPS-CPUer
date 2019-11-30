@@ -1,4 +1,4 @@
-// `define SIMULATION
+`define SIMULATION
 
 // global
 `define RstEnable       1'b1

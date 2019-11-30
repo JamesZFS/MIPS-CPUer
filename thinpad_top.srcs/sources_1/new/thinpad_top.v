@@ -191,7 +191,8 @@ wire[`InstAddrBus]  inst_addr; // mips to ram
 wire                inst_ram_ce;  // mips to ram
 wire[31:0]          mem_data;    // ram to mem
 wire[31:0]          inst;        // ram to if-id
-wire[`RegBus]       debug;   // ** debug signal
+wire[`RegBus]       debug1;   // ** debug signal
+wire[`RegBus]       debug2;   // ** debug signal
 wire                mmu_stallreq;
 
 //mips.mem->mmu
@@ -225,7 +226,8 @@ mips mips0(
     .mem_ce_o(mem_ce_o),
     .mem_sel_o(mem_sel_o),
 
-    .debug_o(debug)
+    .debug1_o(debug1),
+    .debug2_o(debug2)
 );
 
 mmu mmu0(
@@ -282,11 +284,19 @@ mmu mmu0(
 /* ============== Mips32 Pipeline code end   ============== */
 
 // ***** debug display *****
-`ifndef SIMULATION
 
 reg[15:0] cur_stage = 1;
 assign leds = cur_stage;
 reg  cur_stop = 0;
+
+`ifdef SIMULATION
+
+always@(posedge clock_btn) begin
+    lcd_number <= debug1[7:0];
+    cur_stage <= debug2[17:2];
+end
+
+`else
 
 always @(posedge clock_btn) begin
     cur_stop <= !cur_stop;
@@ -294,7 +304,7 @@ end
 
 always@(posedge clk_10M) begin
     if (!cur_stop) begin
-        lcd_number <= debug[7:0];
+        lcd_number <= debug1[7:0];
         cur_stage <= {cur_stage[0], cur_stage[14:1]};
     end
 end

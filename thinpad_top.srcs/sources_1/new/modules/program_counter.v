@@ -5,8 +5,8 @@ module pc_reg(
 
     // from ctrl
     input wire[0:5]             stall,
-    input wire[`RegBus]           new_pc,
-    input wire                    flush,
+    input wire[`InstAddrBus]    new_pc,
+    input wire                  flush,
 
     //for jmp
     input wire                  branch_flag_i,
