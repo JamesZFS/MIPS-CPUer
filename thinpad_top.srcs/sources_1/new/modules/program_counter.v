@@ -18,26 +18,27 @@ module pc_reg(
 );
 
 always @ (posedge clk) begin
-    if (rst == `RstEnable)
+    if (rst == `RstEnable) begin
         ce <= `ChipDisable;
-    else
-        ce <= `ChipEnable;
-end
-
-always @ (posedge clk) begin
-    if (ce == `ChipDisable) begin
-        $display("clk!  pc <= 0");
         pc <= 32'b0;
-    end else if (flush == 1'b1) begin
-        $display("clk!  pc new = 0x%8x", pc);
-        pc <= new_pc;
-    end else if (branch_flag_i == `Branch && stall[2] == `StallDisable) begin 
-        pc <= branch_target_address_i;
-    end else if (stall[0] == `StallDisable) begin
-        // $display("clk!  pc = 0x%8x", pc);
-        pc <= pc + 4;
-    end else if (stall[0]==`StallEnable) begin // else: when stalling, hold pc
-        pc <= pc;
+        
+    end else begin
+        ce <= `ChipEnable;
+
+        if (flush == 1'b1) begin
+            $display("clk!  pc new = 0x%8x", pc);
+            pc <= new_pc;
+        end else if (branch_flag_i == `Branch && stall[2] == `StallDisable) begin 
+            $display("branching");
+            pc <= branch_target_address_i;
+        end else if (stall[0] == `StallDisable) begin
+            $display("clk!  pc = 0x%8x", pc);
+            pc <= pc + 4;
+        end else if (stall[0]==`StallEnable) begin // else: when stalling, hold pc
+            $display("hold pc");
+            pc <= pc;
+        end
+
     end
 end
 

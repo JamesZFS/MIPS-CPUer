@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Sat Nov 30 19:42:35 2019
+-- Date        : Sat Nov 30 23:34:29 2019
 -- Host        : DESKTOP-7E9K45F running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               C:/Users/admin/CPUer/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_stub.vhdl
