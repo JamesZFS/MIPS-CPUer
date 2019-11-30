@@ -30,6 +30,8 @@ module mem(
     output reg                    wreg_o,
     output reg[`RegAddrBus]       wd_o,
     output reg[`RegBus]           wdata_o,
+    output reg                    wstate_o,  // to mem/wb and then to mem itself
+    input  wire                   wstate_i,  // from mem/wb to itself
 
     //signal to MMU
     output reg[`RegBus]           mem_addr_o,
@@ -52,7 +54,9 @@ module mem(
     output reg[31:0]              excepttype_o,
 	output wire[`RegBus]          cp0_epc_o,
 	output wire                   is_in_delayslot_o,
-    output wire[`RegBus]          current_inst_address_o
+    output wire[`RegBus]          current_inst_address_o,
+
+    output reg                    stallreq_o  // to ctrl
 );
 
 reg mem_ce;
@@ -77,6 +81,7 @@ always @* begin
         wreg_o  <= `WriteDisable;
         wd_o    <= `NOPRegAddr;
         wdata_o <= `ZeroWord;
+        wstate_o <= 0;
 
         mem_addr_o <= `ZeroWord;
         mem_we_o <= `WriteDisable;
@@ -86,12 +91,15 @@ always @* begin
 
         cp0_reg_we_o <= `WriteDisable;
 		cp0_reg_write_addr_o <= 5'b00000;
-		cp0_reg_data_o <= `ZeroWord;	
+		cp0_reg_data_o <= `ZeroWord;
+
+        stallreq_o <= `StallDisable;
 
     end else begin
         wreg_o  <= wreg_i;
         wd_o    <= wd_i;
         wdata_o <= wdata_i;
+        wstate_o <= 0;
 
         cp0_reg_we_o <= cp0_reg_we_i;
 		cp0_reg_write_addr_o <= cp0_reg_write_addr_i;
@@ -102,6 +110,8 @@ always @* begin
         mem_sel_o <= 4'b0000;
         mem_data_o <= `ZeroWord;
         mem_ce <= `ChipDisable;
+
+        stallreq_o <= `StallDisable;
 
         case (aluop_i)
             `EXE_LB_OP: begin
@@ -160,6 +170,16 @@ always @* begin
             end
 
             `EXE_SW_OP: begin
+                case (wstate_i)   // write mem stage FSM
+                    0: begin 
+                        wstate_o <= 1;
+                        stallreq_o <= `StallEnable;
+                    end
+                    1: begin 
+                        wstate_o <= 0;
+                        stallreq_o <= `StallDisable;
+                    end
+                endcase
                 mem_addr_o <= mem_addr_i;
                 mem_we_o <= `WriteEnable;
                 mem_ce <= `ChipEnable;
@@ -168,6 +188,16 @@ always @* begin
             end
 
             `EXE_SB_OP:begin
+                case (wstate_i)   // write mem stage FSM
+                    0: begin 
+                        wstate_o <= 1;
+                        stallreq_o <= `StallEnable;
+                    end
+                    1: begin 
+                        wstate_o <= 0;
+                        stallreq_o <= `StallDisable;
+                    end
+                endcase
                 mem_addr_o <= mem_addr_i;
                 mem_we_o <= `WriteEnable;
                 mem_ce <= `ChipEnable;

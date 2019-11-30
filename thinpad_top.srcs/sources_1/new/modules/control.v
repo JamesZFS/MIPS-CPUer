@@ -3,7 +3,8 @@ module ctrl(
     
     input wire      id_stallreq_i,
     input wire      ex_stallreq_i,
-    input wire      mmu_stallreq_i,
+    input wire      mem_stallreq_i,  // mem write stall
+    input wire      mmu_stallreq_i,  // baseram bus conflict stall
 
     // from mem
     input wire[31:0]             excepttype_i,
@@ -41,10 +42,12 @@ always @* begin
             32'h0000000e:		begin   //eret
                 new_pc <= cp0_epc_i;
             end
-            default	:;
-        endcase 
+            default: $display("unknown excepttype_i 0x%x in control.v", excepttype_i);
+        endcase
     end else begin
-        if (ex_stallreq_i == `StallEnable) begin
+        if (mem_stallreq_i == `StallEnable) begin
+            stall_o <= 6'b111110;
+        end else if (ex_stallreq_i == `StallEnable) begin
             stall_o <= 6'b111100;
         end else if (id_stallreq_i == `StallEnable) begin
             stall_o <= 6'b111000;

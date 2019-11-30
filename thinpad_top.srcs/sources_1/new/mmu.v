@@ -44,6 +44,9 @@ module mmu(
     input wire                  uart_tbre,         //发送数据标志
     input wire                  uart_tsre,         //数据发送完毕标志
 
+    // from mem/wb
+    input wire                  wstate_i,
+
     // to ctrl
     output reg                  stallreq_o
 );
@@ -92,7 +95,8 @@ always @(*) begin // handle ext ram alone
         end else begin // write ext ram
             // ext_ram_we_n <= `RAMEnable;
             ext_ram_be_n <= mem_sel_i;
-            ext_ram_we_n <= clk;   // * write concurrently with clk
+            // ext_ram_we_n <= clk;   // * write concurrently with clk
+            ext_ram_we_n <= (wstate_i == 0) ? `RAMDisable : `RAMEnable; // 1st clk disable, 2nd clk enable
             ext_ram_oe_n <= `RAMDisable;
             inner_ext_ram_data <= mem_data_i;
         end
@@ -121,7 +125,8 @@ always @(*) begin // ** handle bus conflicts here
         end else begin  // write base ram
             // base_ram_we_n <= `RAMEnable;
             base_ram_be_n <= mem_sel_i;
-            base_ram_we_n <= clk;   // * write concurrently with clk
+            // base_ram_we_n <= clk;   // * write concurrently with clk
+            base_ram_we_n <= (wstate_i == 0) ? `RAMDisable : `RAMEnable; // 1st clk disable, 2nd clk enable
             base_ram_oe_n <= `RAMDisable;
             inner_base_ram_data <= mem_data_i;
         end
@@ -134,7 +139,8 @@ always @(*) begin // ** handle bus conflicts here
             inner_base_ram_data <= 32'bz;
         end else begin
             uart_rdn <= `UARTDisable;
-            uart_wrn <= clk;  // * write concurrently with clk
+            // uart_wrn <= clk;  // * write concurrently with clk
+            uart_wrn <= (wstate_i == 0) ? `UARTDisable : `UARTEnable; // 1st clk disable, 2nd clk enable
             inner_base_ram_data <= mem_data_i;
         end
         // uart stat already returned, no need to stall

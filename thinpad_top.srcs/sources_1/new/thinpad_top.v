@@ -194,6 +194,7 @@ wire[31:0]          inst;        // ram to if-id
 wire[`RegBus]       debug1;   // ** debug signal
 wire[`RegBus]       debug2;   // ** debug signal
 wire                mmu_stallreq;
+wire                mmu_wstate;  // to mmu
 
 //mips.mem->mmu
 wire[`RegBus]   mem_addr_o;
@@ -225,6 +226,8 @@ mips mips0(
     .mem_data_o(mem_data_o),
     .mem_ce_o(mem_ce_o),
     .mem_sel_o(mem_sel_o),
+
+    .wstate_o(mmu_wstate),
 
     .debug1_o(debug1),
     .debug2_o(debug2)
@@ -276,6 +279,9 @@ mmu mmu0(
     .uart_dataready(uart_dataready),
     .uart_tbre(uart_tbre),
     .uart_tsre(uart_tsre),
+
+    // from mem/wb
+    .wstate_i(mmu_wstate),
 
     // to control
     .stallreq_o(mmu_stallreq)

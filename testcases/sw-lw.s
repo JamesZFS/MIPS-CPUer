@@ -18,4 +18,6 @@ a: .word  0xaaaa
 
 end:
     nop
+    j  end
+    nop
  

@@ -19,6 +19,9 @@ module mips(
     output wire                  mem_ce_o,
     output wire[3:0]             mem_sel_o,
 
+    // mem/wb to mmu
+    output wire                  wstate_o,
+
     output wire[`RegBus]         debug1_o,        // signal for debug display
     output wire[`RegBus]         debug2_o        // signal for debug display
 );
@@ -112,6 +115,11 @@ wire[`RegBus] mem_current_inst_address_i;
 wire mem_wreg_o;
 wire[`RegAddrBus] mem_wd_o;
 wire[`RegBus] mem_wdata_o;
+wire mem_wstate_o;
+wire mem_wstate_i;
+
+assign wstate_o = mem_wstate_i; // to mmu
+
 // mem -> ex
 wire mem_is_load_o;
 wire mem_cp0_reg_we_o;
@@ -119,6 +127,7 @@ wire[4:0] mem_cp0_reg_write_addr_o;
 wire[`RegBus] mem_cp0_reg_data_o;	
 
 // mem --> ctrl
+wire mem_stallreq_o;
 wire[31:0] mem_excepttype_o;
 wire[`RegBus] latest_epc;
 
@@ -471,6 +480,8 @@ mem mem0(
     .wd_o(mem_wd_o),
     .wreg_o(mem_wreg_o),
     .wdata_o(mem_wdata_o),
+    .wstate_o(mem_wstate_o), // to mem/wb and then to mem itself
+    .wstate_i(mem_wstate_i), // from mem/wb
 
     //to mmu
     .mem_addr_o(mem_addr_o),
@@ -496,8 +507,10 @@ mem mem0(
 
     //to cp0
     .is_in_delayslot_o(mem_is_in_delayslot_o),
-	.current_inst_address_o(mem_current_inst_address_o)	
+	.current_inst_address_o(mem_current_inst_address_o),
 
+    // to ctrl
+    .stallreq_o(mem_stallreq_o)
 );
 
 // MEM/WB instance
@@ -509,6 +522,9 @@ mem_wb mem_wb0(
     .mem_wd(mem_wd_o),
     .mem_wreg(mem_wreg_o),
     .mem_wdata(mem_wdata_o),
+    .mem_wstate_i(mem_wstate_o),
+    .wstate_o(mem_wstate_i),
+
     .mem_cp0_reg_we(mem_cp0_reg_we_o),
     .mem_cp0_reg_write_addr(mem_cp0_reg_write_addr_o),
     .mem_cp0_reg_data(mem_cp0_reg_data_o),	
@@ -565,6 +581,7 @@ ctrl ctrl0(
 
     .id_stallreq_i(id_stallreq_o),
     .ex_stallreq_i(ex_stallreq_o),
+    .mem_stallreq_i(mem_stallreq_o),
     .mmu_stallreq_i(mmu_stallreq_i),
 
     .excepttype_i(mem_excepttype_o),
