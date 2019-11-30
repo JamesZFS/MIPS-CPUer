@@ -152,6 +152,8 @@ always @ * begin    // perform moving
         cp0_reg_read_addr_o <= 0;
         move_res <= `ZeroWord;
     end else begin
+        cp0_reg_read_addr_o <= 0;
+        move_res <= `ZeroWord;
         case (aluop_i)
 
             `EXE_MOVZ_OP: move_res <= reg1;   // write or not is determined by wreg_o in id stage
