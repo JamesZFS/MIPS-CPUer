@@ -88,6 +88,9 @@ wire ex_is_in_delayslot_o;
 wire[`RegBus] ex_current_inst_address_o;
 wire[`RegBus] ex_reg2_o;
 wire[`RegBus] ex_mem_addr_o;
+wire[`RegBus] ex_hi_o;
+wire[`RegBus] ex_lo_o;
+wire ex_whilo_o;
 
 // ex --> ctrl
 wire ex_stallreq_o;
@@ -106,6 +109,10 @@ wire[`RegBus] mem_cp0_reg_data_i;
 wire[31:0] mem_excepttype_i;
 wire mem_is_in_delayslot_i;
 wire[`RegBus] mem_current_inst_address_i;	
+
+wire[`RegBus] mem_hi_i;
+wire[`RegBus] mem_lo_i;
+wire mem_whilo_i;
 
 
 // mem -> mem/wb
@@ -166,6 +173,17 @@ wire flush;
 //ctrl --> pc
 wire[`RegBus] new_pc;
 
+//hi/lo -->ex
+wire[`RegBus] 	hi;
+wire[`RegBus]   lo;
+
+//mem/wb --> ex
+wire[`RegBus] wb_hi_i;
+wire[`RegBus] wb_lo_i;
+wire wb_whilo_i;	
+wire[`RegBus] mem_hi_o;
+wire[`RegBus] mem_lo_o;
+wire mem_whilo_o;
 
 // PC instance
 pc_reg pc_reg0(
@@ -370,7 +388,9 @@ ex ex0(
     .wb_cp0_reg_we(wb_cp0_reg_we_i),
 	.wb_cp0_reg_write_addr(wb_cp0_reg_write_addr_i),
 	.wb_cp0_reg_data(wb_cp0_reg_data_i),
-
+    .wb_hi_i(wb_hi_i),
+    .wb_lo_i(wb_lo_i),
+    .wb_whilo_i(wb_whilo_i),
     //to cp0
     .cp0_reg_read_addr_o(cp0_raddr_i),
 
@@ -385,12 +405,21 @@ ex ex0(
     .excepttype_o(ex_excepttype_o),
     .is_in_delayslot_o(ex_is_in_delayslot_o),
     .current_inst_address_o(ex_current_inst_address_o),
+    .hi_o(ex_hi_o),
+    .lo_o(ex_lo_o),
+    .whilo_o(ex_whilo_o),
 
     //from mem
     .mem_cp0_reg_we(mem_cp0_reg_we_o),
 	.mem_cp0_reg_write_addr(mem_cp0_reg_write_addr_o),
     .mem_cp0_reg_data(mem_cp0_reg_data_o),
+    .mem_hi_i(mem_hi_o),
+    .mem_lo_i(mem_lo_o),
+    .mem_whilo_i(mem_whilo_o),
 
+    //from hilo
+    .hi_i(hi),
+	.lo_i(lo),
 
     // to ctrl
     .stallreq_o(ex_stallreq_o)
@@ -415,7 +444,10 @@ ex_mem ex_mem0(
 
     .ex_excepttype(ex_excepttype_o),
     .ex_is_in_delayslot(ex_is_in_delayslot_o),
-    .ex_current_inst_address(ex_current_inst_address_o),	
+    .ex_current_inst_address(ex_current_inst_address_o),
+    .ex_hi(ex_hi_o),
+    .ex_lo(ex_lo_o),
+    .ex_whilo(ex_whilo_o),	
 
     // from ctrl
     .stall(ctrl_stall),
@@ -435,7 +467,11 @@ ex_mem ex_mem0(
 
     .mem_excepttype(mem_excepttype_i),
   	.mem_is_in_delayslot(mem_is_in_delayslot_i),
-	.mem_current_inst_address(mem_current_inst_address_i)    
+	.mem_current_inst_address(mem_current_inst_address_i),
+
+    .mem_hi(mem_hi_i),
+    .mem_lo(mem_lo_i),
+    .mem_whilo(mem_whilo_i)	    
 
 );
 
@@ -460,7 +496,11 @@ mem mem0(
 
     .wb_cp0_reg_we(wb_cp0_reg_we_i),
     .wb_cp0_reg_write_addr(wb_cp0_reg_write_addr_i),
-    .wb_cp0_reg_data(wb_cp0_reg_data_i),	 	
+    .wb_cp0_reg_data(wb_cp0_reg_data_i),
+
+    .hi_i(mem_hi_i),
+    .lo_i(mem_lo_i),
+    .whilo_i(mem_whilo_i),		 	
 
     //from cp0
     .cp0_status_i(cp0_status),
@@ -471,6 +511,9 @@ mem mem0(
     .wd_o(mem_wd_o),
     .wreg_o(mem_wreg_o),
     .wdata_o(mem_wdata_o),
+    .hi_o(mem_hi_o),
+    .lo_o(mem_lo_o),
+    .whilo_o(mem_whilo_o),
 
     //to mmu
     .mem_addr_o(mem_addr_o),
@@ -526,9 +569,31 @@ mem_wb mem_wb0(
     //to cp0 & ex
     .wb_cp0_reg_we(wb_cp0_reg_we_i),   
     .wb_cp0_reg_write_addr(wb_cp0_reg_write_addr_i),
-    .wb_cp0_reg_data(wb_cp0_reg_data_i)						
-          
+    .wb_cp0_reg_data(wb_cp0_reg_data_i),
+
+    //tp hi/lo
+    .mem_hi(mem_hi_o),
+    .mem_lo(mem_lo_o),
+    .mem_whilo(mem_whilo_o),
+
+    //to wb
+    .wb_hi(wb_hi_i),
+    .wb_lo(wb_lo_i),
+    .wb_whilo(wb_whilo_i)
+
 );
+
+hilo_reg hilo_reg0(
+		.clk(clk),
+		.rst(rst),
+	
+		.we(wb_whilo_i),
+		.hi_i(wb_hi_i),
+		.lo_i(wb_lo_i),
+	
+		.hi_o(hi),
+		.lo_o(lo)	
+	);
 
 coprocessor0 cp_0(
     

@@ -27,6 +27,10 @@ module ex_mem(
 	output reg[4:0]               mem_cp0_reg_write_addr,
 	output reg[`RegBus]           mem_cp0_reg_data,
 
+    input wire[`RegBus]           ex_hi,
+	input wire[`RegBus]           ex_lo,
+	input wire                    ex_whilo, 
+
     // signals to mem
     output reg                    mem_wreg,
     output reg[`RegAddrBus]       mem_wd,
@@ -38,7 +42,11 @@ module ex_mem(
 
     output reg[31:0]              mem_excepttype,
     output reg                    mem_is_in_delayslot,
-	output reg[`RegBus]           mem_current_inst_address
+	output reg[`RegBus]           mem_current_inst_address,
+
+    output reg[`RegBus]          mem_hi,
+	output reg[`RegBus]          mem_lo,
+	output reg                   mem_whilo	
 );
 
 always @(posedge clk) begin
@@ -56,6 +64,9 @@ always @(posedge clk) begin
         mem_excepttype <= `ZeroWord;
 		mem_is_in_delayslot <= `NotInDelaySlot;
 	    mem_current_inst_address <= `ZeroWord;
+        mem_hi <= `ZeroWord;
+		mem_lo <= `ZeroWord;
+        mem_whilo <= `WriteDisable;		  
 
     end else if (stall[3] == `StallDisable) begin
         mem_wreg  <= ex_wreg;
@@ -69,7 +80,10 @@ always @(posedge clk) begin
 		mem_cp0_reg_data <= ex_cp0_reg_data;
         mem_excepttype <= ex_excepttype;
 		mem_is_in_delayslot <= ex_is_in_delayslot;
-	    mem_current_inst_address <= ex_current_inst_address;	
+	    mem_current_inst_address <= ex_current_inst_address;
+        mem_hi <= ex_hi;
+		mem_lo <= ex_lo;
+        mem_whilo <= ex_whilo;		  
     end // else: hold on
 
 end

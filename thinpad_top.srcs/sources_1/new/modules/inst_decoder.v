@@ -178,6 +178,72 @@ always @ (*) begin
                             wd_o <= inst_i[15:11];       // $rd
                             instvalid <= `InstValid;
                         end
+                        
+                        `EXE_SUB: begin
+								wreg_o <= `WriteEnable;		
+                                aluop_o <= `EXE_SUB_OP;
+		  						alusel_o <= `EXE_RES_ARITH;		
+                                reg1_read_o <= 1'b1;	
+                                reg2_read_o <= 1'b1;
+		  						instvalid <= `InstValid;	
+								end
+                        `EXE_SUBU: begin
+                                wreg_o <= `WriteEnable;		
+                                aluop_o <= `EXE_SUBU_OP;
+                                alusel_o <= `EXE_RES_ARITH;		
+                                reg1_read_o <= 1'b1;	
+                                reg2_read_o <= 1'b1;
+                                instvalid <= `InstValid;
+                        end
+
+                        `EXE_MULT: begin
+								wreg_o <= `WriteDisable;		
+                                aluop_o <= `EXE_MULT_OP;
+		  						reg1_read_o <= 1'b1;	
+                                reg2_read_o <= 1'b1; 
+                                instvalid <= `InstValid;	
+						end
+						`EXE_MULTU: begin
+								wreg_o <= `WriteDisable;		
+                                aluop_o <= `EXE_MULTU_OP;
+		  						reg1_read_o <= 1'b1;	
+                                reg2_read_o <= 1'b1; 
+                                instvalid <= `InstValid;	
+						end
+
+                        `EXE_MFHI: begin
+                            wreg_o <= `WriteEnable;		
+                            aluop_o <= `EXE_MFHI_OP;
+                            alusel_o <= `EXE_RES_MOVE;  
+                            reg1_read_o <= 1'b0;	
+                            reg2_read_o <= 1'b0;
+                            instvalid <= `InstValid;	
+						end
+
+                        `EXE_MFLO: begin
+                            wreg_o <= `WriteEnable;		
+                            aluop_o <= `EXE_MFLO_OP;
+                            alusel_o <= `EXE_RES_MOVE;   
+                            reg1_read_o <= 1'b0;	
+                            reg2_read_o <= 1'b0;
+                            instvalid <= `InstValid;	
+                        end
+
+                        `EXE_MTHI: begin
+                            wreg_o <= `WriteDisable;		
+                            aluop_o <= `EXE_MTHI_OP;
+                            reg1_read_o <= 1'b1;	
+                            reg2_read_o <= 1'b0; 
+                            instvalid <= `InstValid;	
+                        end
+                        
+                        `EXE_MTLO: begin
+                            wreg_o <= `WriteDisable;		
+                            aluop_o <= `EXE_MTLO_OP;
+                            reg1_read_o <= 1'b1;	
+                            reg2_read_o <= 1'b0; 
+                            instvalid <= `InstValid;	
+                        end
 
                         `EXE_MOVZ: begin
                             aluop_o <= `EXE_MOVZ_OP;
@@ -262,6 +328,13 @@ always @ (*) begin
                     wreg_o <= `WriteEnable;
                     wd_o <= inst_i[15:11];  // $rd
                     instvalid <= `InstValid;
+                end else if(op2 == 5'b00000 && op3 == `EXE_MUL)begin
+                    wreg_o <= `WriteEnable;		
+                    aluop_o <= `EXE_MUL_OP;
+		  			alusel_o <= `EXE_RES_MUL; 
+                    reg1_read_o <= 1'b1;	
+                    reg2_read_o <= 1'b1;	
+		  			instvalid <= `InstValid;
                 end else $display("unknown EXE_SPECIAL2!");
                 
             `EXE_ORI: begin     // ori $rd, $rs, imm

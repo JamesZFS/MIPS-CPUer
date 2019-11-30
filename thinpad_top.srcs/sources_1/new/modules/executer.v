@@ -34,6 +34,14 @@ module ex(
 
     input wire[`RegBus]           cp0_reg_data_i,
 	output reg[4:0]               cp0_reg_read_addr_o,
+
+	input wire[`RegBus]           wb_hi_i,
+	input wire[`RegBus]           wb_lo_i,
+	input wire                    wb_whilo_i,
+	
+	input wire[`RegBus]           mem_hi_i,
+	input wire[`RegBus]           mem_lo_i,
+	input wire                    mem_whilo_i,
     
     // propagate result to mem (and forward to id)
     output reg                    wreg_o,
@@ -54,6 +62,14 @@ module ex(
 	output wire                   is_in_delayslot_o,
 	output wire[`RegBus]          current_inst_address_o,
 
+    output reg[`RegBus]           hi_o,
+	output reg[`RegBus]           lo_o,
+	output reg                    whilo_o,	
+
+    //from hi/lo
+    input wire[`RegBus]           hi_i,
+	input wire[`RegBus]           lo_i,
+
     // to ctrl
     output reg                    stallreq_o
 );
@@ -62,9 +78,17 @@ reg[`RegBus]    logic_res;
 reg[`RegBus]    shift_res;
 reg[`RegBus]    move_res;
 reg[`RegBus]    arith_res;
+reg[`DoubleRegBus] mulres;	
 reg[`RegBus]    load_res;
+reg[`RegBus] HI;
+reg[`RegBus] LO;
 wire trapassert = 1'b0; // unimplemented
 wire ovassert   = 1'b0; // unimplemented
+wire[`RegBus] reg2_i_mux;
+wire[`DoubleRegBus] hilo_temp;
+wire[`RegBus] opdata1_mult;
+wire[`RegBus] opdata2_mult;	
+
 
 assign excepttype_o = {excepttype_i[31:12],ovassert,trapassert,excepttype_i[9:8],8'h00};
 assign is_in_delayslot_o = is_in_delayslot_i;
@@ -79,9 +103,15 @@ assign aluop_o = aluop_i;
 assign mem_addr_o = reg1 + {{16{inst_i[15]}},inst_i[15:0]};
 assign reg2_o = reg2;
 
+assign reg2_i_mux = ((aluop_i == `EXE_SUB_OP) || (aluop_i == `EXE_SUBU_OP) ? (~reg2_i)+1 : reg2_i); // for subtraction, convert the second input to ones's Complement 
 assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP; // ** a very critical kind of conflict 1, needs an urgent stall
 
+assign opdata1_mult = (((aluop_i == `EXE_MUL_OP) || (aluop_i == `EXE_MULT_OP)) && (reg1_i[31] == 1'b1)) ? (~reg1_i + 1) : reg1_i; // for signed multiply, check the sign, if neg then OC, else nothing for signed operations
+assign opdata2_mult = (((aluop_i == `EXE_MUL_OP) || (aluop_i == `EXE_MULT_OP)) && (reg2_i[31] == 1'b1)) ? (~reg2_i + 1) : reg2_i;		
+assign hilo_temp = opdata1_mult * opdata2_mult;
+
 wire[`RegBus]   sum_res = reg1 + reg2;
+wire[`RegBus]   sub_res = reg1 + reg2_i_mux;
 
 always @ * begin    // perform logical computation
     if (rst == `RstEnable) begin
@@ -126,6 +156,9 @@ always @ * begin    // perform arithmetic computation
             `EXE_ADDU_OP:
                 arith_res <= sum_res;
 
+            `EXE_SUB_OP, `EXE_SUBU_OP:	
+				arith_res <= sub_res; 
+
             `EXE_CLZ_OP:  // count leading zeros in reg_1
                 arith_res <= 
                     reg1[31]? 0  : reg1[30]? 1  : reg1[29]? 2  :
@@ -145,6 +178,57 @@ always @ * begin    // perform arithmetic computation
         endcase
     end
 end
+
+//***get the newest hi lo value from hi/lo (including for forwarding)***//
+always @ (*) begin
+		if(rst == `RstEnable) begin
+			{HI,LO} <= {`ZeroWord,`ZeroWord};
+		end else if(mem_whilo_i == `WriteEnable) begin
+			{HI,LO} <= {mem_hi_i,mem_lo_i};
+		end else if(wb_whilo_i == `WriteEnable) begin
+			{HI,LO} <= {wb_hi_i,wb_lo_i};
+		end else begin
+			{HI,LO} <= {hi_i,lo_i};			
+		end
+	end	
+
+//***MULTIPLICATION PROCESS***//																				
+	always @ (*) begin
+		if(rst == `RstEnable) begin
+			mulres <= {`ZeroWord,`ZeroWord};
+		end else if ((aluop_i == `EXE_MULT_OP) || (aluop_i == `EXE_MUL_OP))begin
+			if(reg1_i[31] ^ reg2_i[31] == 1'b1) begin //XOR the signes of the inputs, if it is different, then mulres is the OC of hilo_temp, else do nothing just assign
+				mulres <= ~hilo_temp + 1;
+			end else begin
+			    mulres <= hilo_temp;
+			end
+		end else begin
+			    mulres <= hilo_temp; //if it is unsigned, then just assign
+		end
+	end
+//***MULTIPLICATION PROCESS END***//
+
+always @ (*) begin
+        if(rst == `RstEnable) begin
+            move_res <= `ZeroWord;
+        end else begin
+            move_res <= `ZeroWord;
+                case (aluop_i)
+                `EXE_MFHI_OP:		begin
+                    move_res <= HI;
+                end
+                `EXE_MFLO_OP:		begin
+                    move_res <= LO;
+                end
+                `EXE_MOVZ_OP:		begin
+                    move_res <= reg1_i;
+                end
+                default : begin
+            end
+	    endcase
+	end
+end
+
 
 always @ * begin    // perform moving
 
@@ -213,6 +297,8 @@ always @ * begin    // generate write signal
 
             `EXE_RES_ARITH: wdata_o <= arith_res;
 
+            `EXE_RES_MUL: wdata_o <= mulres[31:0];
+
             `EXE_RES_LOAD: wdata_o <= load_res;
 
             `EXE_RES_JUMP_BRANCH: wdata_o <= link_address_i;
@@ -239,6 +325,46 @@ always @ (*) begin
     end
 end
 
+
+always @ (*) begin
+    if(rst == `RstEnable) begin
+        whilo_o <= `WriteDisable;
+        hi_o <= `ZeroWord;
+        lo_o <= `ZeroWord;		
+    end else if((aluop_i == `EXE_MULT_OP) || (aluop_i == `EXE_MULTU_OP)) begin // assign hi lo(MUL operation wont be using hi/lo, only for mult and multu)
+        whilo_o <= `WriteEnable;
+        hi_o <= mulres[63:32];
+        lo_o <= mulres[31:0];	
+    end else begin
+        whilo_o <= `WriteDisable;
+        hi_o <= `ZeroWord;
+        lo_o <= `ZeroWord;
+    end
+ end
+
+ always @ (*) begin
+		if(rst == `RstEnable) begin
+			whilo_o <= `WriteDisable;
+			hi_o <= `ZeroWord;
+			lo_o <= `ZeroWord;		
+		end else if((aluop_i == `EXE_MULT_OP) || (aluop_i == `EXE_MULTU_OP)) begin
+			whilo_o <= `WriteEnable;
+			hi_o <= mulres[63:32];
+			lo_o <= mulres[31:0];			
+		end else if(aluop_i == `EXE_MTHI_OP) begin
+			whilo_o <= `WriteEnable;
+			hi_o <= reg1_i;
+			lo_o <= LO;
+		end else if(aluop_i == `EXE_MTLO_OP) begin
+			whilo_o <= `WriteEnable;
+			hi_o <= HI;
+			lo_o <= reg1_i;
+		end else begin
+			whilo_o <= `WriteDisable;
+			hi_o <= `ZeroWord;
+			lo_o <= `ZeroWord;
+		end				
+	end
 
 // pipeline stalling demo:
 

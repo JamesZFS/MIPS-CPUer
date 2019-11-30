@@ -10,8 +10,8 @@
 `define WriteDisable    1'b0
 `define ReadEnable      1'b1
 `define ReadDisable     1'b0
-`define AluOpBus        4:0
-`define AluSelBus       2:0
+`define AluOpBus        5:0
+`define AluSelBus       3:0
 `define InstValid       1'b0
 `define InstInvalid     1'b1
 `define True_v          1'b1
@@ -50,6 +50,18 @@
 
 `define EXE_ADDU        6'b100001 // special
 `define EXE_ADDIU       6'b001001
+`define EXE_SUB         6'b100010
+`define EXE_SUBU        6'b100011 //special
+
+`define EXE_MULT  6'b011000
+`define EXE_MULTU  6'b011001
+`define EXE_MUL  6'b000010
+
+`define EXE_MFHI  6'b010000
+`define EXE_MTHI  6'b010001
+`define EXE_MFLO  6'b010010
+`define EXE_MTLO  6'b010011
+
 `define EXE_CLZ         6'b100000 // special2
 
 `define EXE_LUI         6'b001111
@@ -92,36 +104,36 @@
 
 
 // alu operations:
-`define EXE_NOP_OP      5'h0
+`define EXE_NOP_OP      6'h0
 
-`define EXE_AND_OP      5'h1
-`define EXE_OR_OP       5'h2
-`define EXE_XOR_OP      5'h3
+`define EXE_AND_OP      6'h1
+`define EXE_OR_OP       6'h2
+`define EXE_XOR_OP      6'h3
 
-`define EXE_SLL_OP      5'h4
-`define EXE_SRL_OP      5'h5
+`define EXE_SLL_OP      6'h4
+`define EXE_SRL_OP      6'h5
 
-`define EXE_MOVZ_OP     5'h6
+`define EXE_MOVZ_OP     6'h6
 
-`define EXE_ADDU_OP     5'h7
-`define EXE_CLZ_OP      5'h8
+`define EXE_ADDU_OP     6'h7
+`define EXE_CLZ_OP      6'h8
 
-`define EXE_LUI_OP      5'h9
+`define EXE_LUI_OP      6'h9
 
 //jump operations
-`define EXE_J_OP        5'ha
-`define EXE_JAL_OP      5'hb
-`define EXE_JR_OP       5'hc
-`define EXE_BEQ_OP      5'hd
-`define EXE_BGTZ_OP     5'he
-`define EXE_BNE_OP      5'hf
+`define EXE_J_OP        6'ha
+`define EXE_JAL_OP      6'hb
+`define EXE_JR_OP       6'hc
+`define EXE_BEQ_OP      6'hd
+`define EXE_BGTZ_OP     6'he
+`define EXE_BNE_OP      6'hf
 
 //Load & Store operations
-`define EXE_LB_OP       5'h10
-`define EXE_LBU_OP      5'h11
-`define EXE_LW_OP       5'h12
-`define EXE_SW_OP       5'h13
-`define EXE_SB_OP       5'h14
+`define EXE_LB_OP       6'h10
+`define EXE_LBU_OP      6'h11
+`define EXE_LW_OP       6'h12
+`define EXE_SW_OP       6'h13
+`define EXE_SB_OP       6'h14
 
 //MMU
 // `define MemOccupy       1'd1
@@ -129,19 +141,31 @@
 
 
 //cp0 operations
-`define EXE_MFC0_OP    5'h15
-`define EXE_MTC0_OP    5'h16
-`define EXE_SYSCALL_OP 5'h1a
-`define EXE_ERET_OP    5'h1b
+`define EXE_MFC0_OP    6'h15
+`define EXE_MTC0_OP    6'h16
+`define EXE_SYSCALL_OP 6'h17
+`define EXE_ERET_OP    6'h18
+`define EXE_SUBU_OP    6'h19
+`define EXE_SUB_OP     6'h1a
+`define EXE_MULT_OP    6'h1b
+`define EXE_MULTU_OP   6'h1c
+`define EXE_MUL_OP   6'h1d
+
+`define EXE_MFHI_OP  6'h1e
+`define EXE_MTHI_OP  6'h20
+`define EXE_MFLO_OP  6'h21
+`define EXE_MTLO_OP  6'h22
 
 // alu result selection
-`define EXE_RES_LOGIC   3'd1
-`define EXE_RES_SHIFT   3'd2
-`define EXE_RES_MOVE    3'd3
-`define EXE_RES_ARITH   3'd4
-`define EXE_RES_LOAD    3'd5
-`define EXE_RES_JUMP_BRANCH 3'd6
-`define EXE_RES_LOAD_STORE 3'd7
+`define EXE_RES_LOGIC   4'd1
+`define EXE_RES_SHIFT   4'd2
+`define EXE_RES_MOVE    4'd3
+`define EXE_RES_ARITH   4'd4
+`define EXE_RES_LOAD    4'd5
+`define EXE_RES_JUMP_BRANCH 4'd6
+`define EXE_RES_LOAD_STORE 4'd7
+`define EXE_RES_MUL     4'd8
+
 
 
 `define EXE_RES_NOP     3'd0
