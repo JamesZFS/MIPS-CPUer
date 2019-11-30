@@ -1,3 +1,4 @@
+`include "div.v"
 module ex(
     input   wire  rst,
 	
@@ -42,6 +43,14 @@ module ex(
 	input wire[`RegBus]           mem_hi_i,
 	input wire[`RegBus]           mem_lo_i,
 	input wire                    mem_whilo_i,
+
+    //from hi/lo
+    input wire[`RegBus]           hi_i,
+	input wire[`RegBus]           lo_i,
+
+    //from div
+    input wire[`DoubleRegBus]     div_result_i,
+	input wire                    div_ready_i,
     
     // propagate result to mem (and forward to id)
     output reg                    wreg_o,
@@ -66,9 +75,11 @@ module ex(
 	output reg[`RegBus]           lo_o,
 	output reg                    whilo_o,	
 
-    //from hi/lo
-    input wire[`RegBus]           hi_i,
-	input wire[`RegBus]           lo_i,
+    //to div 
+    output reg[`RegBus]           div_opdata1_o,
+	output reg[`RegBus]           div_opdata2_o,
+	output reg                    div_start_o,
+	output reg                    signed_div_o,
 
     // to ctrl
     output reg                    stallreq_o
@@ -82,6 +93,7 @@ reg[`DoubleRegBus] mulres;
 reg[`RegBus]    load_res;
 reg[`RegBus] HI;
 reg[`RegBus] LO;
+reg stallreq_for_div;
 wire trapassert = 1'b0; // unimplemented
 wire ovassert   = 1'b0; // unimplemented
 wire[`RegBus] reg2_i_mux;
@@ -331,7 +343,7 @@ always @ (*) begin
         whilo_o <= `WriteDisable;
         hi_o <= `ZeroWord;
         lo_o <= `ZeroWord;		
-    end else if((aluop_i == `EXE_MULT_OP) || (aluop_i == `EXE_MULTU_OP)) begin // assign hi lo(MUL operation wont be using hi/lo, only for mult and multu)
+    end else if((aluop_i == `EXE_MULT_OP) || (aluop_i == `EXE_MULTU_OP)) begin // assign hi lo (MUL operation wont be using hi/lo, only for mult and multu)
         whilo_o <= `WriteEnable;
         hi_o <= mulres[63:32];
         lo_o <= mulres[31:0];	
@@ -350,7 +362,11 @@ always @ (*) begin
 		end else if((aluop_i == `EXE_MULT_OP) || (aluop_i == `EXE_MULTU_OP)) begin
 			whilo_o <= `WriteEnable;
 			hi_o <= mulres[63:32];
-			lo_o <= mulres[31:0];			
+			lo_o <= mulres[31:0];	
+        end else if((aluop_i == `EXE_DIV_OP) || (aluop_i == `EXE_DIVU_OP)) begin
+            whilo_o <= `WriteEnable;
+            hi_o <= div_result_i[63:32];
+            lo_o <= div_result_i[31:0];		
 		end else if(aluop_i == `EXE_MTHI_OP) begin
 			whilo_o <= `WriteEnable;
 			hi_o <= reg1_i;
@@ -365,6 +381,75 @@ always @ (*) begin
 			lo_o <= `ZeroWord;
 		end				
 	end
+
+
+//division operation
+always @ (*) begin
+		if(rst == `RstEnable) begin
+			stallreq_for_div <= `StallDisable;
+	    div_opdata1_o <= `ZeroWord;
+			div_opdata2_o <= `ZeroWord;
+			div_start_o <= `DivStop;
+			signed_div_o <= 1'b0;
+		end else begin
+			stallreq_for_div <= `StallDisable;
+	    div_opdata1_o <= `ZeroWord;
+			div_opdata2_o <= `ZeroWord;
+			div_start_o <= `DivStop;
+			signed_div_o <= 1'b0;	
+			case (aluop_i) 
+				`EXE_DIV_OP:		begin
+					if(div_ready_i == `DivResultNotReady) begin
+	    			div_opdata1_o <= reg1_i;
+						div_opdata2_o <= reg2_i;
+						div_start_o <= `DivStart;
+						signed_div_o <= 1'b1;
+						stallreq_for_div <= `StallEnable;
+					end else if(div_ready_i == `DivResultReady) begin
+	    			div_opdata1_o <= reg1_i;
+						div_opdata2_o <= reg2_i;
+						div_start_o <= `DivStop;
+						signed_div_o <= 1'b1;
+						stallreq_for_div <= `StallDisable;
+					end else begin						
+	    			div_opdata1_o <= `ZeroWord;
+						div_opdata2_o <= `ZeroWord;
+						div_start_o <= `DivStop;
+						signed_div_o <= 1'b0;
+						stallreq_for_div <= `StallDisable;
+					end					
+				end
+				`EXE_DIVU_OP:		begin
+					if(div_ready_i == `DivResultNotReady) begin
+	    			div_opdata1_o <= reg1_i;
+						div_opdata2_o <= reg2_i;
+						div_start_o <= `DivStart;
+						signed_div_o <= 1'b0;
+						stallreq_for_div <= `StallEnable;
+					end else if(div_ready_i == `DivResultReady) begin
+	    			div_opdata1_o <= reg1_i;
+						div_opdata2_o <= reg2_i;
+						div_start_o <= `DivStop;
+						signed_div_o <= 1'b0;
+						stallreq_for_div <= `StallDisable;
+					end else begin						
+	    			div_opdata1_o <= `ZeroWord;
+						div_opdata2_o <= `ZeroWord;
+						div_start_o <= `DivStop;
+						signed_div_o <= 1'b0;
+						stallreq_for_div <= `StallDisable;
+					end					
+				end
+				default: begin
+				end
+			endcase
+		end
+	end	
+
+//stall request for division
+always @ (*) begin
+    stallreq_o = stallreq_for_div;
+end
 
 // pipeline stalling demo:
 

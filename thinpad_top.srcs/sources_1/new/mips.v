@@ -185,6 +185,15 @@ wire[`RegBus] mem_hi_o;
 wire[`RegBus] mem_lo_o;
 wire mem_whilo_o;
 
+//ex --> div
+wire[`DoubleRegBus] div_result;
+wire div_ready;
+wire[`RegBus] div_opdata1;
+wire[`RegBus] div_opdata2;
+wire div_start;
+wire div_annul;
+wire signed_div;
+
 // PC instance
 pc_reg pc_reg0(
     .clk(clk),
@@ -421,9 +430,33 @@ ex ex0(
     .hi_i(hi),
 	.lo_i(lo),
 
+    //from div
+    .div_result_i(div_result),
+	.div_ready_i(div_ready), 
+
+    //to div
+    .div_opdata1_o(div_opdata1),
+    .div_opdata2_o(div_opdata2),
+    .div_start_o(div_start),
+    .signed_div_o(signed_div),
+
     // to ctrl
     .stallreq_o(ex_stallreq_o)
 );
+
+div div0(
+		.clk(clk),
+		.rst(rst),
+	
+		.signed_div_i(signed_div),
+		.opdata1_i(div_opdata1),
+		.opdata2_i(div_opdata2),
+		.start_i(div_start),
+		.annul_i(1'b0),
+	
+		.result_o(div_result),
+		.ready_o(div_ready)
+	);
 
 // ex/mem instance
 ex_mem ex_mem0(

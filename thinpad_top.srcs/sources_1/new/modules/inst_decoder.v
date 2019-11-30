@@ -203,6 +203,7 @@ always @ (*) begin
                                 reg2_read_o <= 1'b1; 
                                 instvalid <= `InstValid;	
 						end
+
 						`EXE_MULTU: begin
 								wreg_o <= `WriteDisable;		
                                 aluop_o <= `EXE_MULTU_OP;
@@ -210,6 +211,22 @@ always @ (*) begin
                                 reg2_read_o <= 1'b1; 
                                 instvalid <= `InstValid;	
 						end
+
+                        `EXE_DIV: begin
+								wreg_o <= `WriteDisable;		
+                                aluop_o <= `EXE_DIV_OP;
+		  						reg1_read_o <= 1'b1;	
+                                reg2_read_o <= 1'b1; 
+                                instvalid <= `InstValid;	
+						end
+
+                        `EXE_DIVU: begin
+                                wreg_o <= `WriteDisable;		
+                                aluop_o <= `EXE_DIVU_OP;
+                                reg1_read_o <= 1'b1;	
+                                reg2_read_o <= 1'b1; 
+                                instvalid <= `InstValid;	
+                        end
 
                         `EXE_MFHI: begin
                             wreg_o <= `WriteEnable;		
@@ -236,7 +253,7 @@ always @ (*) begin
                             reg2_read_o <= 1'b0; 
                             instvalid <= `InstValid;	
                         end
-                        
+
                         `EXE_MTLO: begin
                             wreg_o <= `WriteDisable;		
                             aluop_o <= `EXE_MTLO_OP;

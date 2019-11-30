@@ -100,6 +100,8 @@
 `define EXE_TNEI        5'b01110
 `define EXE_SYSCALL     6'b001100
 `define EXE_ERET        32'b01000010000000000000000000011000
+`define EXE_DIV  6'b011010
+`define EXE_DIVU  6'b011011
 
 
 
@@ -155,6 +157,9 @@
 `define EXE_MTHI_OP  6'h20
 `define EXE_MFLO_OP  6'h21
 `define EXE_MTLO_OP  6'h22
+`define EXE_DIV_OP     6'h23
+`define EXE_DIVU_OP      6'h24
+
 
 // alu result selection
 `define EXE_RES_LOGIC   4'd1
@@ -168,7 +173,7 @@
 
 
 
-`define EXE_RES_NOP     3'd0
+`define EXE_RES_NOP     4'd0
 
 // inst-sram
 `define InstAddrBus     31:0
