@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Sat Nov 30 23:34:29 2019
+-- Date        : Sat Nov 30 19:42:35 2019
 -- Host        : DESKTOP-7E9K45F running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               C:/Users/admin/CPUer/cod19grp16/thinpad_top.srcs/sources_1/ip/pll_example/pll_example_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top pll_example -prefix
+--               pll_example_ pll_example_sim_netlist.vhdl
 -- Design      : pll_example
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -24,8 +24,6 @@ entity pll_example_pll_example_clk_wiz is
     locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of pll_example_pll_example_clk_wiz : entity is "pll_example_clk_wiz";
 end pll_example_pll_example_clk_wiz;
 
 architecture STRUCTURE of pll_example_pll_example_clk_wiz is
@@ -117,7 +115,7 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKOUT2_DUTY_CYCLE => 0.500000,
       CLKOUT2_PHASE => 0.000000,
       CLKOUT2_USE_FINE_PS => false,
-      CLKOUT3_DIVIDE => 34,
+      CLKOUT3_DIVIDE => 30,
       CLKOUT3_DUTY_CYCLE => 0.500000,
       CLKOUT3_PHASE => 0.000000,
       CLKOUT3_USE_FINE_PS => false,
