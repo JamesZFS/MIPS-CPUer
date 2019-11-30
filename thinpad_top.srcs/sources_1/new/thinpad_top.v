@@ -305,7 +305,7 @@ end
 always@(posedge `CPU_CLK) begin
     if (!cur_stop) begin
         lcd_number <= debug1[7:0];
-        cur_stage <= debug2[15:0];
+        cur_stage <= debug2[17:2];
     end
 end
 

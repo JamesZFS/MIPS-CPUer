@@ -1,3 +1,4 @@
+// ** cpu config **
 // `define SIMULATION
 `define CPU_CLK clk_20M
 
