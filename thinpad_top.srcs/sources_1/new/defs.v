@@ -10,8 +10,8 @@
 `define WriteDisable    1'b0
 `define ReadEnable      1'b1
 `define ReadDisable     1'b0
-`define AluOpBus        4:0
-`define AluSelBus       2:0
+`define AluOpBus        5:0
+`define AluSelBus       3:0
 `define InstValid       1'b0
 `define InstInvalid     1'b1
 `define True_v          1'b1
@@ -48,8 +48,21 @@
 
 `define EXE_MOVZ        6'b001010 // special
 
+`define EXE_ADD         6'b100000 // special
 `define EXE_ADDU        6'b100001 // special
 `define EXE_ADDIU       6'b001001
+`define EXE_SUB         6'b100010
+`define EXE_SUBU        6'b100011 //special
+
+`define EXE_MULT  6'b011000
+`define EXE_MULTU  6'b011001
+`define EXE_MUL  6'b000010
+
+`define EXE_MFHI  6'b010000
+`define EXE_MTHI  6'b010001
+`define EXE_MFLO  6'b010010
+`define EXE_MTLO  6'b010011
+
 `define EXE_CLZ         6'b100000 // special2
 
 `define EXE_LUI         6'b001111
@@ -88,70 +101,79 @@
 `define EXE_TNEI        5'b01110
 `define EXE_SYSCALL     6'b001100
 `define EXE_ERET        32'b01000010000000000000000000011000
+`define EXE_DIV  6'b011010
+`define EXE_DIVU  6'b011011
 
 
 
 // alu operations:
-`define EXE_NOP_OP      5'h0
+`define EXE_NOP_OP      6'd0
 
-`define EXE_AND_OP      5'h1
-`define EXE_OR_OP       5'h2
-`define EXE_XOR_OP      5'h3
+`define EXE_AND_OP      6'd1
+`define EXE_OR_OP       6'd2
+`define EXE_XOR_OP      6'd3
 
-`define EXE_SLL_OP      5'h4
-`define EXE_SRL_OP      5'h5
+`define EXE_SLL_OP      6'd4
+`define EXE_SRL_OP      6'd5
 
-`define EXE_MOVZ_OP     5'h6
+`define EXE_MOVZ_OP     6'd6
 
-`define EXE_ADDU_OP     5'h7
-`define EXE_CLZ_OP      5'h8
+`define EXE_ADDU_OP     6'd7
+`define EXE_CLZ_OP      6'd8
 
-`define EXE_LUI_OP      5'h9
+`define EXE_LUI_OP      6'd9
+
+`define EXE_SUBU_OP     6'd10
+`define EXE_MULT_OP     6'd11
+`define EXE_MULTU_OP    6'd12
+`define EXE_MUL_OP      6'd13
 
 //jump operations
-`define EXE_J_OP        5'ha
-`define EXE_JAL_OP      5'hb
-`define EXE_JR_OP       5'hc
-`define EXE_BEQ_OP      5'hd
-`define EXE_BGTZ_OP     5'he
-`define EXE_BNE_OP      5'hf
+`define EXE_J_OP        6'd14
+`define EXE_JAL_OP      6'd15
+`define EXE_JR_OP       6'd16
+`define EXE_BEQ_OP      6'd17
+`define EXE_BGTZ_OP     6'd18
+`define EXE_BNE_OP      6'd19
 
 //Load & Store operations
-`define EXE_LB_OP       5'h10
-`define EXE_LBU_OP      5'h11
-`define EXE_LW_OP       5'h12
-`define EXE_SW_OP       5'h13
-`define EXE_SB_OP       5'h14
+`define EXE_LB_OP       6'd20
+`define EXE_LBU_OP      6'd21
+`define EXE_LW_OP       6'd22
+`define EXE_SW_OP       6'd23
+`define EXE_SB_OP       6'd24
 
-//MMU
-// `define MemOccupy       1'd1
-// `define MemAddrStart    0x
-
+// hi-lo
+`define EXE_MFHI_OP  6'd25
+`define EXE_MTHI_OP  6'd26
+`define EXE_MFLO_OP  6'd27
+`define EXE_MTLO_OP  6'd28
+`define EXE_DIV_OP   6'd29
+`define EXE_DIVU_OP  6'd30
 
 //cp0 operations
-`define EXE_MFC0_OP    5'h15
-`define EXE_MTC0_OP    5'h16
-`define EXE_SYSCALL_OP 5'h1a
-`define EXE_ERET_OP    5'h1b
+`define EXE_MFC0_OP    6'd31
+`define EXE_MTC0_OP    6'd32
+`define EXE_SYSCALL_OP 6'd33
+`define EXE_ERET_OP    6'd34
 
 // alu result selection
-`define EXE_RES_LOGIC   3'd1
-`define EXE_RES_SHIFT   3'd2
-`define EXE_RES_MOVE    3'd3
-`define EXE_RES_ARITH   3'd4
-`define EXE_RES_LOAD    3'd5
-`define EXE_RES_JUMP_BRANCH 3'd6
-`define EXE_RES_LOAD_STORE 3'd7
+`define EXE_RES_LOGIC   4'd1
+`define EXE_RES_SHIFT   4'd2
+`define EXE_RES_MOVE    4'd3
+`define EXE_RES_ARITH   4'd4
+`define EXE_RES_LOAD    4'd5
+`define EXE_RES_JUMP_BRANCH 4'd6
+`define EXE_RES_LOAD_STORE 4'd7
+`define EXE_RES_MUL     4'd8
 
-
-`define EXE_RES_NOP     3'd0
+`define EXE_RES_NOP     4'd0
 
 // inst-sram
 `define InstAddrBus     31:0
 `define InstAddrLog2    32
 `define InstBus         31:0
-// `define InstMemNum      131071
-// `define InstMemNumLog2  17
+
 
 // Registers macros
 `define RegAddrBus      4:0
@@ -167,6 +189,16 @@
 `define CP0_REG_CAUSE    5'd13       
 `define CP0_REG_EPC      5'd14         
 `define CP0_REG_EBASE    5'd15        
+
+//***definitions related to division***
+`define DivFree 2'b00
+`define DivByZero 2'b01
+`define DivOn 2'b10
+`define DivEnd 2'b11
+`define DivResultReady 1'b1
+`define DivResultNotReady 1'b0
+`define DivStart 1'b1
+`define DivStop 1'b0
 
 // DVI
 `define HVDataWidth     12

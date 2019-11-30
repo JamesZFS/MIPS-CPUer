@@ -21,10 +21,18 @@ module mem_wb(
 	output reg[4:0]               wb_cp0_reg_write_addr,
 	output reg[`RegBus]           wb_cp0_reg_data,
 
+    input wire[`RegBus]           mem_hi,
+	input wire[`RegBus]           mem_lo,
+	input wire                    mem_whilo,	
+
     // signals to wb
     output reg                    wb_wreg,
     output reg[`RegAddrBus]       wb_wd,
-    output reg[`RegBus]           wb_wdata
+    output reg[`RegBus]           wb_wdata,
+
+    output reg[`RegBus]          wb_hi,
+	output reg[`RegBus]          wb_lo,
+	output reg                   wb_whilo
 );
 
 always @(posedge clk) begin  // ** needs extending **
@@ -36,6 +44,9 @@ always @(posedge clk) begin  // ** needs extending **
         wb_cp0_reg_we <= `WriteDisable;
         wb_cp0_reg_write_addr <= 5'b00000;
         wb_cp0_reg_data <= `ZeroWord;
+        wb_hi <= `ZeroWord;
+        wb_lo <= `ZeroWord;
+        wb_whilo <= `WriteDisable;
         wstate_o <= 0;
 
     end else if (stall[4] == `StallEnable && stall[5] == `StallDisable) begin
@@ -45,6 +56,9 @@ always @(posedge clk) begin  // ** needs extending **
         wb_cp0_reg_we <= `WriteDisable;
         wb_cp0_reg_write_addr <= 5'b00000;
         wb_cp0_reg_data <= `ZeroWord;
+        wb_hi <= `ZeroWord;
+        wb_lo <= `ZeroWord;
+        wb_whilo <= `WriteDisable;
         wstate_o <= mem_wstate_i;
 
     end else if (stall[4] == `StallDisable) begin
@@ -54,8 +68,10 @@ always @(posedge clk) begin  // ** needs extending **
         wb_cp0_reg_we <= mem_cp0_reg_we;
 		wb_cp0_reg_write_addr <= mem_cp0_reg_write_addr;
 		wb_cp0_reg_data <= mem_cp0_reg_data;
+        wb_hi <= mem_hi;
+        wb_lo <= mem_lo;
+        wb_whilo <= mem_whilo;	
         wstate_o <= 0;
-
     end // else: hold on
 end
 

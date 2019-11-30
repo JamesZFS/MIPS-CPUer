@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="284166666fs"></ZoomStartTime>
-      <ZoomEndTime time="531166667fs"></ZoomEndTime>
-      <Cursor1Time time="490000000fs"></Cursor1Time>
+      <ZoomStartTime time="744276660fs"></ZoomStartTime>
+      <ZoomEndTime time="1051776661fs"></ZoomEndTime>
+      <Cursor1Time time="5079000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="216"></NameColumnWidth>
+      <NameColumnWidth column_width="211"></NameColumnWidth>
       <ValueColumnWidth column_width="72"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="44" />
+   <WVObjectSize size="48" />
    <wvobject fp_name="/tb/clock_btn" type="logic">
       <obj_property name="ElementShortName">clock_btn</obj_property>
       <obj_property name="ObjectShortName">clock_btn</obj_property>
@@ -51,8 +51,8 @@
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/id_ex0/id_alusel" type="array">
-      <obj_property name="ElementShortName">id_alusel[2:0]</obj_property>
-      <obj_property name="ObjectShortName">id_alusel[2:0]</obj_property>
+      <obj_property name="ElementShortName">id_alusel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">id_alusel[3:0]</obj_property>
       <obj_property name="CustomSignalColor">#00FF00</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
@@ -130,6 +130,10 @@
       <obj_property name="CustomSignalColor">#F0E68C</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/ex0/mulres" type="array">
+      <obj_property name="ElementShortName">mulres[63:0]</obj_property>
+      <obj_property name="ObjectShortName">mulres[63:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb/dut/mips0/ex0/is_in_delayslot_i" type="logic">
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">is_in_delayslot_i</obj_property>
@@ -142,10 +146,6 @@
       <obj_property name="ElementShortName">ex_cp0_reg_write_addr_o[4:0]</obj_property>
       <obj_property name="ObjectShortName">ex_cp0_reg_write_addr_o[4:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/ex_inst_i" type="array">
-      <obj_property name="ElementShortName">ex_inst_i[31:0]</obj_property>
-      <obj_property name="ObjectShortName">ex_inst_i[31:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb/dut/mips0/ex0/excepttype_i" type="array">
       <obj_property name="ElementShortName">excepttype_i[31:0]</obj_property>
       <obj_property name="ObjectShortName">excepttype_i[31:0]</obj_property>
@@ -153,6 +153,10 @@
    <wvobject fp_name="/tb/dut/mips0/ex0/excepttype_o" type="array">
       <obj_property name="ElementShortName">excepttype_o[31:0]</obj_property>
       <obj_property name="ObjectShortName">excepttype_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/ex0/whilo_o" type="logic">
+      <obj_property name="ElementShortName">whilo_o</obj_property>
+      <obj_property name="ObjectShortName">whilo_o</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_wb0/mem_wreg" type="logic">
       <obj_property name="ElementShortName">mem_wreg</obj_property>
@@ -172,17 +176,19 @@
       <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/ctrl0/mem_stallreq_i" type="logic">
-      <obj_property name="ElementShortName">mem_stallreq_i</obj_property>
-      <obj_property name="ObjectShortName">mem_stallreq_i</obj_property>
-      <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem_cp0_reg_write_addr_o" type="array">
       <obj_property name="ElementShortName">mem_cp0_reg_write_addr_o[4:0]</obj_property>
       <obj_property name="ObjectShortName">mem_cp0_reg_write_addr_o[4:0]</obj_property>
       <obj_property name="CustomSignalColor">#FAAFBE</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/mem0/whilo_i" type="logic">
+      <obj_property name="ElementShortName">whilo_i</obj_property>
+      <obj_property name="ObjectShortName">whilo_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/mem0/whilo_o" type="logic">
+      <obj_property name="ElementShortName">whilo_o</obj_property>
+      <obj_property name="ObjectShortName">whilo_o</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/mem0/excepttype_i" type="array">
       <obj_property name="ElementShortName">excepttype_i[31:0]</obj_property>
@@ -244,12 +250,6 @@
       <obj_property name="CustomSignalColor">#FF0080</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/cp0_compare" type="array">
-      <obj_property name="ElementShortName">cp0_compare[31:0]</obj_property>
-      <obj_property name="ObjectShortName">cp0_compare[31:0]</obj_property>
-      <obj_property name="CustomSignalColor">#FF0080</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb/dut/mips0/cp0_status" type="array">
       <obj_property name="ElementShortName">cp0_status[31:0]</obj_property>
       <obj_property name="ObjectShortName">cp0_status[31:0]</obj_property>
@@ -273,5 +273,17 @@
       <obj_property name="ObjectShortName">regs[0:31][31:0]</obj_property>
       <obj_property name="CustomSignalColor">#FFFF00</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/hilo_reg0/we" type="logic">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/hilo_reg0/hi_i" type="array">
+      <obj_property name="ElementShortName">hi_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">hi_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/hilo_reg0/lo_i" type="array">
+      <obj_property name="ElementShortName">lo_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">lo_i[31:0]</obj_property>
    </wvobject>
 </wave_config>

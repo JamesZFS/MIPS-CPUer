@@ -15,7 +15,11 @@ module mem(
 
     input wire[31:0]             excepttype_i,
 	input wire                   is_in_delayslot_i,
-	input wire[`RegBus]          current_inst_address_i,	
+	input wire[`RegBus]          current_inst_address_i,
+
+    input wire[`RegBus]           hi_i,
+	input wire[`RegBus]           lo_i,
+	input wire                    whilo_i,		
 
     //from cp0
     input wire[`RegBus]          cp0_status_i,
@@ -32,6 +36,10 @@ module mem(
     output reg[`RegBus]           wdata_o,
     output reg                    wstate_o,  // to mem/wb and then to mem itself
     input  wire                   wstate_i,  // from mem/wb to itself
+
+    output reg[`RegBus]          hi_o,
+	output reg[`RegBus]          lo_o,
+	output reg                   whilo_o,	
 
     //signal to MMU
     output reg[`RegBus]           mem_addr_o,
@@ -95,6 +103,10 @@ always @* begin
 
         stallreq_o <= `StallDisable;
 
+        hi_o <= `ZeroWord;
+		lo_o <= `ZeroWord;
+		whilo_o <= `WriteDisable;
+
     end else begin
         wreg_o  <= wreg_i;
         wd_o    <= wd_i;
@@ -111,6 +123,10 @@ always @* begin
         mem_data_o <= `ZeroWord;
         mem_ce <= `ChipDisable;
 
+        hi_o <= hi_i;
+        lo_o <= lo_i;
+        whilo_o <= whilo_i;
+        
         stallreq_o <= `StallDisable;
 
         case (aluop_i)
