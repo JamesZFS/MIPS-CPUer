@@ -206,7 +206,7 @@ mips mips0(
 `ifdef SIMULATION
     .clk(clock_btn),
 `else
-    .clk(clk_10M),
+    .clk(`CPU_CLK),
 `endif
     .rst(reset_btn),
     // from mmu
@@ -234,7 +234,7 @@ mmu mmu0(
 `ifdef SIMULATION
     .clk(clock_btn),
 `else
-    .clk(clk_10M),
+    .clk(`CPU_CLK),
 `endif
     .if_ce_i(inst_ram_ce),
     .if_addr_i(inst_addr),
@@ -302,10 +302,10 @@ always @(posedge clock_btn) begin
     cur_stop <= !cur_stop;
 end
 
-always@(posedge clk_10M) begin
+always@(posedge `CPU_CLK) begin
     if (!cur_stop) begin
         lcd_number <= debug1[7:0];
-        cur_stage <= {cur_stage[0], cur_stage[14:1]};
+        cur_stage <= debug2[15:0];
     end
 end
 

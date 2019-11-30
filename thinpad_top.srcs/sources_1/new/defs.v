@@ -1,4 +1,5 @@
 // `define SIMULATION
+`define CPU_CLK clk_20M
 
 // global
 `define RstEnable       1'b1
