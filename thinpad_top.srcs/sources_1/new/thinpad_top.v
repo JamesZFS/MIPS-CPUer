@@ -41,8 +41,8 @@ module thinpad_top(
     input  wire rxd,  //直连串口接收端
 
     //Flash存储器信号，参考 JS28F640 芯片手册
-    output wire [22:0]flash_a,      //Flash地址，a0仅在8bit模式有效，16bit模式无意义
-    inout  wire [15:0]flash_d,      //Flash数据
+    output wire[22:0]flash_a,       //Flash地址，a0仅在8bit模式有效，16bit模式无意义  8MB in total
+    inout  wire[15:0]flash_d,       //Flash数据
     output wire flash_rp_n,         //Flash复位信号，低有效
     output wire flash_vpen,         //Flash写保护信号，低电平时不能擦除、烧写
     output wire flash_ce_n,         //Flash片选信号，低有效
@@ -187,6 +187,7 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 
 /* =========== Demo code end =========== */
 
+
 /* =========== Video memory code begin =========== */
 
 //图像输出演示，分辨率800x600@75Hz，像素时钟为50MHz
@@ -237,7 +238,16 @@ assign video_blue  = blk_ram_rdata[1:0];
 
 /* =========== Video memory code end =========== */
 
+
 /* ============== Mips32 Pipeline code begin ============== */
+
+// flash control:
+// reg[22:0] inner_flash_a = 23'bz;
+// assign flash_a = inner_flash_a;     // always read
+assign flash_rp_n = `FlashDisable;  // no resetting
+assign flash_vpen = `FlashEnable;   // no modifying
+assign flash_we_n = `FlashDisable;  // no writing
+assign flash_byte_n = `FlashDisable; // use 16bit mode
 
 wire[`InstAddrBus]  inst_addr; // mips to ram
 wire                inst_ram_ce;  // mips to ram
@@ -247,6 +257,9 @@ wire[`RegBus]       debug1;   // ** debug signal
 wire[`RegBus]       debug2;   // ** debug signal
 wire                mmu_stallreq;
 wire                mmu_wstate;  // to mmu
+
+wire flash_rst = touch_btn[1];
+wire cpu_rst = touch_btn[1] || touch_btn[0];
 
 //mips.mem->mmu
 wire[`RegBus]   mem_addr_o;
@@ -261,7 +274,7 @@ mips mips0(
 `else
     .clk(clock_btn),
 `endif
-    .rst(reset_btn),
+    .rst(cpu_rst),
     // from mmu
     .mmu_mem_data_i(mem_data),
     .ram_inst_i(inst),
@@ -287,9 +300,9 @@ mips mips0(
 
 mmu mmu0(
 `ifdef ON_FPGA
-    .clk(`CPU_CLK),
+    .cpu_clk(`CPU_CLK),
 `else
-    .clk(clock_btn),
+    .cpu_clk(clock_btn),
 `endif
     .if_ce_i(inst_ram_ce),
     .if_addr_i(inst_addr),
@@ -341,7 +354,17 @@ mmu mmu0(
     .wstate_i(mmu_wstate),
 
     // to control
-    .stallreq_o(mmu_stallreq)
+    .stallreq_o(mmu_stallreq),
+
+
+    // flash control:
+    .flash_clk(clk_10M),
+    .flash_rst(flash_rst),
+
+    .flash_a(flash_a),
+    .flash_d(flash_d),
+    .flash_ce_n(flash_ce_n),
+    .flash_oe_n(flash_oe_n)
 );
 
 /* ============== Mips32 Pipeline code end   ============== */

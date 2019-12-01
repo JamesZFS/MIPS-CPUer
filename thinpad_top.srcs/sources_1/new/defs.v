@@ -208,3 +208,7 @@
 `define GREEN           3'b111
 `define BLUE            2'b11
 `define BLACK           0
+
+// Flash
+`define FlashEnable     1'b0 
+`define FlashDisable    1'b1 
