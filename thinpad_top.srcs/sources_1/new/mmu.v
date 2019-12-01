@@ -2,12 +2,12 @@ module mmu(
     // from if
     input wire                  clk,
     input wire                  if_ce_i,
-    input wire[`InstAddrBus]	if_addr_i,  // pc
+    input wire[31:0]            if_addr_i,  // pc
 
     //from mem
-    input wire[`RegBus]         mem_addr_i,
+    input wire[31:0]            mem_addr_i,
     input wire                  mem_we_i,
-    input wire[`RegBus]         mem_data_i,
+    input wire[31:0]            mem_data_i,
     input wire                  mem_ce_i,
     input wire[3:0]             mem_sel_i,
 
@@ -44,6 +44,11 @@ module mmu(
     input wire                  uart_tbre,         //发送数据标志
     input wire                  uart_tsre,         //数据发送完毕标志
 
+    // to blk ram
+    output reg                  blk_ram_we,
+    output wire[18:0]           blk_ram_waddr,
+    output reg[7:0]             blk_ram_wdata,
+
     // from mem/wb
     input wire                  wstate_i,
 
@@ -54,10 +59,13 @@ module mmu(
 
 reg[31:0] inner_base_ram_data;
 reg[31:0] inner_ext_ram_data;
-wire mem_access_base_ram = (mem_ce_i == `ChipEnable) && (mem_addr_i[23:0] < 24'h400000);  // if memory is accessing baseram ?
+
+wire[15:0] mem_addr_hi = mem_addr_i[31:16];
+wire mem_access_base_ram  = (mem_ce_i == `ChipEnable) && (16'h8000 <= mem_addr_hi && mem_addr_hi < 16'h8040);  // if memory is accessing baseram ?
+wire mem_access_ext_ram   = (mem_ce_i == `ChipEnable) && (16'h8040 <= mem_addr_hi && mem_addr_hi < 16'h8080); // if memory is accessing extram ?
+wire mem_access_blk_ram   = (mem_ce_i == `ChipEnable) && (16'hB000 <= mem_addr_hi && mem_addr_hi < 16'hB008); // if accessing block memory ?
 wire mem_access_uart_data = (mem_ce_i == `ChipEnable) && (mem_addr_i == 32'hBFD003F8); // serial data
 wire mem_access_uart_stat = (mem_ce_i == `ChipEnable) && (mem_addr_i == 32'hBFD003FC); // serial stat
-wire mem_access_ext_ram = (mem_ce_i == `ChipEnable) && (mem_addr_i[23:0] >= 24'h400000) && mem_access_uart_data==1'b0 && mem_access_uart_stat==1'b0; // if memory is accessing extram ?
 
 
 assign base_ram_data = inner_base_ram_data;
@@ -72,7 +80,7 @@ assign data_o = mem_access_uart_stat ? {30'b0, uart_dataready, uart_tbre & uart_
 
 
 assign ext_ram_addr = mem_addr_i[21:2]; // minus 0x80400000 then div 4
-
+assign blk_ram_waddr = mem_addr_i[18:0]; // each block ram unit is an 8-bit color
 assign base_ram_addr = mem_access_base_ram ? 
                        mem_addr_i[21:2] :  // minus 0x80000000 then div 4
                        if_addr_i[21:2];  // pc access baseram
@@ -101,6 +109,18 @@ always @(*) begin // handle ext ram alone
             inner_ext_ram_data <= mem_data_i;
         end
     end
+end
+
+always @(*) begin // handle block ram alone
+
+    if (mem_access_blk_ram && mem_we_i == `WriteEnable) begin
+        blk_ram_we  <= (wstate_i == 0) ? `BRAMDisable : `BRAMEnable; // 1st clk disable, 2nd clk enable
+        blk_ram_wdata <= mem_data_i[7:0];
+    end else begin // read is not allowed
+        blk_ram_we  <= `BRAMDisable;
+        blk_ram_wdata <= 8'bz;
+    end
+    
 end
 
 always @(*) begin // ** handle bus conflicts here 

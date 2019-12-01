@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="37000000001fs"></ZoomEndTime>
-      <Cursor1Time time="2590000000fs"></Cursor1Time>
+      <ZoomEndTime time="10079000001fs"></ZoomEndTime>
+      <Cursor1Time time="10079000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="168"></NameColumnWidth>
       <ValueColumnWidth column_width="69"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="36" />
+   <WVObjectSize size="37" />
    <wvobject fp_name="/tb/clk_50M" type="logic">
       <obj_property name="ElementShortName">clk_50M</obj_property>
       <obj_property name="ObjectShortName">clk_50M</obj_property>
@@ -44,6 +44,12 @@
       <obj_property name="CustomSignalColor">#A0A0A4</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb/dut/video_de" type="logic">
+      <obj_property name="ElementShortName">video_de</obj_property>
+      <obj_property name="ObjectShortName">video_de</obj_property>
+      <obj_property name="CustomSignalColor">#00FF7F</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb/dut/dvi_x" type="array">
       <obj_property name="ElementShortName">dvi_x[11:0]</obj_property>
       <obj_property name="ObjectShortName">dvi_x[11:0]</obj_property>
@@ -65,9 +71,9 @@
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/blk_ram_data_o" type="array">
-      <obj_property name="ElementShortName">blk_ram_data_o[7:0]</obj_property>
-      <obj_property name="ObjectShortName">blk_ram_data_o[7:0]</obj_property>
+   <wvobject fp_name="/tb/dut/blk_ram_rdata" type="array">
+      <obj_property name="ElementShortName">blk_ram_rdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">blk_ram_rdata[7:0]</obj_property>
       <obj_property name="CustomSignalColor">#FFA500</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
@@ -84,9 +90,9 @@
       <obj_property name="UseCustomSignalColor">true</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb/dut/blk_ram_data_i" type="array">
-      <obj_property name="ElementShortName">blk_ram_data_i[7:0]</obj_property>
-      <obj_property name="ObjectShortName">blk_ram_data_i[7:0]</obj_property>
+   <wvobject fp_name="/tb/dut/blk_ram_wdata" type="array">
+      <obj_property name="ElementShortName">blk_ram_wdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">blk_ram_wdata[7:0]</obj_property>
       <obj_property name="CustomSignalColor">#00FFFF</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>

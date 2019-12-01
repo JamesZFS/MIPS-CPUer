@@ -17,7 +17,7 @@ module if_id(
 always @ (posedge clk) begin
     if (rst == `RstEnable || (stall[1] == `StallEnable && stall[2] == `StallDisable) || (flush == 1'b1)) begin
         // reset or ** at the tail of a stall sequence
-        id_pc   <= `ZeroWord;
+        id_pc   <= `PC_INIT;
         id_inst <= `ZeroWord;	
     end else if (stall[1] == `StallDisable) begin // normal
         id_pc   <= if_pc;

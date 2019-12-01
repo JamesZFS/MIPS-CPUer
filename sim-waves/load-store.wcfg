@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3992333333fs"></ZoomStartTime>
-      <ZoomEndTime time="5476333334fs"></ZoomEndTime>
-      <Cursor1Time time="5229000000fs"></Cursor1Time>
+      <ZoomStartTime time="145599833333fs"></ZoomStartTime>
+      <ZoomEndTime time="150974833334fs"></ZoomEndTime>
+      <Cursor1Time time="150079000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="168"></NameColumnWidth>
-      <ValueColumnWidth column_width="67"></ValueColumnWidth>
+      <NameColumnWidth column_width="178"></NameColumnWidth>
+      <ValueColumnWidth column_width="63"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="70" />
+   <WVObjectSize size="68" />
    <wvobject fp_name="/tb/clock_btn" type="logic">
       <obj_property name="ElementShortName">clock_btn</obj_property>
       <obj_property name="ObjectShortName">clock_btn</obj_property>
@@ -68,44 +68,6 @@
       <obj_property name="ObjectShortName">id_aluop[5:0]</obj_property>
       <obj_property name="CustomSignalColor">#00FFFF</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/div0/start_i" type="logic">
-      <obj_property name="ElementShortName">start_i</obj_property>
-      <obj_property name="ObjectShortName">start_i</obj_property>
-      <obj_property name="CustomSignalColor">#808000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/div0/cnt" type="array">
-      <obj_property name="ElementShortName">cnt[5:0]</obj_property>
-      <obj_property name="ObjectShortName">cnt[5:0]</obj_property>
-      <obj_property name="CustomSignalColor">#808000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/div0/annul_i" type="logic">
-      <obj_property name="ElementShortName">annul_i</obj_property>
-      <obj_property name="ObjectShortName">annul_i</obj_property>
-      <obj_property name="CustomSignalColor">#808000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/div0/ready_o" type="logic">
-      <obj_property name="ElementShortName">ready_o</obj_property>
-      <obj_property name="ObjectShortName">ready_o</obj_property>
-      <obj_property name="CustomSignalColor">#808000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/div0/result_o" type="array">
-      <obj_property name="ElementShortName">result_o[63:0]</obj_property>
-      <obj_property name="ObjectShortName">result_o[63:0]</obj_property>
-      <obj_property name="CustomSignalColor">#808000</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/hilo_reg0/hi_o" type="array">
-      <obj_property name="ElementShortName">hi_o[31:0]</obj_property>
-      <obj_property name="ObjectShortName">hi_o[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb/dut/mips0/hilo_reg0/lo_o" type="array">
-      <obj_property name="ElementShortName">lo_o[31:0]</obj_property>
-      <obj_property name="ObjectShortName">lo_o[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/ctrl0/flush" type="logic">
       <obj_property name="ElementShortName">flush</obj_property>
@@ -256,6 +218,25 @@
       <obj_property name="ObjectShortName">mem_access_ext_ram</obj_property>
       <obj_property name="label">mmu_mem_access_ext_ram</obj_property>
    </wvobject>
+   <wvobject fp_name="/tb/dut/mmu0/mem_access_blk_ram" type="logic">
+      <obj_property name="ElementShortName">mem_access_blk_ram</obj_property>
+      <obj_property name="ObjectShortName">mem_access_blk_ram</obj_property>
+      <obj_property name="CustomSignalColor">#E0FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mmu0/blk_ram_waddr" type="array">
+      <obj_property name="ElementShortName">blk_ram_waddr[18:0]</obj_property>
+      <obj_property name="ObjectShortName">blk_ram_waddr[18:0]</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mmu0/blk_ram_wdata" type="array">
+      <obj_property name="ElementShortName">blk_ram_wdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">blk_ram_wdata[7:0]</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb/dut/mmu0/mem_data_i" type="array">
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="ElementShortName">mem_data_i[31:0]</obj_property>
@@ -366,6 +347,14 @@
       <obj_property name="label">$t1</obj_property>
       <obj_property name="CustomSignalColor">#00FFFF</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/hilo_reg0/hi_o" type="array">
+      <obj_property name="ElementShortName">hi_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">hi_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb/dut/mips0/hilo_reg0/lo_o" type="array">
+      <obj_property name="ElementShortName">lo_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">lo_o[31:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/tb/dut/mips0/if_id0/if_pc" type="array">
       <obj_property name="ElementShortName">if_pc[31:0]</obj_property>

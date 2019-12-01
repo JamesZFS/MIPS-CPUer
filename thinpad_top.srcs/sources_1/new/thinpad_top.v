@@ -193,12 +193,12 @@ async_transmitter #(.ClkFrequency(50000000),.Baud(9600)) //发送模块，9600�
 assign video_clk = clk_50M;
 
 // from mmu to blk_ram  TODO
-wire       blk_ram_we_n;
+wire       blk_ram_we;
 wire[18:0] blk_ram_waddr;
-wire[7:0]  blk_ram_data_i;
+wire[7:0]  blk_ram_wdata;
 
 // from bram to top
-wire[7:0]  blk_ram_data_o;
+wire[7:0]  blk_ram_rdata;
 
 // from dvi gen to bram
 wire[11:0] dvi_x;
@@ -212,7 +212,7 @@ dvi #(12,     19, 480000,  800, 856, 976, 1040,  600, 637, 643, 666,   1,   1) d
     // out:
     .hdata(dvi_x), //横坐标
     .vdata(dvi_y), //纵坐标
-    .addr(blk_ram_raddr),
+    .addr(blk_ram_raddr), // address of valid pixel
     .hsync(video_hsync),
     .vsync(video_vsync),
     .data_enable(video_de)
@@ -221,15 +221,19 @@ dvi #(12,     19, 480000,  800, 856, 976, 1040,  600, 637, 643, 666,   1,   1) d
 blk_mem_gen_0 video_mem_gen(
     // write port in:
     .clka(`CPU_CLK), 
-    .wea(blk_ram_we_n), 
+    .wea(blk_ram_we), 
     .addra(blk_ram_waddr), 
-    .dina(blk_ram_data_i), 
+    .dina(blk_ram_wdata), 
     // read port in:
     .clkb(video_clk), 
     .addrb(blk_ram_raddr), 
     // read port out:
-    .doutb(blk_ram_data_o)
+    .doutb(blk_ram_rdata)
 );
+
+assign video_red   = blk_ram_rdata[7:5];
+assign video_green = blk_ram_rdata[4:2];
+assign video_blue  = blk_ram_rdata[1:0];
 
 /* =========== Video memory code end =========== */
 
@@ -252,10 +256,10 @@ wire            mem_ce_o;
 wire[3:0]       mem_sel_o;
 
 mips mips0(
-`ifdef SIMULATION
-    .clk(clock_btn),
-`else
+`ifdef ON_FPGA
     .clk(`CPU_CLK),
+`else
+    .clk(clock_btn),
 `endif
     .rst(reset_btn),
     // from mmu
@@ -282,10 +286,10 @@ mips mips0(
 );
 
 mmu mmu0(
-`ifdef SIMULATION
-    .clk(clock_btn),
-`else
+`ifdef ON_FPGA
     .clk(`CPU_CLK),
+`else
+    .clk(clock_btn),
 `endif
     .if_ce_i(inst_ram_ce),
     .if_addr_i(inst_addr),
@@ -328,6 +332,11 @@ mmu mmu0(
     .uart_tbre(uart_tbre),
     .uart_tsre(uart_tsre),
 
+    // to blk ram
+    .blk_ram_we(blk_ram_we),
+    .blk_ram_waddr(blk_ram_waddr),
+    .blk_ram_wdata(blk_ram_wdata),
+
     // from mem/wb
     .wstate_i(mmu_wstate),
 
@@ -343,14 +352,7 @@ reg[15:0] cur_stage = 1;
 assign leds = cur_stage;
 reg  cur_stop = 0;
 
-`ifdef SIMULATION
-
-always@(posedge clock_btn) begin
-    lcd_number <= debug1[7:0];
-    cur_stage <= debug2[17:2];
-end
-
-`else
+`ifdef ON_FPGA
 
 always @(posedge clock_btn) begin
     cur_stop <= !cur_stop;
@@ -361,6 +363,13 @@ always@(posedge `CPU_CLK) begin
         lcd_number <= debug1[7:0];
         cur_stage <= debug2[17:2];
     end
+end
+
+`else
+
+always@(posedge clock_btn) begin
+    lcd_number <= debug1[7:0];
+    cur_stage <= debug2[17:2];
 end
 
 `endif

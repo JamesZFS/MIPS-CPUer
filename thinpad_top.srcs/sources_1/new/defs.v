@@ -1,5 +1,5 @@
 // ** cpu config **
-`define SIMULATION
+`define ON_FPGA
 `define CPU_CLK clk_40M
 
 // global
@@ -33,6 +33,7 @@
 `define InterruptAssert 1'b1
 `define InterruptNotAssert 1'b0
 
+`define PC_INIT         32'h80000000
 `define EHANDLERLOCATE  32'h80001180
 
 // instrcution macros -- first 6 bits
@@ -201,6 +202,8 @@
 `define DivStop 1'b0
 
 // DVI
+`define BRAMEnable      1'b1
+`define BRAMDisable     1'b0
 `define RED             3'b111
 `define GREEN           3'b111
 `define BLUE            2'b11

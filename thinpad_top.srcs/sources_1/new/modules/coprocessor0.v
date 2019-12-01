@@ -153,7 +153,7 @@ always @ (*) begin
 			`CP0_REG_EBASE:	begin
 				data_o <= ebase_o ;
 			end
-			default: $display("invalid cp0 reg %d for read!", raddr_i);
+			default:; // $display("invalid cp0 reg %d for read!", raddr_i);
 		endcase  //case addr_i			
 	end    //if
 end      //always
