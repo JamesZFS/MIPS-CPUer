@@ -42,3 +42,14 @@ nop
 # ori $3, $1, 0x00000100  # conflict 3
 # and  $4, $2, $3  # conflict 1, 2; should yield 0x00000001
 # andi $5, $1, 0x0000ffff # should yield 0x00000001
+
+
+lui $t0, 0xfe45
+ori $t0, $t0, 0xb8b8
+lui $t1, 0xfe8a
+ori $t1, $t1, 0x41ec
+mult $t0, $t1
+mfhi $t2
+mflo $t3
+jr $ra
+nop
