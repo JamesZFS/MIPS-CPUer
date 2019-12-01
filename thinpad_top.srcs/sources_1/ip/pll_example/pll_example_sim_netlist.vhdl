@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Sat Nov 30 19:42:35 2019
+-- Date        : Sat Nov 30 23:34:29 2019
 -- Host        : DESKTOP-7E9K45F running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim -rename_top pll_example -prefix
 --               pll_example_ pll_example_sim_netlist.vhdl
@@ -115,7 +115,7 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKOUT2_DUTY_CYCLE => 0.500000,
       CLKOUT2_PHASE => 0.000000,
       CLKOUT2_USE_FINE_PS => false,
-      CLKOUT3_DIVIDE => 30,
+      CLKOUT3_DIVIDE => 34,
       CLKOUT3_DUTY_CYCLE => 0.500000,
       CLKOUT3_PHASE => 0.000000,
       CLKOUT3_USE_FINE_PS => false,

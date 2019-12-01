@@ -89,11 +89,10 @@ assign data_o = mem_access_uart_stat ? {30'b0, uart_dataready, uart_tbre & uart_
                 mem_access_base_ram ? base_ram_data : `ZeroWord;  // if disable
 
 
-// flash_a[21:2];
-assign ext_ram_addr = mem_addr_i[21:2]; // minus 0x80400000 then div 4
+assign ext_ram_addr = flash_to_ext_ram ? flash_a[21:2] : mem_addr_i[21:2]; // minus 0x80400000 then div 4
 assign blk_ram_waddr = mem_addr_i[18:0]; // each block ram unit is an 8-bit color
-assign base_ram_addr = mem_access_base_ram ? 
-                       mem_addr_i[21:2] :  // minus 0x80000000 then div 4
+assign base_ram_addr = flash_to_base_ram ? flash_a[21:2] :
+                       mem_access_base_ram ? mem_addr_i[21:2] :  // minus 0x80000000 then div 4
                        if_addr_i[21:2];  // pc access baseram
 
 always @(*) begin // handle ext ram alone
@@ -125,8 +124,7 @@ always @(*) begin // handle ext ram alone
         end else begin // write ext ram
             // ext_ram_we_n <= `RAMEnable;
             ext_ram_be_n <= mem_sel_i;
-            // ext_ram_we_n <= cpu_clk;   // * write concurrently with cpu_clk
-            ext_ram_we_n <= (wstate_i == 0) ? `RAMDisable : `RAMEnable; // 1st cpu_clk disable, 2nd cpu_clk enable
+            ext_ram_we_n <= (wstate_i == 0) ? `RAMDisable : cpu_clk; // 1st cpu_clk disable, 2nd cpu_clk enable
             ext_ram_oe_n <= `RAMDisable;
             inner_ext_ram_data <= mem_data_i;
         end
@@ -179,8 +177,7 @@ always @(*) begin // ** handle bus conflicts here
         end else begin  // write base ram
             // base_ram_we_n <= `RAMEnable;
             base_ram_be_n <= mem_sel_i;
-            // base_ram_we_n <= clk;   // * write concurrently with clk
-            base_ram_we_n <= (wstate_i == 0) ? `RAMDisable : `RAMEnable; // 1st clk disable, 2nd clk enable
+            base_ram_we_n <= (wstate_i == 0) ? `RAMDisable : cpu_clk; // 1st clk disable, 2nd clk enable
             base_ram_oe_n <= `RAMDisable;
             inner_base_ram_data <= mem_data_i;
         end
@@ -194,7 +191,7 @@ always @(*) begin // ** handle bus conflicts here
         end else begin
             uart_rdn <= `UARTDisable;
             // uart_wrn <= clk;  // * write concurrently with clk
-            uart_wrn <= (wstate_i == 0) ? `UARTDisable : `UARTEnable; // 1st clk disable, 2nd clk enable
+            uart_wrn <= (wstate_i == 0) ? `UARTDisable : cpu_clk; // 1st clk disable, 2nd clk enable
             inner_base_ram_data <= mem_data_i;
         end
         // uart stat already returned, no need to stall
