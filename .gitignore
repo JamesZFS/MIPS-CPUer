@@ -5,3 +5,5 @@
 !/thinpad_top.runs/impl_1/
 /thinpad_top.runs/impl_1/*
 !/thinpad_top.runs/impl_1/thinpad_top.bit
+/.vscode/
+.DS_Store

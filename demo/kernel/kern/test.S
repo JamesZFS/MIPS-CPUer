@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <exception.h>
 #include <shell.h>
+#include <demo.h>
 
 /*==============================================================
  *                        TEST for MONITOR
@@ -56,8 +57,31 @@ PUTC_loop:
     jr  ra
     nop
 
+    // image display demo
+UTEST_IMAGE:
+    begin:
+    li  t1, 0xA0000000 # on bram
+    li  t2, DEMO_TB_IMG_ADDR # on extram
+    li  v0, 480000 # current pixel
+    addu t1, t1, v0 # target pixel addr
+    addu t2, t2, v0 # image source addr
+IMAGE_draw:
+    lb    t0, 0(t2)  # load pixel from extram
+    sb    t0, 0(t1)  # draw pixel on screen
+    addiu v0, v0, -1
+    addiu t1, t1, -1
+    addiu t2, t2, -1
+    bnez  v0, IMAGE_draw
+    nop
+    jr  ra
+    nop
+
 #endif
 
+UTEST_RI:
+    sltiu t0, t0, 1
+    jr ra
+    nop
 
     /*  性能标定程序(1)
      *  这段程序一般没有数据冲突和结构冲突，可作为性能标定。

@@ -2,6 +2,7 @@
 #include <mipsregs.h>
 #include <unistd.h>
 #include <exception.h>
+#include <shell.h>
 
     .set noreorder
     .set noat
@@ -24,8 +25,11 @@ SYSCALL:
 
 FATAL:                              
                                     // 严重问题，重启
-    ori a0, zero, 0x80              // 错误信号
+    ori a0, zero, TK_FATAL              // 错误信号
     jal WRITESERIAL                 // 发送
+    nop
+    lw a0, TF_EPC(sp)               // send epc
+    jal WRITESERIALWORD
     nop
     lui v0, %hi(START)              // 重启地址
     addiu v0, %lo(START)
@@ -88,6 +92,11 @@ EXCEPTIONHANDLER:
     ori k0, zero, EX_IRQ            // 硬件中断
     beq k1, k0, WAKEUPSHELL         // 让主线程控制
     nop
+
+    li  k0, EX_RI                   // invalid or unimplemented instruction
+    beq k1, k0, INVALIDINST         // print error message
+    nop
+
     ori k0, zero, EX_SYS            // 系统调用
     beq k1, k0, SYSCALL             // 内核处理
     nop
@@ -151,6 +160,19 @@ WAKEUPSHELL:
     nop
     j SCHEDULE                      // 进行调度使主线程获得控制权
     nop
+
+INVALIDINST:                    // encounter an invalid or unimplemented instruction
+    li a0, TK_INVALID
+    jal WRITESERIAL                 // send invalid error code
+    nop
+    lw a0, TF_EPC(sp)               // send epc
+    jal WRITESERIALWORD
+    nop
+    lui v0, %hi(START)              // 重启地址
+    addiu v0, %lo(START)
+    jr v0
+    nop
+
 
 SYSCALL:
     lw k0, TF_EPC(sp)               // SYSCALL需对EPC特别处理

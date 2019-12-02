@@ -3,8 +3,8 @@ ifeq ($(OS),Windows_NT)
 # Windows Host
 GCCPREFIX	?= mips-mti-elf-
 else
-#GCCPREFIX	:= mipsel-linux-gnu-
-GCCPREFIX	?= mips-mti-elf-
+GCCPREFIX	:= mipsel-linux-musl-
+# GCCPREFIX	?= mips-mti-elf-
 endif
 QEMU := qemu-system-mipsel
 LD	:= $(GCCPREFIX)ld
@@ -43,7 +43,8 @@ CONFIG_FILE := .config_$(ON_FPGA)_$(EN_INT)_$(EN_TLB)
 
 .PHONY: all clean show-utest
 
-all: $(TARGET) kernel.bin
+all:
+	make ON_FPGA=y EN_INT=y $(TARGET) kernel.bin show-utest show-demo
 
 $(CONFIG_FILE):
 	@rm -f .config_*
@@ -66,6 +67,9 @@ kernel.bin: $(TARGET)
 
 show-utest: $(TARGET)
 	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <UTEST_" | grep -n --color=auto 'UTEST_'
+
+show-demo: $(TARGET)
+	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <TB_" | grep -n --color=auto 'TB_'
 
 .PHONY: commits-num show-utest sim clean
 

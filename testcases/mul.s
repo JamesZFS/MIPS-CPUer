@@ -1,11 +1,14 @@
-.org 0x0
-.set noat
+# .org 0x0
+# .set noat
 .globl _start
 _start:
-    ori $1,$0,0xffff
-    sll $1,$1,16
-    ori $1,$1,0xfffb
-    ori $2,$0,6
-    mul $3,$1,$2
-    mult $1,$2
-    multu $1,$2
+li   $t0, 0x003e4ae5
+li   $t1, 0xffb43669
+mult $t0, $t1
+mfhi $t2
+mflo $t3
+srl  $t4, $t3, 16
+sll  $v0, $t2, 16
+or   $t4, $t4, $v0
+jr   $ra
+nop

@@ -7,8 +7,15 @@
     .p2align 2
     .text
     .global WRITESERIAL
+    .global WRITESERIALWORD
     .global READSERIAL
     .global READSERIALWORD
+    .global GET_CUR_PC
+
+GET_CUR_PC:                     // 当前 pc 存入 v0
+    move v0, ra
+    jr   ra
+    nop
 
 WRITESERIAL:                        // 写串口：将a0的低八位写入串口
 #ifdef MACH_FPGA
@@ -59,7 +66,7 @@ READSERIAL:                         // 读串口：将读到的数据写入v0低
     bne t0, zero, .RSERIAL
     nop
 #ifdef ENABLE_INT
-    // donghy's debug
+    // donghys debug
     // if interrupt is not enabled, shell will always check COM STATUS
     ori v0, zero, SYS_wait
     syscall SYSCALL_BASE
@@ -105,6 +112,35 @@ READSERIALWORD:
     or v0, v0, s1                   // 存八位
     sll v0, v0, 8                   // 左移
     or v0, v0, s0                   // 存低八位
+
+    lw ra, 0x0(sp)                  // 恢复ra,s0
+    lw s0, 0x4(sp)
+    lw s1, 0x8(sp)
+    lw s2, 0xC(sp)
+    lw s3, 0x10(sp)
+    addiu sp, sp, 0x14
+    jr ra
+    nop
+
+WRITESERIALWORD:                    // 写32bit串口
+    addiu sp, sp, -0x14             // 保存ra,s0
+    sw ra, 0x0(sp)
+    sw s0, 0x4(sp)
+    sw s1, 0x8(sp)
+    sw s2, 0xC(sp)
+    sw s3, 0x10(sp)
+
+    jal WRITESERIAL                  // 写8bit串口
+    nop
+    srl a0, a0, 8
+    jal WRITESERIAL                  // 写8bit串口
+    nop
+    srl a0, a0, 8
+    jal WRITESERIAL                  // 写8bit串口
+    nop
+    srl a0, a0, 8
+    jal WRITESERIAL                  // 写8bit串口
+    nop
 
     lw ra, 0x0(sp)                  // 恢复ra,s0
     lw s0, 0x4(sp)

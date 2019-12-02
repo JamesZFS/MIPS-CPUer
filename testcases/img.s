@@ -19,4 +19,3 @@ draw:
     nop
     jr  $ra
     nop
- 

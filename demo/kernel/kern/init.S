@@ -2,6 +2,7 @@
 #include <mipsregs.h>
 #include <unistd.h>
 #include <exception.h>
+#include <demo.h>
 
     .set noreorder
     .set noat
@@ -38,7 +39,7 @@ PTESTACK:
     .text
     .p2align 2
 monitor_version: // at 0x80001480
-    .asciz "MONITOR for MIPS32 - initialized."
+    .asciz "Welcome to Fantasy Space! Monitor kernel initialized."
 
 
     /* start address for the .bss section. defined in linker script */
@@ -293,6 +294,9 @@ WELCOME:
     nop
     lb a0, 0(s0)
     bne a0, zero, .Loop0            // 打印循环至0结束符
+    nop
+    li a0, DEMO_WELCOME_IMG_ADDR
+    jal SHOW_IMG                    // show welcome image
     nop
     j SHELL                         // 开始交互
     nop
