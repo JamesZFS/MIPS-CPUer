@@ -12,8 +12,8 @@
 #define TIMERSET    0x06            // ascii (ACK) 启动计时
 #define TIMETOKEN   0x07            // ascii (BEL) 停止计时
 
-#define TK_NAN      0x70            // div by zero
 #define TK_FATAL    0x80            // fatal error
 #define TK_INVALID  0x90            // invalid instruction
+#define TK_NAN      0x91            // div by zero
 
 #endif

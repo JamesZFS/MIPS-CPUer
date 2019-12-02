@@ -57,18 +57,13 @@ fpn_div:
         sll r, r, 1  # r <<= 1
         sll d, d, 1  # d <<= 1
         sub t3, r, b  # try r - b
-        # bltz t3, .div_loop_final # r < b
-        beqz t3, .div_plus_d # r >= b
-          nop
-        bgtz t3, .div_plus_d
-          nop
-        j .div_loop_final
+        bltz t3, .div_loop_final # r < b
           nop
         
         .div_plus_d:  # r / b
         addiu d, d, 1 # d += r / b
         r = t3  # r = r % b
-        
+
         .div_loop_final:
         addiu i, i, -1
         bnez i, .div_loop

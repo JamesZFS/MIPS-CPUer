@@ -223,7 +223,7 @@ def run_G(addr):
         def __init__(self, epc):
             self.epc = epc
     
-    class RIError(Exception):
+    class NaNError(Exception):
         def __init__(self, epc):
             self.epc = epc
 
@@ -244,9 +244,9 @@ def run_G(addr):
             elif ret == b'\x90':
                 epc = byte_string_to_int(inp.read(4))
                 raise RIError(epc)
-            elif ret == b'\x70':
+            elif ret == b'\x91':
                 epc = byte_string_to_int(inp.read(4))
-                raise RIError(epc)
+                raise NaNError(epc)
             output_binary(ret)
         print('') #just a new line
         elapse = timer() - time_start
@@ -255,7 +255,8 @@ def run_G(addr):
         print('\033[31msupervisor reported an exception during execution near 0x%08x \033[0m' % e.epc)
     except RIError as e:
         print('\033[31msupervisor reported an unimplemented instruction near 0x%08x \033[0m' % e.epc)
-
+    except NaNError as e:
+        print('\033[31msupervisor reported an NaN exception near 0x%08x \033[0m' % e.epc)
 
 def MainLoop():
     while True:
