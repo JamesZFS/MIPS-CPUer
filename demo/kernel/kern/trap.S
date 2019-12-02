@@ -186,6 +186,9 @@ SYSCALL:
     nop
 
     // 系统调用扩展
+    ori t0, zero, SYS_nan            // detected div by zero error
+    beq v0, t0, .syscall_nan
+    nop
 
     j RETURNFRMTRAP                 // 其他系统调用忽略
     nop
@@ -199,6 +202,16 @@ SYSCALL:
     nop
     j RETURNFRMTRAP
     nop
+
+.syscall_nan:                        // div by zero error
+    addiu s1, k0, -0x8              // sub back to nan inst
+    move ra, s0
+    jal WRITESERIAL             // send NaN token to shell, and return
+    li a0, TK_NAN
+    move s0, ra
+    j  WRITESERIALWORD
+    move a0, s1                 // send epc
+    
 #endif
 
 

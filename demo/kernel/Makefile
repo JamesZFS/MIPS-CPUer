@@ -44,7 +44,7 @@ CONFIG_FILE := .config_$(ON_FPGA)_$(EN_INT)_$(EN_TLB)
 .PHONY: all clean show-utest
 
 all:
-	make ON_FPGA=y EN_INT=y $(TARGET) kernel.bin show-utest show-demo
+	make ON_FPGA=y EN_INT=y $(TARGET) kernel.bin show-utest show-fpn
 
 $(CONFIG_FILE):
 	@rm -f .config_*
@@ -67,6 +67,9 @@ kernel.bin: $(TARGET)
 
 show-utest: $(TARGET)
 	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <UTEST_" | grep -n --color=auto 'UTEST_'
+
+show-fpn: $(TARGET)
+	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <fpn_" | grep -n --color=auto 'fpn_'
 
 show-demo: $(TARGET)
 	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <TB_" | grep -n --color=auto 'TB_'

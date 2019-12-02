@@ -222,6 +222,10 @@ def run_G(addr):
     class RIError(Exception):
         def __init__(self, epc):
             self.epc = epc
+    
+    class RIError(Exception):
+        def __init__(self, epc):
+            self.epc = epc
 
     try:
         ret = inp.read(1)
@@ -238,6 +242,9 @@ def run_G(addr):
                 epc = byte_string_to_int(inp.read(4))
                 raise TrapError(epc)
             elif ret == b'\x90':
+                epc = byte_string_to_int(inp.read(4))
+                raise RIError(epc)
+            elif ret == b'\x70':
                 epc = byte_string_to_int(inp.read(4))
                 raise RIError(epc)
             output_binary(ret)
