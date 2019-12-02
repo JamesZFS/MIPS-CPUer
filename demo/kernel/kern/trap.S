@@ -209,8 +209,10 @@ SYSCALL:
     jal WRITESERIAL             // send NaN token to shell, and return
     li a0, TK_NAN
     move s0, ra
-    j  WRITESERIALWORD
+    jal WRITESERIALWORD
     move a0, s1                 // send epc
+    j RETURNFRMTRAP
+    nop
     
 #endif
 

@@ -42,8 +42,8 @@ all: $(BINS)
 %.o: %.s
 	$(CC) $(CFLAGS) -x assembler-with-cpp -g -c -o $@ $^
 
-%.s: %.cpp
-	$(CPP) $(CFLAGS) -O0 -S -o $@ $^
+%.s: %.cpp Makefile
+	$(CPP) $(CFLAGS) -Og -S -o $@ $^
 
 %.dump: %.elf
 	$(OBJDUMP) -d $^

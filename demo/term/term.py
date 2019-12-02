@@ -230,7 +230,8 @@ def run_G(addr):
     try:
         ret = inp.read(1)
         if ret == b'\x80':
-            raise TrapError()
+            epc = byte_string_to_int(inp.read(4))
+            raise TrapError(epc)
         if ret != b'\x06':   # tic
             print("start mark should be 0x06")
         time_start = timer()

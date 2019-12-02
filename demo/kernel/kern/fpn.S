@@ -1,6 +1,7 @@
 #include <regdef.h>
 #include <mipsregs.h>
 #include <unistd.h>
+#include <demo.h>
 
     .set noreorder
     .set noat
@@ -44,16 +45,29 @@ fpn_div:
     #define r t1
     #define d t2
     beqz b, .div_by_zero
+      lui t5, 0x8000
+    and t3, a, t5 # get sign bit
+    beqz t3, .div_a_pos
       nop
+    sub a, zero, a # a = -a
+    li t4, 0x1 # sign flag
+
+    .div_a_pos:
+    and t3, b, t5 # get sign bit
+    beqz t3, .div_a_b_pos
+      nop
+    sub b, zero, b # a = -a
+    xori t4, 0x1 # sign flag
+
+    .div_a_b_pos:
     div zero, a, b
     mflo c
     sll c, c, 16  # q
     mfhi r
-    li i, 15
+    li i, 16
     li d, 0
     .div_loop:
-        beqz r, .div_finally # if r == 0: break
-          nop
+        # beqz r, .div_finally # if r == 0: break
         sll r, r, 1  # r <<= 1
         sll d, d, 1  # d <<= 1
         sub t3, r, b  # try r - b
@@ -62,7 +76,7 @@ fpn_div:
         
         .div_plus_d:  # r / b
         addiu d, d, 1 # d += r / b
-        r = t3  # r = r % b
+        move  r, t3  # r = r % b
 
         .div_loop_final:
         addiu i, i, -1
@@ -70,23 +84,73 @@ fpn_div:
           nop
 
     .div_finally:
+    # sllv  d, d, i // TODO
+    beqz t4, .div_ret
+      add c, c, d
+    sub c, zero, c # flip ans if signed
+
+    .div_ret:
     jr ra
-    add c, c, d
+      nop
     #undef i
     #undef r
     #undef d
 
     .div_by_zero:
-        li v0, SYS_nan
-        syscall SYSCALL_BASE
-        nop
-        nop
+    li v0, SYS_nan
+    syscall SYSCALL_BASE
+    nop
+    jr ra
+    nop
 
 #undef a
 #undef b
 #undef c
 
-# li $a0, 0x17a522d
-# li $a1, 0x24fdf
-# j 0x800011ec
+# li $a0, 0xc87439
+# li $a1, 0xfffff980
+# j 0x800011d0
 # nop
+
+fpn_sqrt:
+    /* sqrt using Newton iteration method
+    input:
+        a0: fpn of a
+    output:
+        v0: fpn[sqrt(a)]
+    */
+    #define x s0
+    #define a s1
+    #define i s2
+    addiu sp, sp, -16
+    sw ra, 12(sp)
+    sw s0, 8(sp)
+    sw s1, 4(sp)
+    sw s2, 0(sp)
+    srl x, a0, 1  # x0 = a / 2
+    move a, a0  # backup a
+    li i, SQRT_ITER_TIME
+    .sqrt_loop:
+        move a0, a
+        jal fpn_div # v0 = a / x
+          move a1, x
+        add x, x, v0
+        addiu i, i, -1
+        bnez i, .sqrt_loop
+          srl x, x, 1 # x' = (x + a/x) / 2
+          
+    move v0, x
+    lw ra, 12(sp)
+    lw s0, 8(sp)
+    lw s1, 4(sp)
+    lw s2, 0(sp)
+    jr   ra
+      addiu sp, sp, 16
+
+    #undef x
+    #undef a
+    #undef i
+
+# li $a0, 0
+# j 0x80001288
+#  nop
