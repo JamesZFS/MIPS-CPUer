@@ -463,6 +463,20 @@ always @ (*) begin
 			    end
 			end
 
+            `EXE_BLEZ:begin
+		  		wreg_o <= `WriteDisable;
+                aluop_o <= `EXE_BLEZ_OP;
+		  		alusel_o <= `EXE_RES_JUMP_BRANCH;
+                reg1_read_o <= `ReadEnable;
+                reg2_read_o <= `ReadDisable;
+		  		instvalid <= `InstValid;	
+		  		if((reg1_o[31] == 1'b1) || (reg1_o == `ZeroWord)) begin
+			    	branch_target_address_o <= pc_plus_4 + imm_sll2_signedext;
+			    	branch_flag_o <= `Branch;
+			    	next_inst_in_delayslot_o <= `InDelaySlot;		  	
+			    end
+			end
+
             `EXE_BNE:begin
 		  		wreg_o <= `WriteDisable;
                 aluop_o <= `EXE_BNE_OP;
@@ -475,6 +489,39 @@ always @ (*) begin
 			    	branch_flag_o <= `Branch;
 			    	next_inst_in_delayslot_o <= `InDelaySlot;		  	
 			    end
+            end
+
+            `EXE_REGIMM_INST: begin
+                case (op4)
+                    `EXE_BGEZ: begin
+                        wreg_o <= `WriteDisable;
+                        aluop_o <= `EXE_BGEZ_OP;
+                        alusel_o <= `EXE_RES_JUMP_BRANCH;
+                        reg1_read_o <= `ReadEnable;
+                        reg2_read_o <= `ReadDisable;
+                        instvalid <= `InstValid;	
+                        if(reg1_o[31] == 1'b0) begin
+                            branch_target_address_o <= pc_plus_4 + imm_sll2_signedext;
+                            branch_flag_o <= `Branch;
+                            next_inst_in_delayslot_o <= `InDelaySlot;		  	
+                        end
+                    end
+
+                    `EXE_BLTZ: begin
+                        wreg_o <= `WriteDisable;
+                        aluop_o <= `EXE_BLTZ_OP;
+                        alusel_o <= `EXE_RES_JUMP_BRANCH;
+                        reg1_read_o <= `ReadEnable;
+                        reg2_read_o <= `ReadDisable;
+                        instvalid <= `InstValid;	
+                        if(reg1_o[31] == 1'b1) begin
+                            branch_target_address_o <= pc_plus_4 + imm_sll2_signedext;
+                            branch_flag_o <= `Branch;
+                            next_inst_in_delayslot_o <= `InDelaySlot;		  	
+                        end
+                    end
+                    default: $display("unknown op4 0x%x", op4);
+                endcase
             end
 
             `EXE_LB:begin
