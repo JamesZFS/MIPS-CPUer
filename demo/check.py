@@ -30,15 +30,20 @@ def from_float(x):
 # print("out =", to_float(0x00250000))
 
 
-a0 = 50.454; a1 = -0.0254
-a2 = -87.23; a3 = -2.0
-c = math.sqrt((a0-a2)**2 + (a1-a3)**2)
+a0 = 20.454; a1 = -0.0254
+a2 = -10.23; a3 = -2.0
+d = math.sqrt((a0-a2)**2 + (a1-a3)**2)
+print("dist =", d, "[dist] =", from_float(d))
+d = d**3
+v0 = (a2 - a0) / d
+v1 = (a3 - a1) / d
 print("[a0] = %s" % from_float(a0))
 print("[a1] = %s" % from_float(a1))
 print("[a2] = %s" % from_float(a2))
 print("[a3] = %s" % from_float(a3))
-print("s0 = %s" % from_float((a0-a2)**2))
-print("v0 = %s" % from_float((a1-a3)**2))
-print("c =", c, "\n[c] =", from_float(c))
+print("d =", d, "[d] =", from_float(d))
+print("v0 =", v0, "[v0] =", from_float(v0))
+print("v1 =", v1, "[v1] =", from_float(v1))
 
-print("out =", to_float(0x0089b2b9))
+print("out =", to_float(0x00000083))
+print("out =", to_float(0x00000083))

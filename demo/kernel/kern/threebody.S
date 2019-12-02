@@ -38,11 +38,70 @@ TB_dist:
     jr ra
       addiu sp, sp, 8
 
-# li $a0, 0x327439
-# li $a1, 0xfffff980
-# li $a2, 0xffa8c51f
-# li $a3, 0xfffe0000
-# j  0x80001830
-#   nop
 
+UTEST_dist:
+    li a0, 0x327439
+    li a1, 0xfffff980
+    li a2, 0xffa8c51f
+    li a3, TB_dist
+    j  0x80001830
+      nop
+
+
+TB_gravity:
+    /* compute unit gravity acceleration between two positions
+    input:
+      a0: fpn from.x
+      a1: fpn from.y
+      a2: fpn to.x
+      a3: fpn to.y
+    output:
+      v0: fpn a.x
+      v1: fpn a.y
+    */
+    addiu sp, sp, -4
+    sw    ra, 0(sp)
+    move  t6, a0  # notice t6 - t9 cannot be affected by mul / div
+    jal   TB_dist # a2, a3 unaffected
+      move t7, a1
+    # v0 == dist
+    # lw ra, 0(sp)
+    # jr ra
+    #   addiu sp, sp, 4
+
+
+    move a0, v0
+    jal  fpn_mul
+      move a1, v0
+    # v0 == dist^2, a1 == dist
+    jal  fpn_mul
+      move a0, v0
+    # v0 == dist^3
+    move v0, t8  # t8 = denom
+
+    # lw ra, 0(sp)
+    # jr ra
+    #   addiu sp, sp, 4
+
+    subu a0, a3, t7 # a0 = dy
+    jal fpn_div
+      move a1, t8
+    move v1, v0 # v1 = ay = dy / denom
+
+    subu a0, a2, t6 # a0 = dx
+    jal  fpn_div
+      move a1, t8 # v0 = ax = dx / denom
+    
+    lw ra, 0(sp)
+    jr ra
+      addiu sp, sp, 4
+
+
+UTEST_gravity:
+    li a0, 0x147439
+    li a1, 0xfffff980
+    li a2, 0xffa8c51f
+    li a3, 0xfffe0000
+    j TB_gravity
+      nop
 
