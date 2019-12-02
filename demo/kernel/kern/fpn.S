@@ -122,6 +122,14 @@ fpn_sqrt:
     #define x s0
     #define a s1
     #define i s2
+    bgtz a0, .sqrt_common
+      nop
+    bltz a0, .sqrt_neg # nan
+      li v0, 0
+    jr ra # return 0
+      nop
+
+    .sqrt_common:
     addiu sp, sp, -16
     sw ra, 12(sp)
     sw s0, 8(sp)
@@ -150,7 +158,13 @@ fpn_sqrt:
     #undef x
     #undef a
     #undef i
+    .sqrt_neg:
+    li v0, SYS_nan
+    syscall SYSCALL_BASE
+    nop
+    jr ra
+    nop
 
-# li $a0, 0
-# j 0x80001288
+# li $a0, 0x303c0588
+# j 0x80001284
 #  nop
