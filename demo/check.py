@@ -30,8 +30,8 @@ def from_float(x):
 # print("out =", to_float(0x00250000))
 
 
-a0 = 20.454; a1 = -0.0254
-a2 = -10.23; a3 = -2.0
+a0 = -10.174; a1 = 8.8464
+a2 = 0.25401; a3 = -1.0345
 d = math.sqrt((a0-a2)**2 + (a1-a3)**2)
 print("dist =", d, "[dist] =", from_float(d))
 d = d**3
@@ -45,5 +45,5 @@ print("d =", d, "[d] =", from_float(d))
 print("v0 =", v0, "[v0] =", from_float(v0))
 print("v1 =", v1, "[v1] =", from_float(v1))
 
-print("out =", to_float(0x00000083))
-print("out =", to_float(0x00000083))
+print("out =", to_float(0xffffff1a))
+print("out =", to_float(0xffffff26))
