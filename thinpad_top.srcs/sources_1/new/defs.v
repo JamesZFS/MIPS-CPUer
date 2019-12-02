@@ -80,6 +80,9 @@
 `define EXE_JR  6'b001000
 `define EXE_BEQ  6'b000100
 `define EXE_BGTZ  6'b000111
+`define EXE_BGEZ  5'b00001
+`define EXE_BLTZ  5'b00000
+`define EXE_BLEZ  6'b000110
 `define EXE_BNE  6'b000101
 
 //Load & Store instruction operations
@@ -135,28 +138,31 @@
 `define EXE_JR_OP       6'd16
 `define EXE_BEQ_OP      6'd17
 `define EXE_BGTZ_OP     6'd18
-`define EXE_BNE_OP      6'd19
+`define EXE_BGEZ_OP     6'd19
+`define EXE_BLTZ_OP     6'd20
+`define EXE_BLEZ_OP     6'd21
+`define EXE_BNE_OP      6'd22
 
 //Load & Store operations
-`define EXE_LB_OP       6'd20
-`define EXE_LBU_OP      6'd21
-`define EXE_LW_OP       6'd22
-`define EXE_SW_OP       6'd23
-`define EXE_SB_OP       6'd24
+`define EXE_LB_OP       6'd23
+`define EXE_LBU_OP      6'd24
+`define EXE_LW_OP       6'd25
+`define EXE_SW_OP       6'd26
+`define EXE_SB_OP       6'd27
 
 // hi-lo
-`define EXE_MFHI_OP  6'd25
-`define EXE_MTHI_OP  6'd26
-`define EXE_MFLO_OP  6'd27
-`define EXE_MTLO_OP  6'd28
-`define EXE_DIV_OP   6'd29
-`define EXE_DIVU_OP  6'd30
+`define EXE_MFHI_OP  6'd28
+`define EXE_MTHI_OP  6'd29
+`define EXE_MFLO_OP  6'd30
+`define EXE_MTLO_OP  6'd31
+`define EXE_DIV_OP   6'd32
+`define EXE_DIVU_OP  6'd33
 
 //cp0 operations
-`define EXE_MFC0_OP    6'd31
-`define EXE_MTC0_OP    6'd32
-`define EXE_SYSCALL_OP 6'd33
-`define EXE_ERET_OP    6'd34
+`define EXE_MFC0_OP    6'd34
+`define EXE_MTC0_OP    6'd35
+`define EXE_SYSCALL_OP 6'd36
+`define EXE_ERET_OP    6'd37
 
 // alu result selection
 `define EXE_RES_LOGIC   4'd1
