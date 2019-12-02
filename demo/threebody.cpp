@@ -1,145 +1,97 @@
 #include <cstdio>
 #include <cassert>
-#include <random>
-#include <ctime>
+#include <cmath>
 
-constexpr uint32_t W = 1 << 16;
-
-// signed fixed point number, integer part 15 bits + sign, decimal part unsigned 16 bits
-struct Fixed // real value := d * 2^-16 === (d >> 16) + (d & 0x0000FFFF) * [2^-16] === (d >> 16).(d & 0x0000FFFF)
-{
-    uint32_t d;
+struct Vec2f {
+    float x, y;
 };
 
-void disp(Fixed a);
-
-Fixed add(Fixed a, Fixed b)
-{
-    return Fixed{a.d + b.d};
+float dist(Vec2f a, Vec2f b) {
+    float dx2 = a.x - b.x, dy2 = a.y - b.y;
+    dx2 = dx2 * dx2;
+    dy2 = dy2 * dy2;
+    float res = dx2 + dy2;
+    res = std::sqrt(res);
+    return res;
 }
 
-Fixed sub(Fixed a, Fixed b)
-{
-    return Fixed{a.d - b.d};
+Vec2f gravity(Vec2f r, Vec2f rs) { // from r to rs
+    float ax, ay;
+
+    float d = dist(r, rs);
+    float denom = d * d;
+    denom = denom * d; // dist^(3/2)
+    
+    ax = rs.x - r.x;
+    ax = ax / denom;
+
+    ay = rs.y - r.y;
+    ay = ay / denom;
+    
+    return {ax, ay};
 }
 
-Fixed mul(Fixed a, Fixed b)
-{
-    uint64_t c = uint64_t(a.d) * uint64_t(b.d);
-    bool sign = c < 0;
-//    printf("%.8x * %.8x = %.16llx * %.16llx = %.16llx  ", a.d, b.d, int64_t(a.d), int64_t(b.d), c);
-    return Fixed{uint32_t(sign ? (c >> 16) | 0x80000000 : (c >> 16) & 0x7FFFFFFF)};
+const float m1 = 1.0, m2 = 1.0, m3 = 1.0;
+Vec2f r1 = {0, 1}, r2 = {0.866025, -0.5}, r3 = {-0.866025, -0.5};
+Vec2f v1 = {0.759836, 0}, v2 = {-0.379918, -0.658037}, v3 = {-0.379918, 0.658037};
+Vec2f a1, a2, a3;
+
+void step(float dt) {
+    // compute accelarations:
+    Vec2f f = gravity(r1, r2); // 1 -> 2
+    a1.x = f.x * m2;
+    a1.y = f.y * m2;
+
+    a2.x = -f.x * m1;
+    a2.y = -f.y * m1;
+
+    f = gravity(r2, r3); // 2 -> 3
+    a2.x += f.x * m3;
+    a2.y += f.y * m3;
+
+    a3.x = -f.x * m2;
+    a3.y = -f.y * m2;
+
+    f = gravity(r3, r1); // 3 -> 1
+    a3.x += f.x * m1;
+    a3.y += f.y * m1;
+
+    a1.x -= f.x * m3;
+    a1.y -= f.y * m3;
+
+    // update velocities:
+    v1.x += a1.x * dt;
+    v1.y += a1.y * dt;
+    
+    v2.x += a2.x * dt;
+    v2.y += a2.y * dt;
+
+    v3.x += a3.x * dt;
+    v3.y += a3.y * dt;
+
+    // update positions:
+    r1.x += v1.x * dt;
+    r1.y += v1.y * dt;
+    
+    r2.x += v2.x * dt;
+    r2.y += v2.y * dt;
+
+    r3.x += v3.x * dt;
+    r3.y += v3.y * dt;
 }
-
-Fixed div(Fixed a, Fixed b)
-{
-    uint32_t q = a.d / b.d, r = a.d % b.d;
-//    printf("%.8x / %.8x, q = %.8x, r = %.8x   ", a.d, b.d, q, r);
-    uint32_t c = 0;
-    for (int i = 1; i <= 16; ++i) {
-        r <<= 1;
-        c <<= 1;
-        c += r / b.d;
-        r = r % b.d;
-    }
-    return Fixed{(q << 16) + c};
-}
-
-struct Pos
-{
-    Fixed x, y;
-};
-
-Fixed sqrt(Fixed a)
-{
-    Fixed x = Fixed{a.d >> 1};
-    for (int i = 0; i < 10; ++i) {
-        x = add(x, div(a, x));
-        x.d >>= 1;
-    }
-    return x;
-}
-
-Fixed dist(Pos a, Pos b)
-{
-    Fixed dx = sub(a.x, b.x);
-    Fixed dy = sub(a.y, b.y);
-    disp(add(mul(dx, dx), mul(dy, dy)));
-    return sqrt(add(mul(dx, dx), mul(dy, dy)));
-}
-
-
-// *** below are just for tests
-Fixed fromFloat(float f)
-{
-    return Fixed{uint32_t(f * W)};
-}
-
-float toFloat(Fixed a)
-{
-    return uint32_t(a.d) * 1.0 / W;
-}
-
-void disp(Fixed a)
-{
-    printf("%f [0x%.8x]\n", toFloat(a), a.d);
-}
-
 
 int main()
 {
-    std::default_random_engine engine;
-    std::uniform_real_distribution<float> gen(1, 100);
-    float diff = 0;
+    float t;
+    const float dt = 0.01;
     for (int i = 0; i < 1000; ++i) {
-        float a = gen(engine), b = gen(engine), c = a + b;
-        Fixed fa = fromFloat(a), fb = fromFloat(b), fc = add(fa, fb);
-        diff = std::max(std::abs(toFloat(fc) - c), diff);
+        t = i * dt;
+        if (i % 50 == 0 || (8.2 < t && t < 8.4)) {
+            printf("at time %f, r1 = (%f, %f), \t|r1| = %f\n", t, r1.x, r1.y, std::sqrt(r1.x*r1.x + r1.y*r1.y));
+            printf("at time %f, r2 = (%f, %f), \t|r2| = %f\n", t, r2.x, r2.y, std::sqrt(r2.x*r2.x + r2.y*r2.y));
+            printf("at time %f, r3 = (%f, %f), \t|r3| = %f\n", t, r3.x, r3.y, std::sqrt(r3.x*r3.x + r3.y*r3.y));
+        }
+        step(dt);
     }
-    printf("add: max diff = %f\n", diff);
-    diff = 0;
-    for (int i = 0; i < 1000; ++i) {
-        float a = gen(engine), b = gen(engine), c = a - b;
-        Fixed fa = fromFloat(a), fb = fromFloat(b), fc = sub(fa, fb);
-        diff = std::max(std::abs(toFloat(fc) - c), diff);
-    }
-    printf("sub: max diff = %f\n", diff);
-    diff = 0;
-    for (int i = 0; i < 100000; ++i) {
-        float a = gen(engine), b = gen(engine), c = a * b;
-        Fixed fa = fromFloat(a), fb = fromFloat(b), fc = mul(fa, fb);
-        diff = std::max(std::abs(toFloat(fc) - c), diff);
-//        printf("%f * %f == %f,  fixed: %f\n", a, b, c, toFloat(fc));
-    }
-    printf("mul: max diff = %f\n", diff);
-    diff = 0;
-    for (int i = 0; i < 10000; ++i) {
-        float a = gen(engine), b = gen(engine), c = a / b;
-        Fixed fa = fromFloat(a), fb = fromFloat(b), fc = div(fa, fb);
-        diff = std::max(std::abs(toFloat(fc) - c), diff);
-//        printf("%f / %f == %f,  fixed: %f\n", a, b, c, toFloat(fc));
-    }
-    printf("div: max diff = %f\n", diff);
-    diff = 0;
-    for (int i = 0; i < 1000; ++i) {
-        float a = gen(engine), b = std::sqrt(a);
-        Fixed fa = fromFloat(a), fb = sqrt(fa);
-        diff = std::max(std::abs(toFloat(fb) - b), diff);
-    }
-    printf("sqrt: max diff = %f\n", diff);
-    diff = 0;
-    for (int i = 0; i < 1; ++i) {
-//        float a = gen(engine), b = gen(engine), c = gen(engine), d = gen(engine);
-//        printf("(%f, %f), (%f, %f)\n",a ,b,c,d);
-        float a = 3, b = 0, c = 0, d = 4.1;
-        disp(mul(sub(fromFloat(b), fromFloat(d)), sub(fromFloat(b), fromFloat(d))));
-        float temp = (a - c) * (a - c) + (b - d) * (b - d);
-        printf("%f  ", temp);
-        float ref = std::sqrt(temp);
-        Pos s = {fromFloat(a), fromFloat(b)}, t = {fromFloat(c), fromFloat(d)};
-        Fixed res = dist(s, t);
-        diff = std::max(std::abs(toFloat(res) - ref), diff);
-    }
-    printf("dist: max diff = %f\n", diff);
     return 0;
 }

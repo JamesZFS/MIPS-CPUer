@@ -8,7 +8,9 @@
     .p2align 2
     .text
 
-    .equ W, 1<<16
+    .global fpn_mul
+    .global fpn_div
+    .global fpn_sqrt
 
 // 32-bit signed fixed point number module
 // integer part: 16-bit signed, decimal: 16-bit unsigned

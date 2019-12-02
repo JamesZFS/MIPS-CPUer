@@ -44,7 +44,7 @@ CONFIG_FILE := .config_$(ON_FPGA)_$(EN_INT)_$(EN_TLB)
 .PHONY: all clean show-utest
 
 all:
-	make ON_FPGA=y EN_INT=y $(TARGET) kernel.bin show-utest show-fpn
+	make ON_FPGA=y EN_INT=y $(TARGET) kernel.bin show-utest show-demo
 
 $(CONFIG_FILE):
 	@rm -f .config_*

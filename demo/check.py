@@ -11,6 +11,7 @@ def to_float(x):
     return -((1<<32)-x)/W if x & 0x80000000 else x/W
 
 def from_float(x):
+    if x * W >= 0x100000000: print("overflow")
     return hex(int(x * W) & 0xFFFFFFFF)
 
 # print(org_code(0xfffff000))
@@ -22,8 +23,22 @@ def from_float(x):
 # print("c =", c, "\n[c] =", from_float(c))
 # print("out =", to_float(0x001fffed))
 
-a = 12348.02161
-print("[a] = %s " % from_float(a))
-b = math.sqrt(a)
-print("b =", b, "\n[b] =", from_float(b))
-print("out =", to_float(0x00250000))
+# a = 12348.02161
+# print("[a] = %s " % from_float(a))
+# b = math.sqrt(a)
+# print("b =", b, "\n[b] =", from_float(b))
+# print("out =", to_float(0x00250000))
+
+
+a0 = 50.454; a1 = -0.0254
+a2 = -87.23; a3 = -2.0
+c = math.sqrt((a0-a2)**2 + (a1-a3)**2)
+print("[a0] = %s" % from_float(a0))
+print("[a1] = %s" % from_float(a1))
+print("[a2] = %s" % from_float(a2))
+print("[a3] = %s" % from_float(a3))
+print("s0 = %s" % from_float((a0-a2)**2))
+print("v0 = %s" % from_float((a1-a3)**2))
+print("c =", c, "\n[c] =", from_float(c))
+
+print("out =", to_float(0x0089b2b9))
