@@ -2,6 +2,7 @@
 #include <regdef.h>
 #include <mipsregs.h>
 #include <unistd.h>
+#include <shell.h>
 
     .set noreorder
     .set noat
@@ -61,38 +62,55 @@ CV_draw_square:
         blockram updated
     */
     # compute pixel address
-    li  t0, 800
-    mul a1, a1, t0
-    subu t1, a0, a2 # lower x
-    addu t2, a0, a2 # upper x
-    subu t3, a1, a2 # lower y
-    addu t4, a1, a2 # upper y
+    addiu sp, sp, -28
+    sw ra, 0(sp)
+    sw s0, 4(sp)
+    sw s1, 8(sp)
+    sw s2, 12(sp)
+    sw s3, 16(sp)
+    sw s4, 20(sp)
+    sw s5, 24(sp)
+
+    li  s5, 800
+    subu s0, a0, a2 # lower x
+    addu s1, a0, a2 # upper x
+    subu s2, a1, a2 # lower y
+    addu s3, a1, a2 # upper y
 
     #define i a2
     #define j t5
-    #define addr a0
-    li a1, 0xA0000000 # on bram
+    #define addr a1
+    lui s4, 0xA000 # on bram
 
-    move i, t3
+    move i, s2
     loop_i:
-        move j, t1
-        mul addr, i, t0
-        addu addr, addr, t1
-        addu addr, a1, addr # current addr = 0xA0000000 + i * 800 + j
+        move j, s0
+        mul addr, i, s5
+        addu addr, addr, s0
+        addu addr, s4, addr # current addr = 0xA0000000 + i * 800 + j
         loop_j:
             sb a3, 0(addr) # draw
             addiu addr, addr, 1
             addiu j, j, 1
-            bne j, t2, loop_j
+            bne j, s1, loop_j
               nop
 
         addiu i, i, 1
-        bne i, t4, loop_i
+        bne i, s3, loop_i
           nop
     
     #undef i
     #undef j
     #undef addr
+
+    lw ra, 0(sp)
+    lw s0, 4(sp)
+    lw s1, 8(sp)
+    lw s2, 12(sp)
+    lw s3, 16(sp)
+    lw s4, 20(sp)
+    lw s5, 24(sp)
+    addiu sp, sp, 28
     jr ra
         nop
 
