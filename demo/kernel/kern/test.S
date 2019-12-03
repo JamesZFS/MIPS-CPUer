@@ -58,6 +58,7 @@ PUTC_loop:
     nop
 
     // image display demo
+#ifdef MATCH_FPGA
 UTEST_IMAGE:
     begin:
     li  t1, 0xA0000000 # on bram
@@ -75,6 +76,7 @@ IMAGE_draw:
     nop
     jr  ra
     nop
+#endif // FPGA
 
 #endif
 

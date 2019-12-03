@@ -205,7 +205,7 @@ SYSCALL:
 
 .syscall_nan:                        // div by zero error
     addiu s1, k0, -0x8              // sub back to nan inst
-    move s0, ra
+    move s0, ra # store ra
     li a0, TK_NAN
     jal WRITESERIAL             // send NaN token to shell, and return
       nop

@@ -1,3 +1,4 @@
+#ifdef MACH_FPGA
 #include <regdef.h>
 #include <mipsregs.h>
 #include <unistd.h>
@@ -138,3 +139,4 @@ UTEST_drawsqr:
     j CV_draw_square
         nop
 
+#endif // MACH_FPGA

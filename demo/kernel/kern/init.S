@@ -295,9 +295,11 @@ WELCOME:
     lb a0, 0(s0)
     bne a0, zero, .Loop0            // 打印循环至0结束符
     nop
+#ifdef MACH_FPGA
     li a0, DEMO_WELCOME_IMG_ADDR
     jal CV_show_img                    // show welcome image
     nop
+#endif
     j SHELL                         // 开始交互
     nop
 

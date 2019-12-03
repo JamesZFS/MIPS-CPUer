@@ -41,10 +41,13 @@ endif
 
 CONFIG_FILE := .config_$(ON_FPGA)_$(EN_INT)_$(EN_TLB)
 
-.PHONY: all clean show-utest
+.PHONY: all clean show-utest simgen
 
 all:
-	make ON_FPGA=y EN_INT=y $(TARGET) kernel.bin show-utest show-demo
+	make ON_FPGA=y EN_INT=y $(TARGET) kernel.bin dump show-utest show-demo
+
+simgen:
+	make ON_FPGA=n EN_INT=y $(TARGET) kernel.bin dump show-utest show-fpn show-demo sim
 
 $(CONFIG_FILE):
 	@rm -f .config_*

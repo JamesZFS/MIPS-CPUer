@@ -16,9 +16,6 @@
 // integer part: 16-bit signed, decimal: 16-bit unsigned
 // add, sub is the same as common integer computation
 
-#define a a0
-#define b a1
-#define c v0
 fpn_mul:
     /* multiply two fpn
     input:
@@ -27,13 +24,14 @@ fpn_mul:
     output:
         v0: fpn[a * b]
     */
-    mult a, b  # 64-bit result
-    mfhi c
-    sll  c, c, 16
+    mult a0, a1  # 64-bit result
+    mfhi v0
+    sll  v0, v0, 16
     mflo t0
     srl  t0, t0, 16
+    addu v0, v0, t0
     jr   ra
-    add  c, c, t0
+      nop
 
 fpn_div:
     /* divide two fpn, no remainder
@@ -43,60 +41,59 @@ fpn_div:
     output:
         v0: fpn[a / b]
     */
-    #define i t0
-    #define r t1
-    #define d t2
-    beqz b, .div_by_zero
-      lui t5, 0x8000
-    and t3, a, t5 # get sign bit
+    beqz a1, .div_by_zero
+      nop
+    lui t5, 0x8000
+    and t3, a0, t5 # get sign bit
     beqz t3, .div_a_pos
       nop
-    sub a, zero, a # a = -a
+    subu a0, zero, a0 # a = -a
     li t4, 0x1 # sign flag
 
     .div_a_pos:
-    and t3, b, t5 # get sign bit
+    and t3, a1, t5 # get sign bit
     beqz t3, .div_a_b_pos
       nop
-    sub b, zero, b # a = -a
-    xori t4, 0x1 # sign flag
+    subu a1, zero, a1 # b = -b
+    xori t4, t4, 0x1 # sign flag
 
     .div_a_b_pos:
-    div zero, a, b
-    mflo c
-    sll c, c, 16  # q
-    mfhi r
-    li i, 16
-    li d, 0
+    divu zero, a0, a1
+    mflo v0
+    sll v0, v0, 16  # q
+    mfhi t1
+    li t0, 16
+    li t2, 0
+
     .div_loop:
         # beqz r, .div_finally # if r == 0: break
-        sll r, r, 1  # r <<= 1
-        sll d, d, 1  # d <<= 1
-        sub t3, r, b  # try r - b
+        sll t1, t1, 1  # r <<= 1
+        sll t2, t2, 1  # d <<= 1
+        subu t3, t1, a1  # try r - b
         bltz t3, .div_loop_final # r < b
           nop
         
         .div_plus_d:  # r / b
-        addiu d, d, 1 # d += r / b
-        move  r, t3  # r = r % b
+        addiu t2, t2, 1 # d += r / b
+        move  t1, t3  # r = r % b
 
         .div_loop_final:
-        addiu i, i, -1
-        bnez i, .div_loop
+        addiu t0, t0, -1
+        bnez t0, .div_loop
           nop
 
     .div_finally:
-    # sllv  d, d, i // TODO
-    beqz t4, .div_ret
-      add c, c, d
-    sub c, zero, c # flip ans if signed
+    addu v0, v0, t2
+    beqz t4, .div_ret  # if a and b share the same sign, just return
+      nop
+    subu v0, zero, v0 # else, flip ans if signed
+    nop
 
     .div_ret:
     jr ra
       nop
-    #undef i
-    #undef r
-    #undef d
+    nop
+    nop
 
     .div_by_zero:
     li v0, SYS_nan
@@ -105,14 +102,14 @@ fpn_div:
     jr ra
     nop
 
-#undef a
-#undef b
-#undef c
+UTEST_div:
+    li a0, 0xffffcfd9
+    li a1, 0x0002fce6
+    j fpn_div
+      nop
+    # v0 should be 0xffffefe3
+    nop
 
-# li $a0, 0xc87439
-# li $a1, 0xfffff980
-# j 0x800011d0
-# nop
 
 fpn_sqrt:
     /* sqrt using Newton iteration method
@@ -121,9 +118,6 @@ fpn_sqrt:
     output:
         v0: fpn[sqrt(a)]
     */
-    #define x s0
-    #define a s1
-    #define i s2
     bgtz a0, .sqrt_common
       nop
     bltz a0, .sqrt_neg # nan
@@ -137,36 +131,37 @@ fpn_sqrt:
     sw s0, 8(sp)
     sw s1, 4(sp)
     sw s2, 0(sp)
-    srl x, a0, 1  # x0 = a / 2
-    move a, a0  # backup a
-    li i, SQRT_ITER_TIME
+    srl s0, a0, 1  # x0 = a / 2
+    move s1, a0  # backup a
+    li s2, SQRT_ITER_TIME
     .sqrt_loop:
-        move a0, a
+        move a0, s1
+        move a1, s0
         jal fpn_div # v0 = a / x
-          move a1, x
-        add x, x, v0
-        addiu i, i, -1
-        bnez i, .sqrt_loop
-          srl x, x, 1 # x' = (x + a/x) / 2
+          # addu v0, a0, a1
+          nop
+        addu s0, s0, v0
+        addiu s2, s2, -1
+        srl s0, s0, 1 # x' = (x + a/x) / 2
+        bnez s2, .sqrt_loop
+          nop
           
-    move v0, x
+    move v0, s0
     lw ra, 12(sp)
     lw s0, 8(sp)
     lw s1, 4(sp)
     lw s2, 0(sp)
+    addiu sp, sp, 16
     jr   ra
-      addiu sp, sp, 16
+      nop
 
-    #undef x
-    #undef a
-    #undef i
     .sqrt_neg:
+    nop
+    j .sqrt_neg
+      nop
     li v0, SYS_nan
     syscall SYSCALL_BASE
     nop
     jr ra
     nop
 
-# li $a0, 0x303c0588
-# j 0x80001284
-#  nop

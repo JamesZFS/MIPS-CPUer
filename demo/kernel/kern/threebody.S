@@ -20,24 +20,31 @@ TB_dist:
     output:
       v0: fpn dist
     */
-    addiu sp, sp, -8
+    addiu sp, sp, -12
     sw ra, 0(sp)
     sw s0, 4(sp)
+    sw s1, 8(sp)
     sub  t0, a0, a2
-    sub  t1, a1, a3
+    sub  s1, a1, a3
     move a0, t0
+    move a1, t0
     jal fpn_mul
-      move a1, t0
+      nop
     move s0, v0  # s0 = dx*dx
-    move a0, t1 # notice t1 isn't changed by fpn_mul
+    move a0, s1
+    move a1, s1
     jal fpn_mul
-      move a1, t1 # v0 = dy*dy
+      nop # v0 = dy*dy
+    addu a0, v0, s0 # a0 = dx^2 + dy^2
     jal fpn_sqrt
-      addu a0, v0, s0 # v0 = sqrt(dx^2 + dy^2)
+      # li v0, 0x00abcdef
+      nop # v0 = sqrt(dx^2 + dy^2)
     lw  ra, 0(sp)
     lw  s0, 4(sp)
+    lw  s1, 8(sp)
+    addiu sp, sp, 12
     jr ra
-      addiu sp, sp, 8
+      nop
 
 
 UTEST_dist:
@@ -66,56 +73,127 @@ TB_gravity:
     sw s1, 8(sp)
     sw s2, 12(sp)
 
-    move  s0, a0  # s0 = from.x
-    jal   TB_dist
-      move  s1, a1  # s1 = from.y
-    # v0 == dist
+# ## <
+#     move s1, a0
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, s1  # debug print a0
+#     jal WRITESERIALWORD
+#       nop   
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, a1  # debug print a1
+#     jal WRITESERIALWORD
+#       nop 
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, a2  # debug print a2
+#     jal WRITESERIALWORD
+#       nop 
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, a3  # debug print a3
+#     jal WRITESERIALWORD
+#       nop 
+#     move a0, s1 
+# ## >
 
+    move  s0, a0  # s0 = from.x
+    move  s1, a1  # s1 = from.y
+    jal   TB_dist
+    # li v0, 0x00abcdef
+      nop
+    # v0 = s2 == dist
+    move s2, v0
+# ##
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, s2  # debug print s2
+#     jal WRITESERIALWORD
+#       nop
+#     nop
+# ##
     move a0, v0
+    move a1, v0
     jal  fpn_mul
-      move a1, v0
+      nop
     # v0 == dist^2, a1 == dist
+# ##
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, s2  # debug print s2
+#     jal WRITESERIALWORD
+#       nop
+#     nop
+# ##
+    move a0, v0
+    move a1, s2
     jal  fpn_mul
-      move a0, v0
+      nop
     # v0 == dist^3
     move s2, v0  # s2 = denom
 
+# ## <
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, s2  # debug print s2
+#     jal WRITESERIALWORD
+#       nop
+#     nop
+# ## >
+
     subu a0, a3, s1 # a0 = dy
     move a1, s2
+
+    # li a0, 0xFFF61E7F
+    # li a1, 0x0b94b888
+    # li a1, 0x95446a40
+
+    nop
     jal fpn_div   # ***** boomb! the value of v0 v1 here is not stable over time, very strange bug!!
       nop
 
     move v1, v0 # v1 = ay = dy / denom
 
-##
-    li a0, TK_DEBUG_W
-    jal WRITESERIAL
-      nop
-    move a0, v1  # debug print v1
-    jal WRITESERIALWORD
-      nop    
-##
+# ## <
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, v1  # debug print v1
+#     jal WRITESERIALWORD
+#       nop    
+# ## >
 
     subu a0, a2, s0 # a0 = dx
     move a1, s2 # v0 = ax = dx / denom
     jal  fpn_div
       nop
 
-##
-    li a0, TK_DEBUG_W
-    jal WRITESERIAL
-      nop
-    move a0, v0  # debug print v0
-    jal WRITESERIALWORD
-      nop    
-##
+# ## <
+#     li a0, TK_DEBUG_W
+#     jal WRITESERIAL
+#       nop
+#     move a0, v0  # debug print v0
+#     jal WRITESERIALWORD
+#       nop    
+# ## >
     
     lw ra, 0(sp)
     lw s0, 4(sp)
     lw s1, 8(sp)
     lw s2, 12(sp)
+    addiu sp, sp, 16
+    nop
+    nop
     jr ra
-      addiu sp, sp, +16
+      nop
 
 
 UTEST_gravity:
@@ -123,18 +201,15 @@ UTEST_gravity:
     li a1, 0x8d8ad
     li a2, 0x4106
     li a3, 0xfffef72c
+    nop
+    nop
+
     j TB_gravity
       nop
+    nop
     # v0 should be 0x7a57
     # v1 should be 0xffffefe3
     # t8 should be 0x2fcf6   ok
-
-# UTEST_div_:
-#     li a0, 0xffffcfd9
-#     li a1, 0x0002fce6
-#     j fpn_div
-#       nop
-#     # v0 should be 0xffffefe3
 
 
 TB_step:
