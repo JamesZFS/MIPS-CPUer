@@ -296,7 +296,7 @@ WELCOME:
     bne a0, zero, .Loop0            // 打印循环至0结束符
     nop
     li a0, DEMO_WELCOME_IMG_ADDR
-    jal SHOW_IMG                    // show welcome image
+    jal CV_show_img                    // show welcome image
     nop
     j SHELL                         // 开始交互
     nop

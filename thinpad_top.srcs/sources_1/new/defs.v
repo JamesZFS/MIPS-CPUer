@@ -1,6 +1,6 @@
 // ** cpu config **
 `define ON_FPGA
-`define CPU_CLK clk_10M
+`define CPU_CLK clk_20M
 
 // global
 `define RstEnable       1'b1
