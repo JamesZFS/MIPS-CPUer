@@ -30,20 +30,24 @@ def from_float(x):
 # print("out =", to_float(0x00250000))
 
 
-a0 = -10.174; a1 = 8.8464
-a2 = 0.25401; a3 = -1.0345
-d = math.sqrt((a0-a2)**2 + (a1-a3)**2)
-print("dist =", d, "[dist] =", from_float(d))
-d = d**3
-v0 = (a2 - a0) / d
-v1 = (a3 - a1) / d
-print("[a0] = %s" % from_float(a0))
-print("[a1] = %s" % from_float(a1))
-print("[a2] = %s" % from_float(a2))
-print("[a3] = %s" % from_float(a3))
-print("d =", d, "[d] =", from_float(d))
-print("v0 =", v0, "[v0] =", from_float(v0))
-print("v1 =", v1, "[v1] =", from_float(v1))
+# a0 = -10.174; a1 = 8.8464
+# a2 = 0.25401; a3 = -1.0345
+# d = math.sqrt((a0-a2)**2 + (a1-a3)**2)
+# print("dist =", d, "[dist] =", from_float(d))
+# d = d**3
+# v0 = (a2 - a0) / d
+# v1 = (a3 - a1) / d
+# print("[a0] = %s" % from_float(a0))
+# print("[a1] = %s" % from_float(a1))
+# print("[a2] = %s" % from_float(a2))
+# print("[a3] = %s" % from_float(a3))
+# print("d =", d, "[d] =", from_float(d))
+# print("v0 =", v0, "[v0] =", from_float(v0))
+# print("v1 =", v1, "[v1] =", from_float(v1))
 
-print("out =", to_float(0xffffff1a))
-print("out =", to_float(0xffffff26))
+# print("out =", to_float(0xffffff1a))
+# print("out =", to_float(0xffffff26))
+
+while True:
+    a = float(input())
+    print(from_float(a))

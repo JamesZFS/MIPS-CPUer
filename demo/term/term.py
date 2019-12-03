@@ -212,6 +212,14 @@ def run_U(addr, num):
         counter = counter + 4
         addr = addr + 4
 
+def run_P():
+    time_start = timer()
+    outp.write(b'P')
+    _terminate = raw_input()
+    outp.write(b'x') # cut
+    elapse = timer() - time_start
+    print('elapsed time: %.3fs' % (elapse))
+
 def run_G(addr):
     outp.write(b'G')
     outp.write(int_to_byte_string(addr))
@@ -299,6 +307,8 @@ def MainLoop():
             elif cmd == 'T':
                 num = raw_input('>>num: ')
                 run_T(int(num))
+            elif cmd == 'P':  # threebody demo
+                run_P()
             else:
                 print("Invalid command")
         except ValueError as e:

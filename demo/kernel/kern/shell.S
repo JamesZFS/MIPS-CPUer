@@ -42,6 +42,11 @@ SHELL:
     ori t0, zero, SH_OP_T
     beq v0, t0, .OP_T
     nop
+
+    ori t0, zero, SH_OP_P  // run threebody program
+    beq v0, t0, .OP_P
+    nop
+
     j .DONE                         // 错误的操作符，默认忽略
     nop
 
@@ -166,6 +171,15 @@ SHELL:
     addiu sp, sp, 8
     j .DONE
     nop
+
+
+.OP_P:  // threebody demo
+    jal TB_main
+        nop
+
+    j .DONE
+    nop
+
 
 .OP_G:
     jal READSERIALWORD              // 获取addr

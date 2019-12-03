@@ -9,6 +9,8 @@
     .p2align 2
     .section .text.cv
     .global CV_show_img
+    .global CV_draw_pt
+    .global CV_draw_square
 
 /* diplay an image to blockram
    a0: start address of the image(size 480000 bytes)

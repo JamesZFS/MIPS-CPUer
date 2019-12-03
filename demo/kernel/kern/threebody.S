@@ -8,6 +8,7 @@
     # .set noat
     .section .text.threebody
     .p2align 2
+    .global TB_main
 
 
 TB_dist:
@@ -397,5 +398,149 @@ TB_step:
     lw s5, 24(sp)
     lw s6, 28(sp)
     addiu sp, sp, +32
+    jr ra
+      nop
+
+
+TB_main: // main demo loop
+    addiu sp, sp, -8
+    sw  ra, 0(sp)
+    sw  s0, 4(sp) # iter
+    # init
+    li t0, TB_r1x_init
+    li t1, TB_r1x
+    sw t0, 0(t1)
+
+    li t0, TB_r1y_init
+    li t1, TB_r1y
+    sw t0, 0(t1)
+
+    li t0, TB_r2x_init
+    li t1, TB_r2x
+    sw t0, 0(t1)
+
+    li t0, TB_r2y_init
+    li t1, TB_r2y
+    sw t0, 0(t1)
+
+    li t0, TB_r3x_init
+    li t1, TB_r3x
+    sw t0, 0(t1)
+
+    li t0, TB_r3y_init
+    li t1, TB_r3y
+    sw t0, 0(t1)
+
+    li t0, TB_v1x_init
+    li t1, TB_v1x
+    sw t0, 0(t1)
+
+    li t0, TB_v1y_init
+    li t1, TB_v1y
+    sw t0, 0(t1)
+
+    li t0, TB_v2x_init
+    li t1, TB_v2x
+    sw t0, 0(t1)
+
+    li t0, TB_v2y_init
+    li t1, TB_v2y
+    sw t0, 0(t1)
+
+    li t0, TB_v3x_init
+    li t1, TB_v3x
+    sw t0, 0(t1)
+
+    li t0, TB_v3y_init
+    li t1, TB_v3y
+    sw t0, 0(t1)
+
+    # simulation loop:
+    .sim_loop:
+        # dump coords
+        # 1:
+        li t0, TB_r1x
+        lw t1, 0(t0)
+        sll t1, t1, 8 # scale 256 times
+        addu t1, t1, 0x1900000 # offset to screen center + 400
+        srl t1, t1, 16 # convert to screen coord (int)
+
+        li t0, TB_r1y
+        lw t2, 0(t0)
+        sll t2, t2, 8 # scale 256 times
+        addu t2, t2, 0x12c0000 # offset to screen center + 300
+        srl t2, t2, 16 # convert to screen coord (int)
+
+        move a0, t1
+        move a1, t2
+        li a2, TB_LINEW
+        li a3, 0xe0 # red
+        jal CV_draw_square
+          nop
+
+        # 2:
+        li t0, TB_r2x
+        lw t1, 0(t0)
+        sll t1, t1, 8 # scale 256 times
+        addu t1, t1, 0x1900000 # offset to screen center + 400
+        srl t1, t1, 16 # convert to screen coord (int)
+
+        li t0, TB_r2y
+        lw t2, 0(t0)
+        sll t2, t2, 8 # scale 256 times
+        addu t2, t2, 0x12c0000 # offset to screen center + 300
+        srl t2, t2, 16 # convert to screen coord (int)
+
+        move a0, t1
+        move a1, t2
+        li a2, TB_LINEW
+        li a3, 0x1c # green
+        jal CV_draw_square
+          nop
+
+        # 3:
+        li t0, TB_r3x
+        lw t1, 0(t0)
+        sll t1, t1, 8 # scale 256 times
+        addu t1, t1, 0x1900000 # offset to screen center + 400
+        srl t1, t1, 16 # convert to screen coord (int)
+
+        li t0, TB_r3y
+        lw t2, 0(t0)
+        sll t2, t2, 8 # scale 256 times
+        addu t2, t2, 0x12c0000 # offset to screen center + 300
+        srl t2, t2, 16 # convert to screen coord (int)
+
+        move a0, t1
+        move a1, t2
+        li a2, TB_LINEW
+        li a3, 0x03 # blue
+        jal CV_draw_square
+          nop
+
+        jal .TB_WAIT
+          nop
+
+        li a0, 0x28f  # dt = 0.01s
+        jal TB_step
+          nop
+
+        j .sim_loop
+          nop
+
+    .sim_end:
+    lw  ra, 0(sp)
+    lw  s0, 4(sp)
+    addiu sp, sp, 8
+    jr ra
+      nop
+
+
+.TB_WAIT:
+    li t0, 100000
+    .wait_loop:
+        addiu t0, -1
+        bgtz t0, .wait_loop
+          nop
     jr ra
       nop
