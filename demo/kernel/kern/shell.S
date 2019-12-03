@@ -1,6 +1,7 @@
 #include <regdef.h>
 #include <mipsregs.h> 
 #include <shell.h>
+#include <demo.h>
 
     .set noreorder
     .set noat
@@ -174,6 +175,10 @@ SHELL:
 
 
 .OP_P:  // threebody demo
+    li a0, DEMO_TB_IMG_ADDR  # change image
+    jal CV_show_img
+        nop
+
     jal TB_main
         nop
 

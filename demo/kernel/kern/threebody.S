@@ -461,13 +461,13 @@ TB_main: // main demo loop
         # 1:
         li t0, TB_r1x
         lw t1, 0(t0)
-        sll t1, t1, 8 # scale 256 times
+        sll t1, t1, 7 # scale 128 times
         addu t1, t1, 0x1900000 # offset to screen center + 400
         srl t1, t1, 16 # convert to screen coord (int)
 
         li t0, TB_r1y
         lw t2, 0(t0)
-        sll t2, t2, 8 # scale 256 times
+        sll t2, t2, 7 # scale 128 times
         addu t2, t2, 0x12c0000 # offset to screen center + 300
         srl t2, t2, 16 # convert to screen coord (int)
 
@@ -481,13 +481,13 @@ TB_main: // main demo loop
         # 2:
         li t0, TB_r2x
         lw t1, 0(t0)
-        sll t1, t1, 8 # scale 256 times
+        sll t1, t1, 7 # scale 128 times
         addu t1, t1, 0x1900000 # offset to screen center + 400
         srl t1, t1, 16 # convert to screen coord (int)
 
         li t0, TB_r2y
         lw t2, 0(t0)
-        sll t2, t2, 8 # scale 256 times
+        sll t2, t2, 7 # scale 128 times
         addu t2, t2, 0x12c0000 # offset to screen center + 300
         srl t2, t2, 16 # convert to screen coord (int)
 
@@ -501,13 +501,13 @@ TB_main: // main demo loop
         # 3:
         li t0, TB_r3x
         lw t1, 0(t0)
-        sll t1, t1, 8 # scale 256 times
+        sll t1, t1, 7 # scale 128 times
         addu t1, t1, 0x1900000 # offset to screen center + 400
         srl t1, t1, 16 # convert to screen coord (int)
 
         li t0, TB_r3y
         lw t2, 0(t0)
-        sll t2, t2, 8 # scale 256 times
+        sll t2, t2, 7 # scale 128 times
         addu t2, t2, 0x12c0000 # offset to screen center + 300
         srl t2, t2, 16 # convert to screen coord (int)
 
@@ -521,7 +521,7 @@ TB_main: // main demo loop
         jal .TB_WAIT
           nop
 
-        li a0, 0x28f  # dt = 0.01s
+        li a0, 0x41  # dt = 0.001s
         jal TB_step
           nop
 
@@ -537,7 +537,7 @@ TB_main: // main demo loop
 
 
 .TB_WAIT:
-    li t0, 100000
+    li t0, 2000
     .wait_loop:
         addiu t0, -1
         bgtz t0, .wait_loop

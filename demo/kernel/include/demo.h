@@ -20,20 +20,20 @@
 #define TB_v3x  0x80700030
 #define TB_v3y  0x80700034
 
-#define TB_r1x_init  0x0
-#define TB_r1y_init  0x10000
-#define TB_r2x_init  0xddb3
-#define TB_r2y_init  0xffff8000
+#define TB_r2x_init  0x0
+#define TB_r2y_init  0x10000
+#define TB_r1x_init  0xddb3
+#define TB_r1y_init  0xffff8000
 #define TB_r3x_init  0xffff224d
 #define TB_r3y_init  0xffff8000
 
-#define TB_v1x_init  0xc284
-#define TB_v1y_init  0x0
-#define TB_v2x_init  0xffff9ebe
-#define TB_v2y_init  0xffff578b
-#define TB_v3x_init  0xffff9ebe
-#define TB_v3y_init  0xa875
+#define TB_v1x_init  0xffffd70b
+#define TB_v1y_init  0xffffeb86
+#define TB_v2x_init  0xffffb232
+#define TB_v2y_init  0xffff793c
+#define TB_v3x_init  0xffffb232
+#define TB_v3y_init  0x86c4
 
-#define TB_LINEW 4
+#define TB_LINEW 3
 
 #endif

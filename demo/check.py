@@ -48,6 +48,15 @@ def from_float(x):
 # print("out =", to_float(0xffffff1a))
 # print("out =", to_float(0xffffff26))
 
-while True:
-    a = float(input())
-    print(from_float(a))
+# while True:
+#     a = float(input())
+#     print(from_float(a))
+
+# vs = [0.759836, 0, -0.379918, -0.658037, -0.379918, 0.658037]
+vs = [-0.2, -0.1, -0.379918, -0.658037, -0.379918, 0.658037]
+
+for v in vs:
+    v *= 0.8
+    print(from_float(v))
+
+print("dt = ", from_float(0.001))
