@@ -56,5 +56,8 @@ SECTIONS
         *(.text)
         . = ALIGN(0x1000); /* "fixed" utest address */
         *(.text.utest)
+        *(.text.cv)
+        *(.text.fpn)
+        *(.text.threebody)
     }
 }

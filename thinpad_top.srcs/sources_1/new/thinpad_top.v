@@ -259,7 +259,7 @@ wire                mmu_stallreq;
 wire                mmu_wstate;  // to mmu
 
 wire flash_rst = touch_btn[1];
-wire cpu_rst = touch_btn[1] || touch_btn[0];
+wire cpu_rst = touch_btn[1] || touch_btn[0] || ~locked;
 
 //mips.mem->mmu
 wire[`RegBus]   mem_addr_o;

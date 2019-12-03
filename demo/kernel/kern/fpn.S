@@ -5,8 +5,8 @@
 
     .set noreorder
     .set noat
+    .section .text.fpn
     .p2align 2
-    .text
 
     .global fpn_mul
     .global fpn_div

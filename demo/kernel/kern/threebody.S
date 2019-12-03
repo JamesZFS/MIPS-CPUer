@@ -2,11 +2,12 @@
 #include <mipsregs.h>
 #include <unistd.h>
 #include <demo.h>
+#include <shell.h>
 
     .set noreorder
     # .set noat
+    .section .text.threebody
     .p2align 2
-    .text
 
 
 TB_dist:
@@ -80,14 +81,34 @@ TB_gravity:
     move s2, v0  # s2 = denom
 
     subu a0, a3, s1 # a0 = dy
-    jal fpn_div
-      move a1, s2  # ***** the value of v0 v1 here is not stable over time, very strange bug!!
+    move a1, s2
+    jal fpn_div   # ***** boomb! the value of v0 v1 here is not stable over time, very strange bug!!
+      nop
 
     move v1, v0 # v1 = ay = dy / denom
 
+##
+    li a0, TK_DEBUG_W
+    jal WRITESERIAL
+      nop
+    move a0, v1  # debug print v1
+    jal WRITESERIALWORD
+      nop    
+##
+
     subu a0, a2, s0 # a0 = dx
+    move a1, s2 # v0 = ax = dx / denom
     jal  fpn_div
-      move a1, s2 # v0 = ax = dx / denom
+      nop
+
+##
+    li a0, TK_DEBUG_W
+    jal WRITESERIAL
+      nop
+    move a0, v0  # debug print v0
+    jal WRITESERIALWORD
+      nop    
+##
     
     lw ra, 0(sp)
     lw s0, 4(sp)

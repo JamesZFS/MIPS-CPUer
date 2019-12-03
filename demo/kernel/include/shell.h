@@ -15,5 +15,6 @@
 #define TK_FATAL    0x80            // fatal error
 #define TK_INVALID  0x90            // invalid instruction
 #define TK_NAN      0x91            // div by zero
+#define TK_DEBUG_W  0x92            // send debug number to term (word)
 
 #endif

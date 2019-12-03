@@ -5,7 +5,7 @@
     .set noreorder
     .set noat
     .p2align 2
-    .text
+    .section .text.cv
     .global CV_show_img
 
 /* diplay an image to blockram

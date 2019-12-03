@@ -74,7 +74,7 @@ show-fpn: $(TARGET)
 show-demo: $(TARGET)
 	@$(GCCPREFIX)objdump -D $< | grep "^[0-9a-f]\{8\} <TB_" | grep -n --color=auto 'TB_'
 
-.PHONY: commits-num show-utest sim clean
+.PHONY: commits-num show-utest sim clean dump
 
 sim: $(TARGET)
 	$(QEMU) -M mipssim -m 8M -kernel $< -nographic -monitor none -serial tcp::6666,server -s
@@ -84,3 +84,6 @@ commits-num:
 
 clean:
 	-$(RM) -r $(OBJDIR)
+
+dump:
+	$(GCCPREFIX)objdump -D kernel.elf > kernel.dump

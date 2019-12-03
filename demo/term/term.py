@@ -235,7 +235,7 @@ def run_G(addr):
         if ret != b'\x06':   # tic
             print("start mark should be 0x06")
         time_start = timer()
-        while True:
+        while True:  # blocking wait
             ret = inp.read(1)
             if ret == b'\x07': # toc
                 break
@@ -248,6 +248,10 @@ def run_G(addr):
             elif ret == b'\x91':
                 epc = byte_string_to_int(inp.read(4))
                 raise NaNError(epc)
+            elif ret == b'\x92': # debug token
+                val = byte_string_to_int(inp.read(4))
+                print("\033[32mdebug: 0x%08x \033[0m" % val)
+                continue
             output_binary(ret)
         print('') #just a new line
         elapse = timer() - time_start
