@@ -69,7 +69,7 @@ module mem(
 
 reg mem_ce;
 
-assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP;
+assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP  || aluop_i == `EXE_LWPC_OP;
 
 
 reg[`RegBus]          cp0_status;
@@ -169,7 +169,7 @@ always @* begin
                 endcase
             end
 
-            `EXE_LW_OP: begin
+            `EXE_LW_OP, `EXE_LWPC_OP: begin
                 mem_addr_o <= mem_addr_i;
                 mem_we_o <= `WriteDisable;
                 wdata_o <= mem_data_i;

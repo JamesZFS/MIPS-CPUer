@@ -1,6 +1,6 @@
 // ** cpu config **
 `define ON_FPGA
-`define CPU_CLK clk_40M
+`define CPU_CLK clk_10M
 
 // global
 `define RstEnable       1'b1
@@ -108,6 +108,10 @@
 `define EXE_DIV  6'b011010
 `define EXE_DIVU  6'b011011
 
+//new op
+
+`define EXE_LWPC   6'b111011
+
 
 
 // alu operations:
@@ -163,6 +167,9 @@
 `define EXE_MTC0_OP    6'd35
 `define EXE_SYSCALL_OP 6'd36
 `define EXE_ERET_OP    6'd37
+
+`define EXE_LWPC_OP     6'd38
+
 
 // alu result selection
 `define EXE_RES_LOGIC   4'd1

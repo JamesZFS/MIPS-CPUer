@@ -545,6 +545,16 @@ always @ (*) begin
                 instvalid <= `InstValid;
             end
 
+            `EXE_LWPC:begin
+                wreg_o <= `WriteEnable;
+                aluop_o <= `EXE_LWPC_OP;
+                alusel_o <= `EXE_RES_LOAD_STORE;
+                reg1_read_o <= `ReadDisable;
+                reg2_read_o <= `ReadDisable;
+                wd_o <= inst_i[25:21];
+                instvalid <= `InstValid;
+            end
+
             `EXE_LW:begin
                 wreg_o <= `WriteEnable;
                 aluop_o <= `EXE_LW_OP;

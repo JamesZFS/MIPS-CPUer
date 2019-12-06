@@ -102,11 +102,11 @@ assign current_inst_address_o = current_inst_address_i;
 
 
 assign aluop_o = aluop_i;
-assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
+assign mem_addr_o = aluop_i == `EXE_LWPC_OP ? current_inst_address_i + {{11{inst_i[18]}},inst_i[18:0],2'b00} : reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
 assign reg2_o = reg2_i;
 
 assign reg2_i_mux = (aluop_i == `EXE_SUBU_OP ? (~reg2_i)+1 : reg2_i); // for subtraction, convert the second input to ones's Complement 
-assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP; // ** a very critical kind of conflict 1, needs an urgent stall
+assign is_load_o = aluop_i == `EXE_LB_OP || aluop_i == `EXE_LBU_OP || aluop_i == `EXE_LW_OP || aluop_i == `EXE_LWPC_OP; // ** a very critical kind of conflict 1, needs an urgent stall
 
 wire[`RegBus]   sum_res = reg1_i + reg2_i;
 wire[`RegBus]   sub_res = reg1_i + reg2_i_mux;
