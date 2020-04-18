@@ -1,6 +1,8 @@
 # MIPS-CPUer
 An implementation of MIPS32 based on Thinpad. (The big project of Computer Organization course)
 
+[报告与文档](Grp16计算机组成原理大实验报告.pdf)
+
 ## 主要文件及目录说明
 
 我们的项目源文件根目录是 `cod19grp16/`
